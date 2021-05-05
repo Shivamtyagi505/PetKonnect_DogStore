@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_petkon/screens/UserProfileScreen.dart';
 
 import '../../../Kconstants.dart';
 import 'StatWidget.dart';
@@ -41,7 +42,7 @@ class ProfileDetails extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.of(context).pushNamed('/EditProfile');
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=> UserProfileScreen()));
                   },
                   child: Container(
                     padding: EdgeInsets.all(5),

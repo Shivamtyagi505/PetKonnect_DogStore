@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_petkon/Kconstants.dart';
+import 'package:flutter_petkon/screens/MyCart.dart';
 
 import 'components/PostSelction.dart';
 import 'components/ProfileDetails.dart';
@@ -19,8 +20,59 @@ class _UserProfileState extends State<UserProfile> {
     Size size = MediaQuery.of(context).size;
     String url = "www.petkonnect.com";
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        backgroundColor: Colors.white,
+        title: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(
+                right: 30.0,
+              ),
+              child: Container(
+                  height: 50,
+                  width: 100,
+                  child: new Image.asset('assets/icons/logo.png')),
+            ),
+            InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => UserProfile()),
+                  );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    right: 20.0,
+                  ),
+                  child: Container(
+                      height: 30,
+                      width: 30,
+                      child: new Image.asset('assets/icons/profile.png')),
+                )),
+            InkWell(
+                onTap: () {
+                  //  Navigator.push(
+                  //    context,
+                  //    MaterialPageRoute(
+                  //        builder: (context) =>
+                  //            MyCartScreen(token)),
+                  //  );
+                },
+                child: Container(
+                    height: 30,
+                    width: 30,
+                    child: new Image.asset('assets/icons/shopping_cart.png')))
+          ],
+        ),
+      ),
       body: Container(
-        margin: EdgeInsets.only(top: 100),
+        //  margin: EdgeInsets.only(top: 100),
         padding: EdgeInsets.all(25),
         decoration: BoxDecoration(
             color: Colors.white,
