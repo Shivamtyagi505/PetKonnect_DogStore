@@ -9,10 +9,7 @@ import 'package:flutter_petkon/bloc/CommonEvent.dart';
 import 'package:flutter_petkon/bloc/CommonState.dart';
 import 'package:flutter_petkon/screens/AddInventory.dart';
 import 'package:flutter_petkon/screens/FilterScreen.dart';
-<<<<<<< HEAD
 import 'package:flutter_petkon/screens/home_screen/HomeScreen.dart';
-=======
->>>>>>> a747f97cc048219e7764c296331fb8d1a85f20fd
 import 'package:flutter_petkon/screens/LoginSignupScreen.dart';
 import 'package:flutter_petkon/screens/MyCart.dart';
 import 'package:flutter_petkon/screens/ProductDetailScreen.dart';
