@@ -5,6 +5,9 @@ import '../../../Kconstants.dart';
 import 'StatWidget.dart';
 
 class ProfileDetails extends StatelessWidget {
+  final String name;
+  final String email;
+  ProfileDetails({@required this.name, @required this.email});
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -66,7 +69,7 @@ class ProfileDetails extends StatelessWidget {
           ],
         ),
         Text(
-          "Deepti Priya",
+          this.name,
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         SizedBox(
@@ -84,7 +87,7 @@ class ProfileDetails extends StatelessWidget {
           height: size.height * 0.01,
         ),
         Text(
-          "deepti@gmail.com",
+          this.email,
           style: TextStyle(
             fontSize: 12,
             fontFamily: "Montserrat",
