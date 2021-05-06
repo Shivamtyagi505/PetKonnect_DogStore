@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_petkon/Kconstants.dart';
 import 'package:flutter_petkon/screens/MyCart.dart';
 import 'package:flutter_petkon/screens/pet_profile/pet_profile.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 import 'components/PostSelction.dart';
 import 'components/ProfileDetails.dart';
 import 'package:flutter_svg/svg.dart';
@@ -13,6 +16,28 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
+  var name = "", email = "";
+  getUserData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = jsonDecode(prefs.getString('USER_LOGIN_RES'))['token'];
+    final response = await http.get("https://petkonnect.in/api/user", headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    });
+    var user = jsonDecode(response.body);
+    setState(() {
+      name = user['name'];
+      email = user['email'];
+    });
+  }
+
+  @override
+  void initState() {
+    getUserData();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     bool post = true;
@@ -133,7 +158,7 @@ class _UserProfileState extends State<UserProfile> {
               height: size.height * 0.01,
             ),
             //profile details
-            ProfileDetails(),
+            ProfileDetails(name: name, email: email),
             SizedBox(
               height: size.height * 0.03,
             ),
