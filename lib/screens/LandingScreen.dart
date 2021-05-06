@@ -13,7 +13,8 @@ import 'package:flutter_petkon/screens/SosScreen.dart';
 import 'package:flutter_petkon/screens/StoreListingScreen.dart';
 import 'package:flutter_petkon/utils/CommonStyles.dart';
 import 'package:http/io_client.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 import 'OrdersScreen.dart';
 import 'UserProfileScreen.dart';
 import 'UserProfileScreen/user_profile.dart';
@@ -24,28 +25,43 @@ class LandingScreen extends StatefulWidget {
 }
 
 class _LandingScreenState extends State<LandingScreen> {
+  bool isRefreshing;
   int _selectedIndex = 1;
   var token = "";
   LoginResponse loginResponse;
   Future<OrderHistoryResponse> futureAlbum;
   PageController _pageController;
-  @override
-  void didChangeDependencies() {
-    var selectedCurrentLoc = StateContainer.of(context).mLoginResponse;
-    loginResponse = StateContainer.of(context).mLoginResponse;
-    if (loginResponse != null) {
-      token = loginResponse.token;
-      debugPrint("ACCESSING_INHERITED ${token}");
-    }
-    super.didChangeDependencies();
+
+// retrieving data for Edit Address//
+  var doorNo = "", street = "", building = "", city = "", state = "", zip = "";
+  getAddressData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = jsonDecode(prefs.getString('USER_LOGIN_RES'))['token'];
+    final response = await http.get("https://petkonnect.in/api/user", headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    });
+    // print('token is $token');
+    var user = jsonDecode(response.body);
+    setState(() {
+      doorNo = user['address']['doorNo'];
+      street = user['address']['street'];
+      building = user['address']['building'];
+      city = user['address']['city'];
+      state = user['address']['state'];
+      zip = user['address']['zip'].toString();
+    });
+    print(user['address']['zip']);
+    WidgetsBinding.instance.addPostFrameCallback(_showOpenDialog);
   }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    WidgetsBinding.instance.addPostFrameCallback(_showOpenDialog);
-    _pageController = PageController(initialPage: _selectedIndex);
-    super.initState();
+  //Update Address//
+  editAddress() async {
+    var response = await http.post("https://petkonnect.in/api/user",
+        body: {'name': 'doodle', 'color': 'blue'});
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
   }
 
   _showOpenDialog(_) {
@@ -72,7 +88,7 @@ class _LandingScreenState extends State<LandingScreen> {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(5.0))),
             content: SingleChildScrollView(
-              physics: NeverScrollableScrollPhysics(),
+              scrollDirection: Axis.vertical,
               child: Container(
                 width: MediaQuery.of(context).size.width / 1.2,
                 height: MediaQuery.of(context).size.height / 0.9,
@@ -89,8 +105,7 @@ class _LandingScreenState extends State<LandingScreen> {
                           ),
                           TextFormField(
                             decoration: InputDecoration(
-                              hintText: '007',
-                              hintStyle: TextStyle(color: Colors.grey[300]),
+                              hintText: doorNo,
                               border: OutlineInputBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(5.0)),
@@ -110,8 +125,7 @@ class _LandingScreenState extends State<LandingScreen> {
                           Text('Street', style: TextStyle(color: Colors.grey)),
                           TextFormField(
                             decoration: InputDecoration(
-                              hintText: '2nd Cross',
-                              hintStyle: TextStyle(color: Colors.grey[300]),
+                              hintText: street,
                               border: OutlineInputBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(5.0)),
@@ -134,8 +148,7 @@ class _LandingScreenState extends State<LandingScreen> {
                           ),
                           TextFormField(
                             decoration: InputDecoration(
-                              hintText: 'Building A',
-                              hintStyle: TextStyle(color: Colors.grey[300]),
+                              hintText: building,
                               border: OutlineInputBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(5.0)),
@@ -158,8 +171,7 @@ class _LandingScreenState extends State<LandingScreen> {
                           ),
                           TextFormField(
                             decoration: InputDecoration(
-                              hintText: 'Bangalore',
-                              hintStyle: TextStyle(color: Colors.grey[300]),
+                              hintText: city,
                               border: OutlineInputBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(5.0)),
@@ -182,8 +194,7 @@ class _LandingScreenState extends State<LandingScreen> {
                           ),
                           TextFormField(
                             decoration: InputDecoration(
-                              hintText: 'Karnataka',
-                              hintStyle: TextStyle(color: Colors.grey[300]),
+                              hintText: state,
                               border: OutlineInputBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(5.0)),
@@ -206,8 +217,7 @@ class _LandingScreenState extends State<LandingScreen> {
                           ),
                           TextFormField(
                             decoration: InputDecoration(
-                              hintText: '560092',
-                              hintStyle: TextStyle(color: Colors.grey[300]),
+                              hintText: zip,
                               border: OutlineInputBorder(
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(5.0)),
@@ -219,30 +229,33 @@ class _LandingScreenState extends State<LandingScreen> {
                         ],
                       ),
                     ),
-                    // Padding(
-                    //   padding: const EdgeInsets.all(8.0),
-                    //   child: ElevatedButton(
-                    //     child: Text(
-                    //       "Save",
-                    //       style: TextStyle(
-                    //         color: Colors.white,
-                    //       ),
-                    //     ),
-                    //     style: ElevatedButton.styleFrom(
-                    //         padding: EdgeInsets.only(left: 80, right: 80)),
-                    //     onPressed: () {
-                    //       // if (_formKey.currentState.validate()) {
-                    //       //   _formKey.currentState.save();
-                    //       // }
-                    //     },
-                    //   ),
-                    // )
                   ],
                 ),
               ),
             ),
           );
         });
+  }
+
+  @override
+  void didChangeDependencies() {
+    var selectedCurrentLoc = StateContainer.of(context).mLoginResponse;
+    loginResponse = StateContainer.of(context).mLoginResponse;
+    if (loginResponse != null) {
+      token = loginResponse.token;
+      debugPrint("ACCESSING_INHERITED ${token}");
+    }
+    super.didChangeDependencies();
+  }
+
+  @override
+  void initState() {
+    getAddressData();
+    // TODO: implement initState
+    // WidgetsBinding.instance.addPostFrameCallback(_showOpenDialog);
+
+    _pageController = PageController(initialPage: _selectedIndex);
+    super.initState();
   }
 
   @override

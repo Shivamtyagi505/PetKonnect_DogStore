@@ -1,11 +1,13 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-
+import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_petkon/utils/CommonStyles.dart';
 import 'package:flutter_petkon/utils/size_config.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserProfileScreen extends StatefulWidget {
   @override
@@ -14,16 +16,35 @@ class UserProfileScreen extends StatefulWidget {
 
 class MapScreenState extends State<UserProfileScreen>
     with SingleTickerProviderStateMixin {
+
   bool _status = true;
 
   final FocusNode myFocusNode = FocusNode();
 
   File _image;
 
+  var name = "", email = "";
+  getUserProfileData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = jsonDecode(prefs.getString('USER_LOGIN_RES'))['token'];
+    final response = await http.get("https://petkonnect.in/api/user", headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    });
+    print('token is $token');
+    var user = jsonDecode(response.body);
+    setState(() {
+      name = user['name'];
+      email = user['email'];
+    });
+    print(user['address']['zip']);
+  }
+
   @override
   void initState() {
     // TODO: implement initState
-
+     getUserProfileData();
     super.initState();
   }
 
@@ -167,7 +188,7 @@ class MapScreenState extends State<UserProfileScreen>
                               new Flexible(
                                 child: new TextField(
                                   decoration: const InputDecoration(
-                                    hintText: "Enter Your Name",
+                                    hintText: "Enter Your Username",
                                   ),
                                   enabled: _status,
                                   autofocus: _status,
@@ -198,13 +219,13 @@ class MapScreenState extends State<UserProfileScreen>
                       Padding(
                           padding: EdgeInsets.only(
                               left: 25.0, right: 25.0, top: 2.0),
-                          child: new Row(
+                          child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: <Widget>[
-                              new Flexible(
-                                child: new TextField(
-                                  decoration: const InputDecoration(
-                                    hintText: "Enter Your Name",
+                              Flexible(
+                                child: TextFormField(
+                                  decoration: InputDecoration(
+                                    hintText: name,
                                   ),
                                   enabled: _status,
                                   autofocus: !_status,
@@ -274,9 +295,10 @@ class MapScreenState extends State<UserProfileScreen>
                             mainAxisSize: MainAxisSize.max,
                             children: <Widget>[
                               new Flexible(
-                                child: new TextField(
-                                  decoration: const InputDecoration(
-                                      hintText: "Enter Your Email"),
+                                child:  TextField(
+                                  decoration: InputDecoration(
+                                      hintText: email,
+                                      ),
                                   enabled: _status,
                                 ),
                               ),

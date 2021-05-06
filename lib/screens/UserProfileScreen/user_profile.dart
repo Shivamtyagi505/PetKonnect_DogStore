@@ -67,10 +67,6 @@ class _UserProfileState extends State<UserProfile> {
             ),
             InkWell(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => UserProfile()),
-                  );
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(
@@ -113,7 +109,7 @@ class _UserProfileState extends State<UserProfile> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "deepti_priya",
+                  name,
                   style: TextStyle(
                       color: Colors.black,
                       fontSize: 18,
