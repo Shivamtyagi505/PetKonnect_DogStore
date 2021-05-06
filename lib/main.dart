@@ -10,7 +10,6 @@ import 'package:flutter_petkon/bloc/CommonState.dart';
 import 'package:flutter_petkon/Kconstants.dart';
 import 'package:flutter_petkon/screens/AddInventory.dart';
 import 'package:flutter_petkon/screens/FilterScreen.dart';
-import 'package:flutter_petkon/screens/HomeScreen.dart';
 import 'package:flutter_petkon/screens/LoginSignupScreen.dart';
 import 'package:flutter_petkon/screens/MyCart.dart';
 import 'package:flutter_petkon/screens/ProductDetailScreen.dart';
