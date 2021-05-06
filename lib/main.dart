@@ -7,7 +7,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_petkon/bloc/CommonBloc.dart';
 import 'package:flutter_petkon/bloc/CommonEvent.dart';
 import 'package:flutter_petkon/bloc/CommonState.dart';
-import 'package:flutter_petkon/Kconstants.dart';
 import 'package:flutter_petkon/screens/AddInventory.dart';
 import 'package:flutter_petkon/screens/FilterScreen.dart';
 import 'package:flutter_petkon/screens/LoginSignupScreen.dart';
