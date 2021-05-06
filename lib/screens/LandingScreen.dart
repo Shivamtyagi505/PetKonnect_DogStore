@@ -6,7 +6,7 @@ import 'package:flutter_petkon/inherited/StateContainer.dart';
 import 'package:flutter_petkon/model/login_response.dart';
 import 'package:flutter_petkon/model/order_history.dart';
 import 'package:flutter_petkon/screens/FeedScreen.dart';
-import 'package:flutter_petkon/screens/HomeScreen.dart';
+import 'package:flutter_petkon/screens/home_screen/HomeScreen.dart';
 import 'package:flutter_petkon/screens/MyCart.dart';
 import 'package:flutter_petkon/screens/ServicesScreen.dart';
 import 'package:flutter_petkon/screens/SosScreen.dart';
@@ -65,7 +65,7 @@ class _LandingScreenState extends State<LandingScreen> {
               FlatButton(
                   child: Text('Save'),
                   onPressed: () {
-                   // _inputTextController.clear();
+                    // _inputTextController.clear();
                     Navigator.of(context).pop();
                   })
             ],

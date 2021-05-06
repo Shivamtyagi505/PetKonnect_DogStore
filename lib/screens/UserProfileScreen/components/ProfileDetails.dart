@@ -23,16 +23,15 @@ class ProfileDetails extends StatelessWidget {
             Column(
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     StatWidget(
                       title: "Posts",
                       value: 400,
                     ),
-                    SizedBox(width: size.width * 0.018),
+                    SizedBox(width: size.width * 0.03),
                     StatWidget(title: "Followers", value: 300),
                     SizedBox(
-                      width: size.width * 0.018,
+                      width: size.width * 0.03,
                     ),
                     StatWidget(title: "Following", value: 132)
                   ],
@@ -42,11 +41,14 @@ class ProfileDetails extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=> UserProfileScreen()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => UserProfileScreen()));
                   },
                   child: Container(
                     padding: EdgeInsets.all(5),
-                    width: 180,
+                    width: 220,
                     child: Center(
                       child: Text(
                         "Edit Profile",
@@ -73,6 +75,7 @@ class ProfileDetails extends StatelessWidget {
         Text(
           "www.petkonnet.com  ",
           style: TextStyle(
+              fontSize: 12,
               color: Colors.blue,
               fontFamily: "Montserrat",
               fontWeight: FontWeight.bold),
@@ -83,6 +86,7 @@ class ProfileDetails extends StatelessWidget {
         Text(
           "deepti@gmail.com",
           style: TextStyle(
+            fontSize: 12,
             fontFamily: "Montserrat",
           ),
         )

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_petkon/Kconstants.dart';
 import 'package:flutter_petkon/screens/MyCart.dart';
+import 'package:flutter_petkon/screens/pet_profile/pet_profile.dart';
 
 import 'components/PostSelction.dart';
 import 'components/ProfileDetails.dart';
@@ -72,12 +73,13 @@ class _UserProfileState extends State<UserProfile> {
         ),
       ),
       body: Container(
-        //  margin: EdgeInsets.only(top: 100),
+        margin: EdgeInsets.only(top: 25),
         padding: EdgeInsets.all(25),
         decoration: BoxDecoration(
             color: Colors.white,
+            border: Border.all(color: Colors.grey[200]),
             borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+                topLeft: Radius.circular(20), topRight: Radius.circular(30))),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -87,7 +89,11 @@ class _UserProfileState extends State<UserProfile> {
               children: [
                 Text(
                   "deepti_priya",
-                  style: TextStyle(color: Colors.black, fontSize: 16),
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: "Montserrat"),
                 ),
                 Row(
                   children: [
@@ -206,7 +212,9 @@ class PetAvatar extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context).pushNamed('/petProfile', arguments: imageUrl);
+      },
       child: Container(
         margin: EdgeInsets.only(left: 5, right: 5),
         height: size.height * 0.1,

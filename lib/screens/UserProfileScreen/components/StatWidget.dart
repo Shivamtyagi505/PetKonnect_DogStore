@@ -16,13 +16,13 @@ class StatWidget extends StatelessWidget {
           style: TextStyle(
               fontFamily: "Montserrat",
               color: kPrimarycolor,
-              fontSize: 16,
+              fontSize: 18,
               fontWeight: FontWeight.bold),
         ),
         Text(
           title,
           style: TextStyle(
-            fontSize: 14,
+            fontSize: 16,
             fontFamily: 'Raleway',
             fontWeight: FontWeight.w600,
           ),

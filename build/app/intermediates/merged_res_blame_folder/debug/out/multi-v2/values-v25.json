@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\sunny\\OneDrive\\Desktop\\mobilefrontend\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v25\\values-v25.xml",
+            "outputFile": "D:\\Projects\\Github\\mobilefrontend\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v25\\values-v25.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\sunny\\.gradle\\caches\\transforms-2\\files-2.1\\ddfeebee320e213e4569474cdfe875cf\\appcompat-1.0.0\\res\\values-v25\\values-v25.xml",
+                    "source": "C:\\Users\\Athif\\.gradle\\caches\\transforms-2\\files-2.1\\ddfeebee320e213e4569474cdfe875cf\\appcompat-1.0.0\\res\\values-v25\\values-v25.xml",
                     "from": {
                         "startLines": "2,3,4,6",
                         "startColumns": "4,4,4,4",

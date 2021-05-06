@@ -18,6 +18,7 @@ import 'package:flutter_petkon/screens/StoreDetailScreen.dart';
 import 'package:flutter_petkon/screens/StoreListingScreen.dart';
 import 'package:flutter_petkon/screens/UserProfileScreen.dart';
 import 'package:flutter_petkon/screens/UserProfileScreen/user_profile.dart';
+import 'package:flutter_petkon/screens/pet_profile/pet_profile.dart';
 import 'package:flutter_petkon/utils/CommonStyles.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'inherited/StateContainer.dart';
@@ -115,7 +116,6 @@ class _SplashState extends State<Splash> {
   }
 }
 
-
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -127,6 +127,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: CommonStyles.amber,
       ),
       home: LoginSignupScreen(),
+      routes: {'/petProfile': (context) => PetProfile()},
     );
   }
 }
