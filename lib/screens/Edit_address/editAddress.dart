@@ -1,9 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_petkon/Kconstants.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:http/http.dart' as http;
+import 'package:flutter_petkon/utils/size_config.dart';
 
 class EditAddress extends StatefulWidget {
   @override
@@ -12,29 +9,6 @@ class EditAddress extends StatefulWidget {
 
 class _EditAddressState extends State<EditAddress> {
   var _formKey = GlobalKey<FormState>();
-
-  var doorNo = "", street = "", building = "", city = "", state = "", zip = "";
-  getAddressData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var token = jsonDecode(prefs.getString('USER_LOGIN_RES'))['token'];
-    final response = await http.get("https://petkonnect.in/api/user", headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
-    });
-    // print('token is $token');
-    var user = jsonDecode(response.body);
-    setState(() {
-      doorNo = user['address']['doorNo'];
-      street = user['address']['street'];
-      building = user['address']['building'];
-      city = user['address']['city'];
-      state = user['address']['state'];
-      zip = user['address']['zip'].toString();
-    });
-    print(user['address']['zip']);
-    //WidgetsBinding.instance.addPostFrameCallback(_showOpenDialog);
-  }
   @override
   Widget build(BuildContext context) {
     //Properties
@@ -223,31 +197,35 @@ class _EditAddressState extends State<EditAddress> {
                       onSaved: (newValue) => zipCode = newValue,
                     ),
                     SizedBox(
-                      height: 30,
+                      height: 15,
                     ),
                     //Submit Button
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        GestureDetector(
-                          onTap: submitForm,
+                    GestureDetector(
+                      onTap: () {},
+                      child: Center(
+                        child: Padding(
+                          padding: EdgeInsets.all(20),
                           child: Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 50, vertical: 10),
+                            height: space_50,
+                            width: space_300,
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(7),
-                                color: kPrimarycolor),
-                            child: Text(
-                              "Save",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 16),
-                            ),
+                                color: kPrimarycolor,
+                                borderRadius: BorderRadius.circular(space_5)),
+                            child: Center(
+                                child: Padding(
+                              padding: EdgeInsets.all(space_15),
+                              child: Text("Save",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: "Raleway",
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600,
+                                  )),
+                            )),
                           ),
-                        )
-                      ],
-                    )
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
