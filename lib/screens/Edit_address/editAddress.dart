@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_petkon/Kconstants.dart';
+import 'package:flutter_petkon/utils/size_config.dart';
 
 class EditAddress extends StatefulWidget {
   @override
@@ -199,28 +200,32 @@ class _EditAddressState extends State<EditAddress> {
                       height: 15,
                     ),
                     //Submit Button
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        GestureDetector(
-                          onTap: submitForm,
+                    GestureDetector(
+                      onTap: () {},
+                      child: Center(
+                        child: Padding(
+                          padding: EdgeInsets.all(20),
                           child: Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 20, vertical: 10),
+                            height: space_50,
+                            width: space_300,
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(7),
-                                color: kPrimarycolor),
-                            child: Text(
-                              "Save",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 16),
-                            ),
+                                color: kPrimarycolor,
+                                borderRadius: BorderRadius.circular(space_5)),
+                            child: Center(
+                                child: Padding(
+                              padding: EdgeInsets.all(space_15),
+                              child: Text("Save",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: "Raleway",
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600,
+                                  )),
+                            )),
                           ),
-                        )
-                      ],
-                    )
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),

@@ -9,14 +9,13 @@ import 'package:flutter_petkon/utils/size_config.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class UserProfileScreen extends StatefulWidget {
+class EditUserProfile extends StatefulWidget {
   @override
   MapScreenState createState() => MapScreenState();
 }
 
-class MapScreenState extends State<UserProfileScreen>
+class MapScreenState extends State<EditUserProfile>
     with SingleTickerProviderStateMixin {
-
   bool _status = true;
 
   final FocusNode myFocusNode = FocusNode();
@@ -44,7 +43,7 @@ class MapScreenState extends State<UserProfileScreen>
   @override
   void initState() {
     // TODO: implement initState
-     getUserProfileData();
+    getUserProfileData();
     super.initState();
   }
 
@@ -295,10 +294,10 @@ class MapScreenState extends State<UserProfileScreen>
                             mainAxisSize: MainAxisSize.max,
                             children: <Widget>[
                               new Flexible(
-                                child:  TextField(
+                                child: TextField(
                                   decoration: InputDecoration(
-                                      hintText: email,
-                                      ),
+                                    hintText: email,
+                                  ),
                                   enabled: _status,
                                 ),
                               ),

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_petkon/Kconstants.dart';
+import 'package:flutter_petkon/screens/Edit_address/editAddress.dart';
 import 'package:flutter_petkon/screens/MyCart.dart';
 import 'package:flutter_petkon/screens/pet_profile/pet_profile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -65,6 +66,18 @@ class _UserProfileState extends State<UserProfile> {
                   width: 100,
                   child: new Image.asset('assets/icons/logo.png')),
             ),
+            IconButton(
+                icon: Icon(
+                  Icons.location_on,
+                  color: kPrimarycolor,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => EditAddress(),
+                      ));
+                }),
             InkWell(
                 onTap: () {},
                 child: Padding(

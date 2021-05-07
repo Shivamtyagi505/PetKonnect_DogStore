@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_petkon/screens/UserProfileScreen.dart';
+import 'package:flutter_petkon/screens/UserProfileScreen/EditUserProfile.dart';
 
 import '../../../Kconstants.dart';
 import 'StatWidget.dart';
@@ -47,7 +47,7 @@ class ProfileDetails extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => UserProfileScreen()));
+                            builder: (context) => EditUserProfile()));
                   },
                   child: Container(
                     padding: EdgeInsets.all(5),

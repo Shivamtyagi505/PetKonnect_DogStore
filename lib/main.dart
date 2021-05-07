@@ -15,7 +15,7 @@ import 'package:flutter_petkon/screens/MyCart.dart';
 import 'package:flutter_petkon/screens/ProductDetailScreen.dart';
 import 'package:flutter_petkon/screens/StoreDetailScreen.dart';
 import 'package:flutter_petkon/screens/StoreListingScreen.dart';
-import 'package:flutter_petkon/screens/UserProfileScreen.dart';
+import 'package:flutter_petkon/screens/UserProfileScreen/EditUserProfile.dart';
 import 'package:flutter_petkon/screens/UserProfileScreen/user_profile.dart';
 import 'package:flutter_petkon/screens/pet_profile/pet_profile.dart';
 import 'package:flutter_petkon/utils/CommonStyles.dart';

@@ -18,7 +18,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import '../Kconstants.dart';
 import 'OrdersScreen.dart';
-import 'UserProfileScreen.dart';
+import 'UserProfileScreen/EditUserProfile.dart';
 import 'UserProfileScreen/user_profile.dart';
 
 class LandingScreen extends StatefulWidget {
@@ -395,7 +395,7 @@ class _LandingScreenState extends State<LandingScreen> {
                 width: 30,
                 child: new Image.asset('assets/icons/sos_active.png'),
               ),
-              title: new Text("Order History",
+              title: new Text("SOS",
                   style: new TextStyle(
                       color: const Color(0xFF06244e), fontSize: 8.0))),
         ],
@@ -410,7 +410,7 @@ class _LandingScreenState extends State<LandingScreen> {
           StoreListingScreen(),
           HomeScreen(),
           ServicesScreen(),
-          OrderScreen(token)
+          SosScreen()
         ],
       ),
     );
