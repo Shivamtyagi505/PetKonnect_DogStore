@@ -66,8 +66,7 @@ class _UserProfileState extends State<UserProfile> {
                   child: new Image.asset('assets/icons/logo.png')),
             ),
             InkWell(
-                onTap: () {
-                },
+                onTap: () {},
                 child: Padding(
                   padding: const EdgeInsets.only(
                     right: 20.0,
