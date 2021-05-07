@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_petkon/inherited/StateContainer.dart';
 import 'package:flutter_petkon/model/login_response.dart';
 import 'package:flutter_petkon/model/order_history.dart';
+import 'package:flutter_petkon/screens/Edit_address/editAddress.dart';
 import 'package:flutter_petkon/screens/FeedScreen.dart';
 import 'package:flutter_petkon/screens/home_screen/HomeScreen.dart';
 import 'package:flutter_petkon/screens/MyCart.dart';
@@ -15,6 +16,7 @@ import 'package:flutter_petkon/utils/CommonStyles.dart';
 import 'package:http/io_client.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import '../Kconstants.dart';
 import 'OrdersScreen.dart';
 import 'UserProfileScreen.dart';
 import 'UserProfileScreen/user_profile.dart';
@@ -276,6 +278,18 @@ class _LandingScreenState extends State<LandingScreen> {
                   width: 100,
                   child: new Image.asset('assets/icons/logo.png')),
             ),
+            IconButton(
+                icon: Icon(
+                  Icons.location_on,
+                  color: kPrimarycolor,
+                ),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => EditAddress(),
+                      ));
+                }),
             InkWell(
                 onTap: () {
                   Navigator.push(
