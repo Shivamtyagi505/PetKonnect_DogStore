@@ -127,7 +127,7 @@ class _StoreListingScreenState extends State<StoreListingScreen> {
                           child: IconButton(
                               icon: Icon(
                                 Icons.filter_list,
-                                color: CommonStyles.amber,
+                                color: CommonStyles.red,
                               ),
                               onPressed: () {
 //                                      openFilter(allStoresList?.filterPet);

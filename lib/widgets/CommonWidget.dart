@@ -561,7 +561,7 @@ class _ProductItemCardNoMarginWidgetState extends State<ProductItemCardNoMarginW
                     side: BorderSide(color: Colors.white),
                     borderRadius: BorderRadius.circular(space_10)),
                 child: Container(
-                  padding: EdgeInsets.all(space_8),
+                  padding: EdgeInsets.all(2),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -632,7 +632,7 @@ class _ProductItemCardNoMarginWidgetState extends State<ProductItemCardNoMarginW
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: CommonStyles.getRalewayStyle(
-                            space_14, FontWeight.w500, CommonStyles.grey.withOpacity(0.8)),
+                            space_15, FontWeight.w500, CommonStyles.grey.withOpacity(0.8)),
                       ),
                       SizedBox(height: space_5,),
                       RichText(

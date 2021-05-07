@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_petkon/Kconstants.dart';
 import 'package:flutter_petkon/utils/size_config.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class EditAddress extends StatefulWidget {
   @override
@@ -9,16 +13,54 @@ class EditAddress extends StatefulWidget {
 
 class _EditAddressState extends State<EditAddress> {
   var _formKey = GlobalKey<FormState>();
+
+  // retrieving data for Edit Address//
+  var doorNo = "", street = "", building = "", city = "", state = "", zip = "";
+  getAddressData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = jsonDecode(prefs.getString('USER_LOGIN_RES'))['token'];
+    final response = await http.get("https://petkonnect.in/api/user", headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    });
+    // print('token is $token');
+    var user = jsonDecode(response.body);
+    setState(() {
+      doorNo = user['address']['doorNo'];
+      street = user['address']['street'];
+      building = user['address']['building'];
+      city = user['address']['city'];
+      state = user['address']['state'];
+      zip = user['address']['zip'].toString();
+    });
+    print(user['address']['zip']);
+    //WidgetsBinding.instance.addPostFrameCallback(_showOpenDialog);
+  }
+
+  //Update Address//
+  editAddress() async {
+    var response = await http.post("https://petkonnect.in/api/user",
+        body: {'name': 'doodle', 'color': 'blue'});
+    print('Response status: ${response.statusCode}');
+    print('Response body: ${response.body}');
+  }
+
+  @override
+  void initState() {
+    getAddressData();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     //Properties
 
-    String doorNo;
-    String building;
-    String street;
-    String city;
-    String state;
-    String zipCode;
+    // String doorNo;
+    // String building;
+    // String street;
+    // String city;
+    // String state;
+    // String zipCode;
     Size size = MediaQuery.of(context).size;
     //methods
     void submitForm() {
@@ -92,6 +134,7 @@ class _EditAddressState extends State<EditAddress> {
                       //decoration
                       decoration: InputDecoration(
                           labelText: "Door No.",
+                          hintText: doorNo,
                           labelStyle: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
@@ -111,6 +154,7 @@ class _EditAddressState extends State<EditAddress> {
                       //decoration
                       decoration: InputDecoration(
                           labelText: "Building",
+                          hintText: building,
                           labelStyle: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
@@ -129,6 +173,7 @@ class _EditAddressState extends State<EditAddress> {
                         //decoration
                         decoration: InputDecoration(
                             labelText: "Street/Area.",
+                            hintText: street,
                             labelStyle: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
@@ -147,6 +192,7 @@ class _EditAddressState extends State<EditAddress> {
                       //decoration
                       decoration: InputDecoration(
                           labelText: "City",
+                          hintText: city,
                           labelStyle: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
@@ -165,6 +211,7 @@ class _EditAddressState extends State<EditAddress> {
                         //decoration
                         decoration: InputDecoration(
                             labelText: "State",
+                            hintText: state,
                             labelStyle: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
@@ -183,6 +230,7 @@ class _EditAddressState extends State<EditAddress> {
                       //decoration
                       decoration: InputDecoration(
                           labelText: "Zip Code",
+                          hintText: zip,
                           labelStyle: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
@@ -194,7 +242,7 @@ class _EditAddressState extends State<EditAddress> {
                         }
                       },
                       //Onsaved
-                      onSaved: (newValue) => zipCode = newValue,
+                      //onSaved: (newValue) => zipCode = newValue,
                     ),
                     SizedBox(
                       height: 15,
