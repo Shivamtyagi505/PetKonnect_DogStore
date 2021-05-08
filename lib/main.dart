@@ -9,15 +9,12 @@ import 'package:flutter_petkon/bloc/CommonEvent.dart';
 import 'package:flutter_petkon/bloc/CommonState.dart';
 import 'package:flutter_petkon/screens/AddInventory.dart';
 import 'package:flutter_petkon/screens/FilterScreen.dart';
-import 'package:flutter_petkon/screens/home_screen/HomeScreen.dart';
 import 'package:flutter_petkon/screens/LoginSignupScreen.dart';
 import 'package:flutter_petkon/screens/MyCart.dart';
 import 'package:flutter_petkon/screens/ProductDetailScreen.dart';
 import 'package:flutter_petkon/screens/StoreDetailScreen.dart';
 import 'package:flutter_petkon/screens/StoreListingScreen.dart';
-import 'package:flutter_petkon/screens/UserProfileScreen/EditUserProfile.dart';
-import 'package:flutter_petkon/screens/UserProfileScreen/user_profile.dart';
-import 'package:flutter_petkon/screens/pet_profile/pet_profile.dart';
+import 'package:flutter_petkon/screens/UserProfileScreen.dart';
 import 'package:flutter_petkon/utils/CommonStyles.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'inherited/StateContainer.dart';
@@ -49,16 +46,18 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
+
   CommonBloc commonBloc = new CommonBloc();
 
-  getsharedPrefs() async {
+  getsharedPrefs() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<CommonBloc>(
-      create: (_) => commonBloc..add(CheckLoggedInEvent()),
+      create: (_) => commonBloc
+        ..add(CheckLoggedInEvent()),
       child: BlocListener(
         cubit: commonBloc,
         listener: (context, state) {
@@ -66,15 +65,16 @@ class _SplashState extends State<Splash> {
             StateContainer.of(context).updateUserInfo(state.obj);
           }
         },
-        child: BlocBuilder<CommonBloc, CommonState>(builder: (context, state) {
-          if (state is CheckLoggedInState) {
-            if (state.obj != null && state.obj is LoginResponse) {
-              return StoreListingScreen();
-            } else {
-              return LoginSignupScreen();
-            }
-          } else {
-            return Splash();
+        child: BlocBuilder<CommonBloc, CommonState>(
+            builder: (context, state) {
+              if (state is CheckLoggedInState) {
+                if (state.obj != null && state.obj is LoginResponse) {
+                  return StoreListingScreen();
+                } else {
+                  return LoginSignupScreen();
+                }
+              } else {
+                return Splash();
 //                return SafeArea(
 //                  child: Scaffold(
 //                      body: Container(
@@ -85,8 +85,8 @@ class _SplashState extends State<Splash> {
 //                      ) //isLogin ? HomeScreen() : SplashScreen(),
 //                  ),
 //                );
-          }
-        }),
+              }
+            }),
       ),
     );
   }
@@ -97,7 +97,7 @@ class _SplashState extends State<Splash> {
     debugPrint("VALlllllllll ${mobile}");
     if (mobile != null && mobile.isNotEmpty) {
       var response =
-          LoginResponse.fromJson(jsonDecode(prefs.getString(USER_LOGIN_RES)));
+      LoginResponse.fromJson(jsonDecode(prefs.getString(USER_LOGIN_RES)));
       StateContainer.of(context).updateUserInfo(response);
 //      setState(() {
 //        isLogin = true;
@@ -113,7 +113,10 @@ class _SplashState extends State<Splash> {
       );
     }
   }
+
 }
+
+
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -126,7 +129,6 @@ class MyApp extends StatelessWidget {
         primarySwatch: CommonStyles.amber,
       ),
       home: LoginSignupScreen(),
-      routes: {'/petProfile': (context) => PetProfile()},
     );
   }
 }

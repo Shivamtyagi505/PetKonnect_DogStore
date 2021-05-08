@@ -5,6 +5,7 @@ import 'package:flutter_petkon/bloc/CommonEvent.dart';
 import 'package:flutter_petkon/bloc/CommonState.dart';
 import 'package:flutter_petkon/inherited/StateContainer.dart';
 import 'package:flutter_petkon/model/get_product_detail_res.dart';
+import 'package:flutter_petkon/model/myCartResponse.dart';
 import 'package:flutter_petkon/screens/MyCart.dart';
 import 'package:flutter_petkon/screens/OrdersScreen.dart';
 import 'package:flutter_petkon/utils/CommonStyles.dart';
@@ -33,7 +34,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   GetProductDetailRes mGetProductDetailRes;
   SharedPreferences prefs;
   var mQuantity = 1;
-
+  MycartResponse addToCart;
   getsharedPrefs() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
   }
@@ -70,6 +71,17 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           listener: (context, state) {
             if (state is GetAllProductResState) {
               mGetProductDetailRes = state.res;
+            }else  if (state is AddCartResState) {
+              addToCart =state.res;
+              if(addToCart.status){
+                print("teeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          MyCartScreen(token)),
+                );
+              }
             }
           },
           child: BlocBuilder<CommonBloc, CommonState>(
@@ -535,12 +547,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                           onTap: () {
                             commonBloc..add(AddCartEvent(token:token,vendorId:widget.vendorId,prodId:mGetProductDetailRes?.product?.id,qunatity: mQuantity.toString()));
 
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      MyCartScreen(token)),
-                            );
+
                           },
                           child: Container(
                             padding: EdgeInsets.all(space_15),
@@ -559,7 +566,12 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         )),
                         Expanded(child: GestureDetector(
                           onTap: () {
-
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      MyCartScreen(token)),
+                            );
                           },
                           child: Container(
                             padding: EdgeInsets.all(space_15),

@@ -32,6 +32,9 @@ class CommonBloc extends Bloc<CommonEvent, CommonState> {
     } else if (event is RegisterEvent) {
       yield ProgressState();
       yield* callRegisterApi(event.name, event.email, event.password);
+    }else if (event is ForgotPasswordEvent) {
+      yield ProgressState();
+      yield* callForgotPasswordAPI(event.token,event.email);
     }else if (event is GetAllStoresEvent) {
       yield ProgressState();
       yield* callGetAllStoresApi(event.token);
@@ -54,6 +57,9 @@ class CommonBloc extends Bloc<CommonEvent, CommonState> {
     }else if (event is OrderHistoryEvent) {
       yield ProgressState();
       yield* callgetOrderHistory(event.token);
+    }else if (event is DeleteCartEvent) {
+      yield ProgressState();
+      yield* callDeleteCartItem(event.token,event.productId);
     }
 
 
@@ -104,6 +110,19 @@ class CommonBloc extends Bloc<CommonEvent, CommonState> {
       yield RegisterResState(res: registerRes);
     } catch (e,stacktrace) {
       debugPrint("Exception while REGISTER_API_CALL ${e.toString()}\n${stacktrace.toString()}");
+    }
+  }
+  Stream<CommonState> callForgotPasswordAPI(String email, String token) async* {
+    try {
+      commonRepository =
+      commonRepository != null ? commonRepository : CommonRepository();
+      debugPrint(
+          "LOGIN_API_CALL ${commonRepository == null ? "NULL" : "NOTNULL"}");
+      final forgotPasswordRes = await commonRepository.callLogin(email, token);
+      debugPrint("LOGIN_API_CALL_RES ${jsonEncode(forgotPasswordRes)}");
+      yield ForgotPasswordResState(res: forgotPasswordRes);
+    } catch (e, stacktrace) {
+      debugPrint("Exception while Login ${e.toString()}, \n${stacktrace.toString()}");
     }
   }
   Stream<CommonState> callGetAllStoresApi(String token) async* {
@@ -202,6 +221,21 @@ class CommonBloc extends Bloc<CommonEvent, CommonState> {
       final viewcartResstate = await commonRepository.callgetOrderHistoryAPI(token);
     debugPrint("callgetOrderHistory ${jsonEncode(viewcartResstate)}");
       yield OrderHistoryResState(res: viewcartResstate);
+    } catch (e, stacktrace) {
+      debugPrint("Exception while callgetOrderHistory ${e.toString()}\n${stacktrace.toString()}");
+    }
+  }
+
+  Stream<CommonState> callDeleteCartItem(String token, List<String> productId) async* {
+
+    try {
+      commonRepository =
+      commonRepository != null ? commonRepository : CommonRepository();
+      debugPrint(
+          "callgetOrderHistory ${commonRepository == null ? "NULL" : "NOTNULL"}");
+      final viewcartResstate = await commonRepository.calldeletecartAPI(token,productId);
+      debugPrint("callgetOrderHistory ${jsonEncode(viewcartResstate)}");
+      yield DeletecartResState(res: viewcartResstate);
     } catch (e, stacktrace) {
       debugPrint("Exception while callgetOrderHistory ${e.toString()}\n${stacktrace.toString()}");
     }

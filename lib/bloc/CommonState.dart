@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_petkon/model/DeleteCartResponse.dart';
 import 'package:flutter_petkon/model/get_all_product_res.dart';
 import 'package:flutter_petkon/model/get_product_detail_res.dart';
 import 'package:flutter_petkon/model/get_store_listing.dart';
@@ -46,7 +47,14 @@ class LoginResState extends CommonState {
   @override
   List<LoginResponse> get props => [res];
 }
+class ForgotPasswordResState extends CommonState {
+  final res;
 
+  ForgotPasswordResState({@required this.res});
+
+  @override
+  List<LoginResponse> get props => [res];
+}
 
 class RegisterResState extends CommonState {
   final res;
@@ -118,4 +126,12 @@ class OrderHistoryResState extends CommonState {
   List<OrderHistoryResponse> get props => [res];
 }
 
+class DeletecartResState extends CommonState {
+  final res;
+
+  DeletecartResState({@required this.res});
+
+  @override
+  List<DeleteCartResponse> get props => [res];
+}
 ///inventory/get_all_products/{low_to_high}/{high_to_low}

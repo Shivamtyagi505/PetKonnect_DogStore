@@ -36,6 +36,16 @@ class RegisterEvent extends CommonEvent {
   @override
   List<Object> get props => [name, email, password];
 }
+
+class ForgotPasswordEvent extends CommonEvent {
+  final String email;
+  final String token;
+
+  ForgotPasswordEvent({@required this.email, @required this.token});
+
+  @override
+  List<Object> get props => [email, token];
+}
 class GetAllStoresEvent extends CommonEvent {
   final String token;
 
@@ -101,6 +111,17 @@ class OrderHistoryEvent extends CommonEvent {
 
 
   OrderHistoryEvent({@required this.token});
+
+  @override
+  List<Object> get props => [];
+}
+
+class DeleteCartEvent extends CommonEvent {
+  final String token;
+  final List<String> productId;
+
+
+  DeleteCartEvent({@required this.token,@required this.productId});
 
   @override
   List<Object> get props => [];

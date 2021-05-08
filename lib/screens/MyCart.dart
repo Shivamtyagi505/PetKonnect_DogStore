@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_petkon/bloc/CommonBloc.dart';
 import 'package:flutter_petkon/bloc/CommonEvent.dart';
 import 'package:flutter_petkon/bloc/CommonState.dart';
+import 'package:flutter_petkon/model/DeleteCartResponse.dart';
 import 'package:flutter_petkon/model/view_cart.dart';
 import 'package:flutter_petkon/utils/CommonStyles.dart';
 import 'package:flutter_petkon/utils/size_config.dart';
@@ -23,6 +24,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
   CommonBloc commonBloc = new CommonBloc();
   List<Cart> cart= List();
   ViewCartResponse viewCartResponse;
+  DeleteCartResponse deleteCartResponse;
   @override
   Widget build(BuildContext context) {
    return BlocProvider(
@@ -30,10 +32,17 @@ class _MyCartScreenState extends State<MyCartScreen> {
       child: BlocListener(
           cubit: commonBloc,
           listener: (context, state) {
-            debugPrint("ARRAYPOPULATlistener --> ${viewCartResponse?.cart?.length}");
+            print("delete State");
             if (state is ViewCartResState) {
               viewCartResponse = state.res;
-            }else if(state is ConfirmOrderResState){
+            }else if (state is DeletecartResState) {
+              print("dlete main ayyyyyyyyyyy");
+              deleteCartResponse = state.res;
+              if(deleteCartResponse.status){
+                commonBloc..add(ViewCartEvent(token: widget.token));
+              }
+            }
+            else if(state is ConfirmOrderResState){
               if(state.res.status){
                 Navigator.push(
                   context,
@@ -48,6 +57,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
             builder: (context, state) {
               debugPrint("ARRAYPOPULATBlocBuilder --> ${viewCartResponse?.cart?.length}");
               if(viewCartResponse?.cart?.length==0){
+
                    return noDataInCart();
               }else{
                 if (state is ViewCartResState) {
@@ -107,7 +117,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                 itemCount: cart[0]?.products?.length,
                itemBuilder: (BuildContext context, int index) {
 
-                  return CardItemWidget(cart[0]?.products[index],cart[0]?.quantities[index]);
+                  return CardItemWidget(cart[0]?.products[index],cart[0]?.quantities[index],commonBloc,widget.token);
 
             }),
 
