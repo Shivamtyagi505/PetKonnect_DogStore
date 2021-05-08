@@ -40,6 +40,29 @@ class MapScreenState extends State<EditUserProfile>
     print(user['address']['zip']);
   }
 
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  editProfile() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = jsonDecode(prefs.getString('USER_LOGIN_RES'))['token'];
+    final response = await http.post(
+      "https://petkonnect.in/api/user",
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode({
+        'name': nameController.text,
+        'email': emailController.text,
+      }),
+    );
+    var user = jsonDecode(response.body);
+    print(user);
+    print(nameController.text);
+  }
+
+
   @override
   void initState() {
     // TODO: implement initState
@@ -223,6 +246,7 @@ class MapScreenState extends State<EditUserProfile>
                             children: <Widget>[
                               Flexible(
                                 child: TextFormField(
+                                  controller: nameController,
                                   decoration: InputDecoration(
                                     hintText: name,
                                   ),
@@ -295,6 +319,7 @@ class MapScreenState extends State<EditUserProfile>
                             children: <Widget>[
                               new Flexible(
                                 child: TextField(
+                                  controller: emailController,
                                   decoration: InputDecoration(
                                     hintText: email,
                                   ),
@@ -304,7 +329,9 @@ class MapScreenState extends State<EditUserProfile>
                             ],
                           )),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          editProfile();
+                        },
                         child: Center(
                           child: Padding(
                             padding: const EdgeInsets.only(top: space_100),

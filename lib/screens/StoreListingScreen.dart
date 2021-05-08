@@ -130,7 +130,7 @@ class _StoreListingScreenState extends State<StoreListingScreen> {
                                 color: CommonStyles.red,
                               ),
                               onPressed: () {
-//                                      openFilter(allStoresList?.filterPet);
+//                                    openFilter(allStoresList?.filterPet);
                               }))),
                 ],
               ),
@@ -178,7 +178,7 @@ class _StoreListingScreenState extends State<StoreListingScreen> {
     );
     isSearchEnabled = false;
     if (res != null && res is FilterData) {
-     // commonBloc..add(GetAllProductsEvent(token: token, lowToHigh: res?.sortBy=="low"?"true":"false", highToLow: res?.sortBy=="high"?"true":"false", animalType: res?.foods));
+   // commonBloc..add(GetAllProductsEvent(token: token, lowToHigh: res?.sortBy=="low"?"true":"false", highToLow: res?.sortBy=="high"?"true":"false", animalType: res?.foods));
     }
   }
 

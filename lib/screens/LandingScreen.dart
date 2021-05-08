@@ -203,7 +203,7 @@ class _LandingScreenState extends State<LandingScreen> {
           StoreListingScreen(),
           HomeScreen(),
           ServicesScreen(),
-          SosScreen()
+          OrderScreen(token)
         ],
       ),
     );

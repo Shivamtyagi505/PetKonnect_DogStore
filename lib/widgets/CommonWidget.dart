@@ -1,6 +1,11 @@
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_petkon/bloc/CommonBloc.dart';
+import 'package:flutter_petkon/bloc/CommonEvent.dart';
+import 'package:flutter_petkon/bloc/CommonState.dart';
+import 'package:flutter_petkon/model/DeleteCartResponse.dart';
 import 'package:flutter_petkon/model/get_all_product_res.dart';
 import 'package:flutter_petkon/model/get_store_listing.dart';
 import 'package:flutter_petkon/model/view_cart.dart';
@@ -10,6 +15,7 @@ import 'package:flutter_petkon/screens/ProductDetailScreen.dart';
 import 'package:flutter_petkon/screens/StoreDetailScreen.dart';
 import 'package:flutter_petkon/utils/CommonStyles.dart';
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:flutter_petkon/utils/Constants.dart';
 import 'package:flutter_petkon/utils/size_config.dart';
 
 class CommonAppbarWidget extends StatelessWidget {
@@ -22,10 +28,12 @@ class CommonAppbarWidget extends StatelessWidget {
 }
 
 class CardItemWidget extends StatelessWidget {
-
+  List<String> productId = List();
   CartProduct product;
+  CommonBloc commonBloc;
+  var token;
   int quantitiy;
-  CardItemWidget(this.product, this.quantitiy);
+  CardItemWidget(this.product, this.quantitiy,this.commonBloc, this.token);
 
   @override
   Widget build(BuildContext context) {
@@ -125,18 +133,27 @@ class CardItemWidget extends StatelessWidget {
               ),
             ),
           ),
-          Expanded(
-            flex: 1,
-            child: Container(
-              margin: EdgeInsets.only(left: space_5),
-                height: space_26,
-                width: space_26,
-                padding: EdgeInsets.all(space_5),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(space_13),
-                  border: Border.all(color: CommonStyles.red)
-                ),
-                child: Center(child: Icon(Icons.close, color: CommonStyles.red, size: space_15,))),
+          GestureDetector(
+            onTap: (){
+              productId.clear();
+              productId.add("\""+product.id+"\"");
+              print("prdocut IDD "+productId.toString());
+              print("token "+token);
+              commonBloc..add(DeleteCartEvent(token: token,productId: productId));
+            },
+            child: Expanded(
+              flex: 1,
+              child: Container(
+                  margin: EdgeInsets.only(left: space_5),
+                  height: space_26,
+                  width: space_26,
+                  padding: EdgeInsets.all(space_5),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(space_13),
+                      border: Border.all(color: CommonStyles.red)
+                  ),
+                  child: Center(child: Icon(Icons.close, color: CommonStyles.red, size: space_15,))),
+            ),
           )
         ],
       ),
@@ -561,7 +578,7 @@ class _ProductItemCardNoMarginWidgetState extends State<ProductItemCardNoMarginW
                     side: BorderSide(color: Colors.white),
                     borderRadius: BorderRadius.circular(space_10)),
                 child: Container(
-                  padding: EdgeInsets.all(2),
+                  padding: EdgeInsets.all(space_8),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -632,7 +649,7 @@ class _ProductItemCardNoMarginWidgetState extends State<ProductItemCardNoMarginW
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: CommonStyles.getRalewayStyle(
-                            space_15, FontWeight.w500, CommonStyles.grey.withOpacity(0.8)),
+                            space_14, FontWeight.w500, CommonStyles.grey.withOpacity(0.8)),
                       ),
                       SizedBox(height: space_5,),
                       RichText(

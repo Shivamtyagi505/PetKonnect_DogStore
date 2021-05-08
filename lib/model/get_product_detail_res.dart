@@ -42,12 +42,10 @@ class Product {
   String petType;
   String country;
   String perishable;
-  int discount;
+  dynamic discount;
   String createdAt;
   String updatedAt;
-  Null deliveryType;
-  Null ean;
-  Null rating;
+
   String id;
 
   Product(
@@ -75,9 +73,6 @@ class Product {
         this.discount,
         this.createdAt,
         this.updatedAt,
-        this.deliveryType,
-        this.ean,
-        this.rating,
         this.id});
 
   Product.fromJson(Map<String, dynamic> json) {
@@ -105,9 +100,6 @@ class Product {
     discount = json['discount'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
-    deliveryType = json['deliveryType'];
-    ean = json['ean'];
-    rating = json['rating'];
     id = json['id'];
   }
 
@@ -137,9 +129,6 @@ class Product {
     data['discount'] = this.discount;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;
-    data['deliveryType'] = this.deliveryType;
-    data['ean'] = this.ean;
-    data['rating'] = this.rating;
     data['id'] = this.id;
     return data;
   }
