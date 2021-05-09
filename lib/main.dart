@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_petkon/Kconstants.dart';
 import 'package:flutter_petkon/bloc/CommonBloc.dart';
 import 'package:flutter_petkon/bloc/CommonEvent.dart';
 import 'package:flutter_petkon/bloc/CommonState.dart';
@@ -15,8 +16,13 @@ import 'package:flutter_petkon/screens/MyCart.dart';
 import 'package:flutter_petkon/screens/ProductDetailScreen.dart';
 import 'package:flutter_petkon/screens/StoreDetailScreen.dart';
 import 'package:flutter_petkon/screens/StoreListingScreen.dart';
+<<<<<<< Updated upstream
 import 'package:flutter_petkon/screens/UserProfileScreen/EditUserProfile.dart';
 import 'package:flutter_petkon/screens/UserProfileScreen/user_profile.dart';
+=======
+import 'package:flutter_petkon/screens/UserProfileScreen.dart';
+import 'package:flutter_petkon/screens/pet_profile/edit_pet.dart';
+>>>>>>> Stashed changes
 import 'package:flutter_petkon/screens/pet_profile/pet_profile.dart';
 import 'package:flutter_petkon/utils/CommonStyles.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -123,10 +129,17 @@ class MyApp extends StatelessWidget {
       title: 'PetKon',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: CommonStyles.amber,
-      ),
+          // primarySwatch: CommonStyles.amber,
+          primaryColor: kPrimarycolor),
       home: LoginSignupScreen(),
+<<<<<<< Updated upstream
       routes: {'/petProfile': (context) => PetProfile()},
+=======
+      routes: {
+        '/petProfile': (context) => PetProfile(),
+        '/EditPet': (context) => EditPetProfile()
+      },
+>>>>>>> Stashed changes
     );
   }
 }

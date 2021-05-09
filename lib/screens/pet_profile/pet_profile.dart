@@ -1,27 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_petkon/Kconstants.dart';
 import 'package:flutter_petkon/screens/UserProfileScreen/user_profile.dart';
+import 'package:flutter_petkon/screens/pet_profile/edit_pet.dart';
 import 'package:flutter_svg/svg.dart';
 import 'components/Banner.dart';
 
-class PetProfile extends StatelessWidget {
+class PetProfile extends StatefulWidget {
+  @override
+  _PetProfileState createState() => _PetProfileState();
+}
+
+class _PetProfileState extends State<PetProfile> {
   @override
   Widget build(BuildContext context) {
     String imageUrl = ModalRoute.of(context).settings.arguments;
     Size size = MediaQuery.of(context).size;
+    bool editPet;
     return Scaffold(
       body: SingleChildScrollView(
         child: Center(
             child: Column(
           children: [
             BannerPetProfile(imageUrl),
+            //Edit Details Button
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        setState(() {
+                          editPet = true;
+                        });
+                        Navigator.of(context)
+                            .pushNamed('/EditPet', arguments: editPet);
+                      },
                       child: Text(
                         "Edit Details",
                         style: TextStyle(
@@ -97,11 +111,18 @@ class PetProfile extends StatelessWidget {
                 PetAvatar(
                     "http://cdn.akc.org/content/article-body-image/siberian_husky_cute_puppies.jpg"),
                 GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        editPet = true;
+                      });
+                      Navigator.of(context)
+                          .pushNamed('/EditPet', arguments: editPet);
+                    },
                     child: SvgPicture.asset(
-                  "assets/icons/add_post.svg",
-                  height: size.height * 0.09,
-                  width: size.width * 0.15,
-                ))
+                      "assets/icons/add_post.svg",
+                      height: size.height * 0.09,
+                      width: size.width * 0.15,
+                    ))
               ],
             ),
           ],
