@@ -12,6 +12,7 @@ import 'package:flutter_petkon/model/register_res.dart';
 import 'package:flutter_petkon/screens/LandingScreen.dart';
 import 'package:flutter_petkon/screens/StoreDetailScreen.dart';
 import 'package:flutter_petkon/screens/StoreListingScreen.dart';
+import 'package:flutter_petkon/screens/forgot_password/ForgotPassword.dart';
 import 'package:flutter_petkon/utils/CommonStyles.dart';
 import 'package:flutter_petkon/utils/Constants.dart';
 import 'package:flutter_petkon/utils/size_config.dart';
@@ -34,6 +35,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
   TextEditingController confPwdController = new TextEditingController();
   CommonBloc commonBloc = new CommonBloc();
   LoginResponse mLoginResponse;
+  RegisterRes mRegisterResponse;
   FToast fToast;
   storeLoginDataAndProceed(BuildContext context) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -100,10 +102,12 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
               }
 
             }else if (state is RegisterResState) {
-              if(state.res is RegisterRes){
-                if(state.res.status){
-                  _showDialog(context);
-                }
+              mRegisterResponse =state.res;
+              if(mRegisterResponse.status){
+
+                _showDialog(context,mRegisterResponse.message);
+              }else{
+                _showToast(mRegisterResponse.message);
               }
 
             }
@@ -339,20 +343,30 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                                   height: 0,
                                   width: 0,
                                 )
-                                    : Align(
+                                    : GestureDetector(
+                                  onTap: (){
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ForgotPasswordScreen()),
+                                    );
+                                  },
+                                      child: Align(
                                   alignment: Alignment.centerRight,
                                   child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: space_15),
-                                    child: Text(
-                                      "Forgot Password",
-                                      style: CommonStyles.getMontserratStyle(
-                                          space_14,
-                                          FontWeight.w600,
-                                          CommonStyles.blue),
-                                    ),
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: space_15),
+                                      child: Text(
+                                        "Forgot Password",
+                                        style: CommonStyles.getMontserratStyle(
+                                            space_14,
+                                            FontWeight.w600,
+                                            CommonStyles.blue),
+                                      ),
                                   ),
                                 ),
+                                    ),
                                 Container(
                                   margin: EdgeInsets.only(top: space_15),
                                   height: space_50,
@@ -528,9 +542,9 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
     });
   }
 
-  _showDialog(BuildContext context) {
+  _showDialog(BuildContext context, String message) {
     BlurryDialog alert = BlurryDialog(
-        "Verify", "Please verify your email", continueCallBack);
+        "Verify", message, continueCallBack);
     showDialog(
       context: context,
       builder: (BuildContext context) {

@@ -34,37 +34,7 @@ class _LandingScreenState extends State<LandingScreen> {
   Future<OrderHistoryResponse> futureAlbum;
   PageController _pageController;
 
-// retrieving data for Edit Address//
-  var doorNo = "", street = "", building = "", city = "", state = "", zip = "";
-  getAddressData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var token = jsonDecode(prefs.getString('USER_LOGIN_RES'))['token'];
-    final response = await http.get("https://petkonnect.in/api/user", headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'Authorization': 'Bearer $token',
-    });
-    // print('token is $token');
-    var user = jsonDecode(response.body);
-    setState(() {
-      doorNo = user['address']['doorNo'];
-      street = user['address']['street'];
-      building = user['address']['building'];
-      city = user['address']['city'];
-      state = user['address']['state'];
-      zip = user['address']['zip'].toString();
-    });
-    print(user['address']['zip']);
-    //WidgetsBinding.instance.addPostFrameCallback(_showOpenDialog);
-  }
 
-  //Update Address//
-  editAddress() async {
-    var response = await http.post("https://petkonnect.in/api/user",
-        body: {'name': 'doodle', 'color': 'blue'});
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
-  }
 
   @override
   void didChangeDependencies() {
@@ -79,10 +49,6 @@ class _LandingScreenState extends State<LandingScreen> {
 
   @override
   void initState() {
-    getAddressData();
-    // TODO: implement initState
-    // WidgetsBinding.instance.addPostFrameCallback(_showOpenDialog);
-
     _pageController = PageController(initialPage: _selectedIndex);
     super.initState();
   }
@@ -237,7 +203,7 @@ class _LandingScreenState extends State<LandingScreen> {
           StoreListingScreen(),
           HomeScreen(),
           ServicesScreen(),
-          SosScreen()
+          OrderScreen(token)
         ],
       ),
     );

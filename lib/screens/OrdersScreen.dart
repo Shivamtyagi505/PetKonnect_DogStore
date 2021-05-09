@@ -56,7 +56,7 @@ class _OrderScreenState extends State<OrderScreen> {
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.
-      print("sizeeeeeeeeeeeee    exception");
+
       throw Exception('Failed to load album');
     }
   }
@@ -75,7 +75,7 @@ class _OrderScreenState extends State<OrderScreen> {
   }
 
   getScreenUi() {
-    print("order screen");
+
     print(orderList.length);
     final _screenSize = MediaQuery.of(context).size;
 
@@ -84,6 +84,7 @@ class _OrderScreenState extends State<OrderScreen> {
       body: FutureBuilder(
           future: futureAlbum,
           builder: (context, snapshot) {
+            print(snapshot.connectionState.toString()+"   yha aaya eske inside   "+orderList.length.toString());
             if (snapshot.connectionState == ConnectionState.done) {
               if (orderList.length == 0) {
                 return Center(
@@ -99,7 +100,7 @@ class _OrderScreenState extends State<OrderScreen> {
                 );
               } else {
                 return Container(
-                  margin: EdgeInsets.only(top: space_20),
+                  margin: EdgeInsets.only(top: space_40),
                   padding: EdgeInsets.fromLTRB(8, 0, 5, 0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -417,7 +418,7 @@ class _OrderScreenState extends State<OrderScreen> {
                 );
               }
             } else {
-              // return Center(child: CircularProgressIndicator(color: Colors.yellow,));
+              return Center(child: CircularProgressIndicator());
             }
           }),
     );

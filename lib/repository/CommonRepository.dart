@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter_petkon/model/DeleteCartResponse.dart';
 import 'package:flutter_petkon/model/get_all_product_res.dart';
 import 'package:flutter_petkon/model/get_product_detail_res.dart';
 import 'package:flutter_petkon/model/get_store_listing.dart';
@@ -33,11 +34,42 @@ class CommonRepository extends BaseRepository {
     int code = 0;
     //http secure connection
     var http = makeHttpSecure();
-    //Map reqBodyMap = {"email": "chiragj97.cj@gmail.com", "password": "Chirag@1234"};
-    Map reqBodyMap = {"email": email, "password": pwd};
+ //
+    // Map reqBodyMap = {"email": "chiragj97.cj@gmail.com", "password": "Chirag@1234"};
+    // Map reqBodyMap = {"email": "aman.mehra655@gmail.com", "password": "12345678"};
+ Map reqBodyMap = {"email": email, "password": pwd};
     print("UNDER callLogin ${email}, ${pwd}, ${BASE_URL + LOGIN_API}");
     var res = await http
         .post(BASE_URL + LOGIN_API,
+        headers: {"Content-Type":"application/json"},
+        body: JsonEncoder().convert(reqBodyMap));
+    print("PRINTING callLogin ${res.body}");
+    code = res.statusCode;
+    if (res.statusCode == 200) {
+      var data = json.decode(res.body);
+      status = data["status"];
+      print("PRINTING_STATUS ${status}");
+      response = LoginResponse.fromJson(data);
+      print("-----------${data}");
+    } else {
+      response = new LoginResponse();
+    }
+    return response;
+  }
+
+  Future<LoginResponse> callForgotPasswordAPI(String email, String token) async {
+    bool status = false;
+    LoginResponse response;
+    int code = 0;
+    //http secure connection
+    var http = makeHttpSecure();
+    //
+    // Map reqBodyMap = {"email": "chiragj97.cj@gmail.com", "password": "Chirag@1234"};
+    Map reqBodyMap = {"email": "aman.mehra655@gmail.com"};
+    //  Map reqBodyMap = {"email": email, "password": pwd};
+
+    var res = await http
+        .post(BASE_URL + FORGOTPASSWORD_API,
         headers: {"Content-Type":"application/json"},
         body: JsonEncoder().convert(reqBodyMap));
     print("PRINTING callLogin ${res.body}");
@@ -229,8 +261,7 @@ class CommonRepository extends BaseRepository {
     }
     return response;
   }
-  Future<OrderHistoryResponse> callgetOrderHistoryAPI(
-      String token) async {
+  Future<OrderHistoryResponse> callgetOrderHistoryAPI(String token) async {
     bool status = false;
     OrderHistoryResponse response;
     int code = 0;
@@ -259,6 +290,42 @@ class CommonRepository extends BaseRepository {
     }
     return response;
   }
+
+  Future<DeleteCartResponse> calldeletecartAPI(String token, List<String> productId) async {
+    bool status = false;
+    DeleteCartResponse response;
+    int code = 0;
+    print("-----------${token}");
+    //http secure connection
+    var http = makeHttpSecure();
+
+    var productIdThis= productId.toString();
+    String requestParam = '{"productIDs": $productIdThis}';
+    print("-----------$requestParam");
+    print("-----------${BASE_URL + DELETE_CART}");
+    final res = await http.post(BASE_URL + DELETE_CART,body:requestParam, headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    });
+    code = res.statusCode;
+    print("-----------${res.statusCode}");
+    if (res.statusCode == 200) {
+
+      var data = json.decode(res.body);
+      print("-----------${data}");
+      status = data["status"];
+      print("PRINTING_STATUS ${status}");
+      print("-----------${data}");
+      response = DeleteCartResponse.fromJson(data);
+
+    } else {
+      response = new DeleteCartResponse();
+    }
+    return response;
+  }
+
+
   Future<MycartResponse> callAddProductInCart(String token,String vendorId,String prodId,String quantity) async {
     bool status = false;
     MycartResponse response;
@@ -267,11 +334,11 @@ class CommonRepository extends BaseRepository {
 
     print("method: $ADD_PRODUCT_INCART" );
     // set up PUT request arguments
-    String json = '{"productID": "$prodId", "vendorID": "$vendorId", "quantity": $quantity}';
+    String requestParam = '{"productID": "$prodId", "vendorID": "$vendorId", "quantity": $quantity}';
 
 
   //  Map reqBodyMap = {"productID": prodId, "vendorID": vendorId, "quantity": quantity};
-    print("UNDER callRegister ");
+    print("url.... "+BASE_URL + ADD_PRODUCT_INCART);
     var res = await http
         .put(BASE_URL + ADD_PRODUCT_INCART,
          headers: {
@@ -279,18 +346,18 @@ class CommonRepository extends BaseRepository {
         'Accept': 'application/json',
         'Authorization': 'Bearer $token',
         },
-        body: json);
+        body: requestParam);
     print("PRINTING ${res.body}");
-//    if (res.statusCode == 200) {
-//      var data = json.decode(res.body);
-//      status = data["status"];
-//      print("PRINTING_STATUS ${status}");
-//      response = MycartResponse.fromJson(data);
-//      print("-----------${data}");
-//
-//    } else {
-//      response = new MycartResponse(status: false);
-//    }
+    if (res.statusCode == 200) {
+      var data = json.decode(res.body);
+      status = data["status"];
+      print("PRINTING_STATUS ${status}");
+      response = MycartResponse.fromJson(data);
+      print("-----------${data}");
+
+    } else {
+      response = new MycartResponse(status: false);
+    }
     print("-----------rresssssss  ${response}");
     return response;
   }

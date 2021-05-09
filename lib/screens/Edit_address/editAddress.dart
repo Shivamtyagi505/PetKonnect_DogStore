@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_petkon/Kconstants.dart';
 import 'package:flutter_petkon/utils/size_config.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class EditAddress extends StatefulWidget {
   @override
@@ -9,16 +13,70 @@ class EditAddress extends StatefulWidget {
 
 class _EditAddressState extends State<EditAddress> {
   var _formKey = GlobalKey<FormState>();
+ final mycontroller = TextEditingController();
+  // retrieving data for Edit Address//
+  var doorNo = "", street = "", building = "", city = "", state = "", zip = "";
+  getAddressData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = jsonDecode(prefs.getString('USER_LOGIN_RES'))['token'];
+    final response = await http.get("https://petkonnect.in/api/user", headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    });
+    // print('token is $token');
+    var user = jsonDecode(response.body);
+    setState(() {
+      doorNo = user['address']['doorNo'];
+      street = user['address']['street'];
+      building = user['address']['building'];
+      city = user['address']['city'];
+      state = user['address']['state'];
+      zip = user['address']['zip'].toString();
+    });
+   print('token is  $token');
+    //WidgetsBinding.instance.addPostFrameCallback(_showOpenDialog);
+  }
+
+  //Update Address//
+  TextEditingController doorNoController =TextEditingController();
+  TextEditingController buildingController =TextEditingController();
+  TextEditingController streetController =TextEditingController();
+  TextEditingController cityController =TextEditingController();
+  TextEditingController stateController =TextEditingController();
+  TextEditingController zipController =TextEditingController();
+  editAddress() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = jsonDecode(prefs.getString('USER_LOGIN_RES'))['token'];
+    final response = await http.post("https://petkonnect.in/api/user/edit_address", headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    },
+
+    body: jsonEncode(<String, String>{
+      'doorNo': doorNoController.text,
+      'street': buildingController.text,
+      'building': streetController.text,
+      'city': cityController.text,
+      'state': stateController.text,
+      'zip': zipController.text
+      }),
+    );
+    //print("door no is ${doorNoController.text}");
+    // print('token is $token');
+     var user = jsonDecode(response.body);
+    print(user);
+    //WidgetsBinding.instance.addPostFrameCallback(_showOpenDialog);
+  }
+
+  @override
+  void initState() {
+    getAddressData();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
-    //Properties
-
-    String doorNo;
-    String building;
-    String street;
-    String city;
-    String state;
-    String zipCode;
     Size size = MediaQuery.of(context).size;
     //methods
     void submitForm() {
@@ -90,8 +148,10 @@ class _EditAddressState extends State<EditAddress> {
                   children: [
                     TextFormField(
                       //decoration
+                      controller: doorNoController,
                       decoration: InputDecoration(
                           labelText: "Door No.",
+                          hintText: doorNo,
                           labelStyle: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
@@ -108,9 +168,10 @@ class _EditAddressState extends State<EditAddress> {
                       height: 15,
                     ),
                     TextFormField(
-                      //decoration
+                      controller: buildingController,
                       decoration: InputDecoration(
                           labelText: "Building",
+                          hintText: building,
                           labelStyle: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
@@ -126,9 +187,10 @@ class _EditAddressState extends State<EditAddress> {
                       height: 15,
                     ),
                     TextFormField(
-                        //decoration
+                      controller: streetController,
                         decoration: InputDecoration(
                             labelText: "Street/Area.",
+                            hintText: street,
                             labelStyle: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
@@ -144,9 +206,10 @@ class _EditAddressState extends State<EditAddress> {
                       height: 15,
                     ),
                     TextFormField(
-                      //decoration
+                      controller: cityController,
                       decoration: InputDecoration(
                           labelText: "City",
+                          hintText: city,
                           labelStyle: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
@@ -162,9 +225,10 @@ class _EditAddressState extends State<EditAddress> {
                       height: 15,
                     ),
                     TextFormField(
-                        //decoration
+                      controller: stateController,
                         decoration: InputDecoration(
                             labelText: "State",
+                            hintText: state,
                             labelStyle: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.black,
@@ -172,7 +236,7 @@ class _EditAddressState extends State<EditAddress> {
                         //validator
                         validator: (value) {
                           if (value.isEmpty)
-                            return "this field caanot be empty ";
+                            return "this field can'not be empty ";
                         },
                         //Onsaved
                         onSaved: (newValue) => state = newValue),
@@ -180,9 +244,10 @@ class _EditAddressState extends State<EditAddress> {
                       height: 15,
                     ),
                     TextFormField(
-                      //decoration
+                      controller: zipController,
                       decoration: InputDecoration(
                           labelText: "Zip Code",
+                          hintText: zip,
                           labelStyle: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.black,
@@ -194,14 +259,16 @@ class _EditAddressState extends State<EditAddress> {
                         }
                       },
                       //Onsaved
-                      onSaved: (newValue) => zipCode = newValue,
+                      //onSaved: (newValue) => zipCode = newValue,
                     ),
                     SizedBox(
                       height: 15,
                     ),
                     //Submit Button
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        editAddress(); 
+                      },
                       child: Center(
                         child: Padding(
                           padding: EdgeInsets.all(20),
@@ -220,8 +287,9 @@ class _EditAddressState extends State<EditAddress> {
                                     fontFamily: "Raleway",
                                     fontSize: 20,
                                     fontWeight: FontWeight.w600,
-                                  )),
-                            )),
+                                  )
+                                  ),
+                            ),),
                           ),
                         ),
                       ),

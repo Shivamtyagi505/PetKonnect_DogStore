@@ -50,6 +50,7 @@ class _StoreListingScreenState extends State<StoreListingScreen> {
     bannerlist.add("assets/images/banner_1.png");
     bannerlist.add("assets/images/banner_2.png");
     bannerlist.add("assets/images/banner_3.png");
+
   }
 
   @override
@@ -66,20 +67,18 @@ class _StoreListingScreenState extends State<StoreListingScreen> {
       child: BlocListener(
           cubit: commonBloc,
           listener: (context, state) {
-            debugPrint(
-                "ARRAYPOPULATlistener --> ${allStoresList?.vendors?.length}");
+            debugPrint("ARRAYPOPULATlistener --> ${allStoresList?.vendors?.length}");
             if (state is GetAllStoresResState) {
               allStoresList = state.res;
             }
           },
           child: BlocBuilder<CommonBloc, CommonState>(
             builder: (context, state) {
-              debugPrint(
-                  "ARRAYPOPULATBlocBuilder --> ${allStoresList?.vendors?.length}");
+              debugPrint("ARRAYPOPULATBlocBuilder --> ${allStoresList?.vendors?.length}");
               if (state is GetAllStoresResState) {
-                if (state?.res?.status) {
+                if(state?.res?.status){
                   return getScreenUI(state.res);
-                } else {
+                }else{
                   return ProgressWidget();
                 }
               } else {
@@ -91,12 +90,13 @@ class _StoreListingScreenState extends State<StoreListingScreen> {
   }
 
   getScreenUI(StorelistingResponse StorelistingResponse) {
-    if (!isSearchEnabled) {
+    if(!isSearchEnabled){
       allStoresList = StorelistingResponse;
       debugPrint("ARRAYPOPULATE4 --> ${StorelistingResponse?.vendors?.length}");
       mVendorList = allStoresList?.vendors;
       debugPrint("ARRAYPOPULATE2 --> ${mVendorList?.length}");
     }
+
 
     return new Scaffold(
       body: Container(
@@ -105,8 +105,10 @@ class _StoreListingScreenState extends State<StoreListingScreen> {
           children: [
             Container(
               margin: EdgeInsets.only(top: space_50),
-              child: ItemDetailImgCarousalWidget(bannerList: bannerlist),
+              child:    ItemDetailImgCarousalWidget(
+                  bannerList: bannerlist),
             ),
+
             SizedBox(
               height: space_20,
             ),
@@ -125,10 +127,10 @@ class _StoreListingScreenState extends State<StoreListingScreen> {
                           child: IconButton(
                               icon: Icon(
                                 Icons.filter_list,
-                                color: CommonStyles.amber,
+                                color: CommonStyles.red,
                               ),
                               onPressed: () {
-//                                      openFilter(allStoresList?.filterPet);
+//                                    openFilter(allStoresList?.filterPet);
                               }))),
                 ],
               ),
@@ -138,8 +140,8 @@ class _StoreListingScreenState extends State<StoreListingScreen> {
             ),
             Text(
               "Shops recommended for you",
-              style: CommonStyles.getMontserratStyle(space_15, FontWeight.w600,
-                  CommonStyles.grey.withOpacity(0.8)),
+              style: CommonStyles.getMontserratStyle(space_15,
+                  FontWeight.w600, CommonStyles.grey.withOpacity(0.8)),
             ),
             SizedBox(
               height: space_15,
@@ -157,35 +159,12 @@ class _StoreListingScreenState extends State<StoreListingScreen> {
                   ),
                   itemCount: mVendorList?.length,
                   itemBuilder: (context, index) {
-                    return ItemCardNoMarginWidget(mVendorList[index]);
+                    return ItemCardNoMarginWidget(
+                        mVendorList[index]);
                   },
                 ),
               ),
             ),
-            SizedBox(
-              height: 10,
-            ),
-            Divider(
-              color: Colors.grey,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Text(
-              "Best Selling Brands",
-              style: TextStyle(
-                  color: Colors.grey[600],
-                  fontFamily: "Montserrat",
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600),
-            ),
-            CircleAvatar(
-                backgroundColor: Colors.green,
-                child: Image.network(
-                  "https://kindlygeek.com/wp-content/uploads/2020/08/kg_wild_earth_logo-1.jpg",
-                  height: 80,
-                  width: 100,
-                )),
           ],
         ),
       ),
@@ -199,11 +178,7 @@ class _StoreListingScreenState extends State<StoreListingScreen> {
     );
     isSearchEnabled = false;
     if (res != null && res is FilterData) {
-<<<<<<< Updated upstream
-     // commonBloc..add(GetAllProductsEvent(token: token, lowToHigh: res?.sortBy=="low"?"true":"false", highToLow: res?.sortBy=="high"?"true":"false", animalType: res?.foods));
-=======
-      // commonBloc..add(GetAllProductsEvent(token: token, lowToHigh: res?.sortBy=="low"?"true":"false", highToLow: res?.sortBy=="high"?"true":"false", animalType: res?.foods));
->>>>>>> Stashed changes
+   // commonBloc..add(GetAllProductsEvent(token: token, lowToHigh: res?.sortBy=="low"?"true":"false", highToLow: res?.sortBy=="high"?"true":"false", animalType: res?.foods));
     }
   }
 
