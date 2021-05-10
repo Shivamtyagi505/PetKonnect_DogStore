@@ -17,6 +17,47 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
+  getPetsData() async {
+    List<Widget> pets = [];
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = jsonDecode(prefs.getString('USER_LOGIN_RES'))['token'];
+    final response = await http
+        .get("https://petkonnect.in/api/pets/get_user_pets", headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    });
+    var data = jsonDecode(response.body);
+
+    data['pets'].forEach((v) {
+      // PetAvatar(
+      //             "https://www.thesprucepets.com/thmb/wpN_ZunUaRQAc_WRdAQRxeTbyoc=/4231x2820/filters:fill(auto,1)/adorable-white-pomeranian-puppy-spitz-921029690-5c8be25d46e0fb000172effe.jpg"),
+      //         PetAvatar(
+      //             'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/golden-retriever-royalty-free-image-506756303-1560962726.jpg?crop=0.672xw:1.00xh;0.166xw,0&resize=640:*'),
+      //         PetAvatar(
+      //             "http://cdn.akc.org/content/article-body-image/siberian_husky_cute_puppies.jpg"),
+      // print(v['id']);
+      pets.add(PetAvatar(
+        imageUrl:
+            "http://cdn.akc.org/content/article-body-image/siberian_husky_cute_puppies.jpg",
+        petId: v['id'],
+      ));
+    });
+
+    pets.add(GestureDetector(
+        child: SvgPicture.asset(
+      "assets/icons/add_post.svg",
+      height: context.size.height * 0.09,
+      width: context.size.width * 0.15,
+    )));
+    // setState(() {
+    //   name = user['name'];
+    //   email = user['email'];
+    // });
+    // setState(() {});
+    return pets;
+  }
+
   var name = "", email = "";
   getUserData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -39,9 +80,9 @@ class _UserProfileState extends State<UserProfile> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
+    getPetsData();
     bool post = true;
     bool tagged = false;
     bool saved = false;
@@ -182,22 +223,44 @@ class _UserProfileState extends State<UserProfile> {
             SizedBox(
               height: size.height * 0.02,
             ),
-            Row(
-              children: [
-                PetAvatar(
-                    "https://www.thesprucepets.com/thmb/wpN_ZunUaRQAc_WRdAQRxeTbyoc=/4231x2820/filters:fill(auto,1)/adorable-white-pomeranian-puppy-spitz-921029690-5c8be25d46e0fb000172effe.jpg"),
-                PetAvatar(
-                    'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/golden-retriever-royalty-free-image-506756303-1560962726.jpg?crop=0.672xw:1.00xh;0.166xw,0&resize=640:*'),
-                PetAvatar(
-                    "http://cdn.akc.org/content/article-body-image/siberian_husky_cute_puppies.jpg"),
-                GestureDetector(
-                    child: SvgPicture.asset(
-                  "assets/icons/add_post.svg",
-                  height: size.height * 0.09,
-                  width: size.width * 0.15,
-                ))
-              ],
+            FutureBuilder(
+              future: getPetsData(),
+              builder: (context, snapshot) {
+                if (snapshot.data == null) {
+                  return Center(child: CircularProgressIndicator());
+                } else {
+                  return Container(
+                      // color: Colors.red,
+                      height: size.height * 0.09,
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: snapshot.data,
+                      ));
+                }
+              },
             ),
+
+            // Container(
+            //   height: size.height * 0.2,
+            //   child: ListView(
+            //     scrollDirection: Axis.horizontal,
+            //     children: pets,
+            //     // children: [
+            //     //   // PetAvatar(
+            //     //   //     "https://www.thesprucepets.com/thmb/wpN_ZunUaRQAc_WRdAQRxeTbyoc=/4231x2820/filters:fill(auto,1)/adorable-white-pomeranian-puppy-spitz-921029690-5c8be25d46e0fb000172effe.jpg"),
+            //     //   // PetAvatar(
+            //     //   //     'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/golden-retriever-royalty-free-image-506756303-1560962726.jpg?crop=0.672xw:1.00xh;0.166xw,0&resize=640:*'),
+            //     //   // PetAvatar(
+            //     //   //     "http://cdn.akc.org/content/article-body-image/siberian_husky_cute_puppies.jpg"),
+            //     //   GestureDetector(
+            //     //       child: SvgPicture.asset(
+            //     //     "assets/icons/add_post.svg",
+            //     //     height: size.height * 0.09,
+            //     //     width: size.width * 0.15,
+            //     //   ))
+            //     // ],
+            //   ),
+            // ),
             SizedBox(
               height: 10,
             ),
@@ -241,13 +304,15 @@ class _UserProfileState extends State<UserProfile> {
 
 class PetAvatar extends StatelessWidget {
   final String imageUrl;
-  const PetAvatar(this.imageUrl);
+  final String petId;
+  const PetAvatar({@required this.imageUrl, @required this.petId});
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed('/petProfile', arguments: imageUrl);
+        Navigator.of(context).pushNamed('/petProfile',
+            arguments: {"imageUrl": imageUrl, "petId": petId});
       },
       child: Container(
         margin: EdgeInsets.only(left: 5, right: 5),

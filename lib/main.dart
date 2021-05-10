@@ -16,13 +16,13 @@ import 'package:flutter_petkon/screens/MyCart.dart';
 import 'package:flutter_petkon/screens/ProductDetailScreen.dart';
 import 'package:flutter_petkon/screens/StoreDetailScreen.dart';
 import 'package:flutter_petkon/screens/StoreListingScreen.dart';
-<<<<<<< Updated upstream
+//<<<<<<< Updated upstream
 import 'package:flutter_petkon/screens/UserProfileScreen/EditUserProfile.dart';
 import 'package:flutter_petkon/screens/UserProfileScreen/user_profile.dart';
-=======
+//=======
 import 'package:flutter_petkon/screens/UserProfileScreen.dart';
 import 'package:flutter_petkon/screens/pet_profile/edit_pet.dart';
->>>>>>> Stashed changes
+//>>>>>>> Stashed changes
 import 'package:flutter_petkon/screens/pet_profile/pet_profile.dart';
 import 'package:flutter_petkon/utils/CommonStyles.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -132,14 +132,14 @@ class MyApp extends StatelessWidget {
           // primarySwatch: CommonStyles.amber,
           primaryColor: kPrimarycolor),
       home: LoginSignupScreen(),
-<<<<<<< Updated upstream
-      routes: {'/petProfile': (context) => PetProfile()},
-=======
+//<<<<<<< Updated upstream
+      //routes: {'/petProfile': (context) => PetProfile()},
+//=======
       routes: {
         '/petProfile': (context) => PetProfile(),
         '/EditPet': (context) => EditPetProfile()
       },
->>>>>>> Stashed changes
+//>>>>>>> Stashed changes
     );
   }
 }
