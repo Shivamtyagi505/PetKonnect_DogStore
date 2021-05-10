@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_petkon/Kconstants.dart';
 import 'package:flutter_petkon/screens/UserProfileScreen/user_profile.dart';
 import 'package:flutter_petkon/screens/pet_profile/edit_pet.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'components/Banner.dart';
+import 'package:http/http.dart' as http;
 
 class PetProfile extends StatefulWidget {
   @override
@@ -11,6 +15,39 @@ class PetProfile extends StatefulWidget {
 }
 
 class _PetProfileState extends State<PetProfile> {
+  
+  var petType = "",age = "", gender = "", weight = "", height = "", breed = "", petName="",color= "";
+  getPetProfile() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = jsonDecode(prefs.getString('USER_LOGIN_RES'))['token'];
+    // final response = await http.post("https://petkonnect.in/api/pets/get_pet", headers: {
+    //   'Content-Type': 'application/json',
+    //   'Accept': 'application/json',
+    //   'Authorization': 'Bearer $token',
+    // });
+    // // print('token is $token');
+    // var user = jsonDecode(response.body);
+    // setState(() {
+    //   petType = user['pet']['petType'];
+    //   age = user['pet']['age'].toString();
+    //   gender = user['pet']['gender'];
+    //   weight = user['pet']['weight'].toString();
+    //   height = user['pet']['height'].toString();
+    //   breed = user['pet']['breed'].toString();
+    //   petName = user['pet']['petName'];
+    //   color = user['pet']['color'];
+    // });
+    //print('user is $user');
+    print('token is $token');
+   print('pet is $petName');
+    //WidgetsBinding.instance.addPostFrameCallback(_showOpenDialog);
+  }
+
+  @override
+  void initState() {
+    getPetProfile();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     final routes =
@@ -55,7 +92,7 @@ class _PetProfileState extends State<PetProfile> {
               children: [
                 PetDetails(
                   title: "Type",
-                  value: "Dog",
+                  value: "dog",
                 ),
                 PetDetails(
                   title: "Age",
