@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_petkon/utils/CommonStyles.dart';
 import 'package:flutter_petkon/utils/size_config.dart';
 
 import '../../Kconstants.dart';
@@ -9,10 +10,13 @@ class EditPetProfile extends StatefulWidget {
 }
 
 class _EditPetProfileState extends State<EditPetProfile> {
+  
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    String type = "";
     String gender = "";
+    String weight = "";
     String name;
     String age;
     String color;
@@ -63,7 +67,7 @@ class _EditPetProfileState extends State<EditPetProfile> {
                     children: [
                       Center(
                         child: Text(
-                          "Edit Profile",
+                          "Edit Pet Profile",
                           style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontFamily: "Monserrat",
@@ -76,7 +80,7 @@ class _EditPetProfileState extends State<EditPetProfile> {
               ],
             ),
             SizedBox(
-              height: size.height * 0.06,
+              height: size.height * 0.04,
             ),
             //Pet image
             Center(
@@ -86,13 +90,14 @@ class _EditPetProfileState extends State<EditPetProfile> {
                     borderRadius: BorderRadius.circular(20),
                     child: Image.network(
                       "https://www.thesprucepets.com/thmb/wpN_ZunUaRQAc_WRdAQRxeTbyoc=/4231x2820/filters:fill(auto,1)/adorable-white-pomeranian-puppy-spitz-921029690-5c8be25d46e0fb000172effe.jpg",
-                      height: 180,
-                      width: 200,
+                      height: 150,
+                      width: 150,
                       fit: BoxFit.fill,
                     ),
                   ),
                   TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                      },
                       child: Text(
                         "Change Photo",
                         style: TextStyle(
@@ -104,34 +109,162 @@ class _EditPetProfileState extends State<EditPetProfile> {
               ),
             ),
             //User form
-            Container(
+            new Container(
               width: size.width * 0.9,
-              child: Form(
-                child: Column(
-                  children: [
-                    TextFormField(
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return "This field cannot be empty!";
-                        }
-                      },
-                      onSaved: (newValue) {
-                        setState(() {
-                          name = newValue;
-                        });
-                      },
-                      decoration: InputDecoration(
-                          labelText: "Pet Name",
-                          hintText: editPet ? "Jackie" : null,
-                          labelStyle: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                              fontSize: 18)),
-                    ),
-                    SizedBox(
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: 25.0),
+                  child: new Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                       Padding(
+                          padding: EdgeInsets.only(
+                              top: 12.0),
+                          child: new Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: <Widget>[
+                              new Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  new Text(
+                                    'Petname',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          )),
+                      Padding(
+                          padding: EdgeInsets.only(
+                              right: 10.0,),
+                          child: new Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: <Widget>[
+                              new Flexible(
+                                child: TextField(
+//                                controller: doorNoController,
+                                  decoration: InputDecoration(
+                                  //  hintText: doorNo,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )),
+                           Padding(
+                          padding: EdgeInsets.only(
+                              top: 12.0),
+                          child: new Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: <Widget>[
+                              new Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  new Text(
+                                    'Type',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          )),
+                      Padding(
+                          padding: EdgeInsets.only(
+                              right: 10.0,),
+                          child: new Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: <Widget>[
+                              new Flexible(
+                                child: TextField(
+//                                controller: doorNoController,
+                                  decoration: InputDecoration(
+                                  //  hintText: doorNo,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )),
+                           Padding(
+                          padding: EdgeInsets.only(
+                              top: 12.0),
+                          child: new Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: <Widget>[
+                              new Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  new Text(
+                                    'Breed',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          )),
+                      Padding(
+                          padding: EdgeInsets.only(
+                              right: 10.0,),
+                          child: new Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: <Widget>[
+                              new Flexible(
+                                child: TextField(
+//                                controller: doorNoController,
+                                  decoration: InputDecoration(
+                                  //  hintText: doorNo,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )),
+                           Padding(
+                          padding: EdgeInsets.only(
+                              top: 12.0),
+                          child: new Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: <Widget>[
+                              new Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  new Text(
+                                    'Age',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          )),
+                      Padding(
+                          padding: EdgeInsets.only(
+                              right: 10.0,),
+                          child: new Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: <Widget>[
+                              new Flexible(
+                                child: TextField(
+//                                controller: doorNoController,
+                                  decoration: InputDecoration(
+                                  //  hintText: doorNo,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )),
+                          SizedBox(
                       height: size.height * 0.02,
                     ),
-                    Row(
+                      Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
@@ -154,153 +287,152 @@ class _EditPetProfileState extends State<EditPetProfile> {
                           gender = value;
                         });
                       },
-                      hint: Text("Select Gender"),
+                      hint: Text("Select Type"),
                     ),
-                    SizedBox(
-                      height: size.height * 0.02,
-                    ),
-                    TextFormField(
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return "This field cannot be empty!";
-                        }
-                      },
-                      onSaved: (newValue) {
-                        setState(() {
-                          petType = newValue;
-                        });
-                      },
-                      decoration: InputDecoration(
-                          labelText: "Pet Type",
-                          labelStyle: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                              fontSize: 18)),
-                    ),
-                    SizedBox(
-                      height: size.height * 0.02,
-                    ),
-                    TextFormField(
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return "This field cannot be empty!";
-                        }
-                      },
-                      onSaved: (newValue) {
-                        setState(() {
-                          breed = newValue;
-                        });
-                      },
-                      decoration: InputDecoration(
-                          labelText: "Breed",
-                          labelStyle: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                              fontSize: 18)),
-                    ),
-                    SizedBox(
-                      height: size.height * 0.02,
-                    ),
-                    TextFormField(
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return "This field cannot be empty!";
-                        }
-                      },
-                      onSaved: (newValue) {
-                        setState(() {
-                          age = newValue;
-                        });
-                      },
-                      decoration: InputDecoration(
-                          labelText: "Age",
-                          suffix: Text("months"),
-                          labelStyle: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                              fontSize: 18)),
-                    ),
-                    SizedBox(
-                      height: size.height * 0.02,
-                    ),
-                    TextFormField(
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return "This field cannot be empty!";
-                        }
-                      },
-                      onSaved: (newValue) {
-                        setState(() {
-                          height = newValue;
-                        });
-                      },
-                      decoration: InputDecoration(
-                          labelText: "Height",
-                          suffix: Text("Centimeters"),
-                          labelStyle: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                              fontSize: 18)),
-                    ),
-                    SizedBox(
-                      height: size.height * 0.02,
-                    ),
-                    TextFormField(
-                      validator: (value) {
-                        if (value.isEmpty) {
-                          return "This field cannot be empty!";
-                        }
-                      },
-                      onSaved: (newValue) {
-                        setState(() {
-                          color = newValue;
-                        });
-                      },
-                      decoration: InputDecoration(
-                          labelText: "Pet Color",
-                          labelStyle: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                              fontSize: 18)),
-                    ),
-                    SizedBox(
-                      height: size.height * 0.025,
-                    ),
-                    //save button
-                    GestureDetector(
-                      onTap: submitForm,
-                      child: Center(
-                        child: Padding(
-                          padding: EdgeInsets.all(20),
-                          child: Container(
-                            height: space_50,
-                            width: space_300,
-                            decoration: BoxDecoration(
-                                color: kPrimarycolor,
-                                borderRadius: BorderRadius.circular(space_5)),
-                            child: Center(
-                              child: Padding(
-                                padding: EdgeInsets.all(space_15),
-                                child: Text("Save",
+                    Padding(
+                          padding: EdgeInsets.only(
+                              top: 12.0),
+                          child: new Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: <Widget>[
+                              new Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  new Text(
+                                    'Weight',
                                     style: TextStyle(
-                                      color: Colors.white,
-                                      fontFamily: "Raleway",
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w600,
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          )),
+                      Padding(
+                          padding: EdgeInsets.only(
+                              right: 10.0,),
+                          child: new Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: <Widget>[
+                              new Flexible(
+                                child: TextField(
+//                                controller: doorNoController,
+                                  decoration: InputDecoration(
+                                  //  hintText: doorNo,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )),
+                           Padding(
+                          padding: EdgeInsets.only(
+                              top: 12.0),
+                          child: new Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: <Widget>[
+                              new Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  new Text(
+                                    'Height',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          )),
+                      Padding(
+                          padding: EdgeInsets.only(
+                              right: 10.0,),
+                          child: new Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: <Widget>[
+                              new Flexible(
+                                child: TextField(
+//                                controller: doorNoController,
+                                  decoration: InputDecoration(
+                                  //  hintText: doorNo,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )),
+                           Padding(
+                          padding: EdgeInsets.only(
+                              top: 12.0),
+                          child: new Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: <Widget>[
+                              new Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  new Text(
+                                    'Colour',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          )),
+                      Padding(
+                          padding: EdgeInsets.only(
+                              right: 10.0,),
+                          child: new Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: <Widget>[
+                              new Flexible(
+                                child: TextField(
+//                                controller: doorNoController,
+                                  decoration: InputDecoration(
+                                  //  hintText: doorNo,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )),
+                      GestureDetector(
+                        onTap: () {
+                         // editAddress();
+                        },
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: space_40),
+                            child: Container(
+                              height: space_50,
+                              width: space_300,
+                              decoration: BoxDecoration(
+                                  color: CommonStyles.amber,
+                                  borderRadius: BorderRadius.circular(space_5)),
+                              child: Center(
+                                child: Padding(
+                                    padding: EdgeInsets.all(space_15),
+                                    child: Text(
+                                      "Save",
+                                      style: CommonStyles.getRalewayStyle(
+                                          space_14,
+                                          FontWeight.w600,
+                                          Colors.white),
                                     )),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
-                  ],
+                      )
+                    ],
+                  ),
                 ),
-              ),
-            )
+              )
           ],
         ),
       ),
     );
   }
 }
+
