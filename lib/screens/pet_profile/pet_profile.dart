@@ -13,7 +13,10 @@ class PetProfile extends StatefulWidget {
 class _PetProfileState extends State<PetProfile> {
   @override
   Widget build(BuildContext context) {
-    String imageUrl = ModalRoute.of(context).settings.arguments;
+    final routes =
+        ModalRoute.of(context).settings.arguments as Map<String, String>;
+    // print(routes);
+    var imageUrl = routes['imageUrl'];
     Size size = MediaQuery.of(context).size;
     bool editPet;
     return Scaffold(
@@ -104,12 +107,12 @@ class _PetProfileState extends State<PetProfile> {
             ),
             Row(
               children: [
-                PetAvatar(
-                    "https://www.thesprucepets.com/thmb/wpN_ZunUaRQAc_WRdAQRxeTbyoc=/4231x2820/filters:fill(auto,1)/adorable-white-pomeranian-puppy-spitz-921029690-5c8be25d46e0fb000172effe.jpg"),
-                PetAvatar(
-                    'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/golden-retriever-royalty-free-image-506756303-1560962726.jpg?crop=0.672xw:1.00xh;0.166xw,0&resize=640:*'),
-                PetAvatar(
-                    "http://cdn.akc.org/content/article-body-image/siberian_husky_cute_puppies.jpg"),
+                // PetAvatar(
+                //     "https://www.thesprucepets.com/thmb/wpN_ZunUaRQAc_WRdAQRxeTbyoc=/4231x2820/filters:fill(auto,1)/adorable-white-pomeranian-puppy-spitz-921029690-5c8be25d46e0fb000172effe.jpg"),
+                // PetAvatar(
+                //     'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/golden-retriever-royalty-free-image-506756303-1560962726.jpg?crop=0.672xw:1.00xh;0.166xw,0&resize=640:*'),
+                // PetAvatar(
+                //     "http://cdn.akc.org/content/article-body-image/siberian_husky_cute_puppies.jpg"),
                 GestureDetector(
                     onTap: () {
                       setState(() {
