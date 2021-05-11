@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="25" height="23" viewBox="0 0 25 23">
+  <defs>
+    <clipPath id="clip-menu_hamburger">
+      <rect width="25" height="23"/>
+    </clipPath>
+  </defs>
+  <g id="menu_hamburger" clip-path="url(#clip-menu_hamburger)">
+    <rect width="25" height="23" fill="rgba(255,255,255,0)"/>
+    <g id="noun_Hamburger_2235852" transform="translate(-22.35 -26.669)">
+      <path id="Path_2133" data-name="Path 2133" d="M43.92,30H26.03a1.43,1.43,0,1,0,0,2.859H43.92a1.43,1.43,0,1,0,0-2.859Z" fill="#c91f3c"/>
+      <path id="Path_2134" data-name="Path 2134" d="M43.92,46.5H26.03a1.43,1.43,0,0,0,0,2.859H43.92a1.43,1.43,0,1,0,0-2.859Z" transform="translate(0 -9.76)" fill="#c91f3c"/>
+      <path id="Path_2135" data-name="Path 2135" d="M45.35,64.43A1.43,1.43,0,0,0,43.92,63H26.03a1.43,1.43,0,0,0,0,2.859H43.92A1.43,1.43,0,0,0,45.35,64.43Z" transform="translate(0 -19.521)" fill="#c91f3c"/>
+    </g>
+  </g>
+</svg>
