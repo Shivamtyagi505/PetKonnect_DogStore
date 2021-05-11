@@ -38,6 +38,9 @@ class CommonBloc extends Bloc<CommonEvent, CommonState> {
     }else if (event is GetAllStoresEvent) {
       yield ProgressState();
       yield* callGetAllStoresApi(event.token);
+    }else if (event is SearchEvent) {
+      yield ProgressState();
+      yield* callSearchApi(event.token,event.seacrhKeyword);
     }
     else if (event is GetAllProductsEvent) {
       yield ProgressState();
@@ -135,6 +138,20 @@ class CommonBloc extends Bloc<CommonEvent, CommonState> {
       debugPrint("yha aaya ${getAllStores}");
       debugPrint("GET_ALL_PRODUCT_API_CALL_RES ${jsonEncode(getAllStores)}");
       yield GetAllStoresResState(res: getAllStores);
+    } catch (e, stacktrace) {
+      debugPrint("Exception while GET_ALL_PRODUCT_API_CALL ${e.toString()}\n${stacktrace.toString()}");
+    }
+  }
+  Stream<CommonState> callSearchApi(String token, String seacrhKeyword) async* {
+    try {
+      commonRepository =
+      commonRepository != null ? commonRepository : CommonRepository();
+      debugPrint(
+          "GET_ALL_PRODUCT_API_CALL ${commonRepository == null ? "NULL" : "NOTNULL"}");
+      final getAllproducts= await commonRepository.callGetSearch(token,seacrhKeyword);
+      debugPrint("yha aaya ${getAllproducts}");
+      debugPrint("GET_ALL_PRODUCT_API_CALL_RES ${jsonEncode(getAllproducts)}");
+      yield SearchResState(res: getAllproducts);
     } catch (e, stacktrace) {
       debugPrint("Exception while GET_ALL_PRODUCT_API_CALL ${e.toString()}\n${stacktrace.toString()}");
     }

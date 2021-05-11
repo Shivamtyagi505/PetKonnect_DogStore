@@ -1,68 +1,29 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_petkon/Kconstants.dart';
 import 'package:flutter_petkon/screens/UserProfileScreen/user_profile.dart';
-import 'package:flutter_petkon/screens/pet_profile/edit_pet.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'components/Banner.dart';
-import 'package:http/http.dart' as http;
 
+<<<<<<< Updated upstream
 class PetProfile extends StatefulWidget {
   @override
   _PetProfileState createState() => _PetProfileState();
 }
 
 class _PetProfileState extends State<PetProfile> {
-  
-  var petType = "",age = "", gender = "", weight = "", height = "", breed = "", petName="",color= "";
-  getPetProfile() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    var token = jsonDecode(prefs.getString('USER_LOGIN_RES'))['token'];
-    // final response = await http.post("https://petkonnect.in/api/pets/get_pet", headers: {
-    //   'Content-Type': 'application/json',
-    //   'Accept': 'application/json',
-    //   'Authorization': 'Bearer $token',
-    // });
-    // // print('token is $token');
-    // var user = jsonDecode(response.body);
-    // setState(() {
-    //   petType = user['pet']['petType'];
-    //   age = user['pet']['age'].toString();
-    //   gender = user['pet']['gender'];
-    //   weight = user['pet']['weight'].toString();
-    //   height = user['pet']['height'].toString();
-    //   breed = user['pet']['breed'].toString();
-    //   petName = user['pet']['petName'];
-    //   color = user['pet']['color'];
-    // });
-    //print('user is $user');
-    print('token is $token');
-   print('pet is $petName');
-    //WidgetsBinding.instance.addPostFrameCallback(_showOpenDialog);
-  }
-
-  @override
-  void initState() {
-    getPetProfile();
-    super.initState();
-  }
+=======
+class PetProfile extends StatelessWidget {
+>>>>>>> Stashed changes
   @override
   Widget build(BuildContext context) {
-    final routes =
-        ModalRoute.of(context).settings.arguments as Map<String, String>;
-    // print(routes);
-    var imageUrl = routes['imageUrl'];
+    String imageUrl = ModalRoute.of(context).settings.arguments;
     Size size = MediaQuery.of(context).size;
-    bool editPet;
     return Scaffold(
       body: SingleChildScrollView(
         child: Center(
             child: Column(
           children: [
             BannerPetProfile(imageUrl),
-            //Edit Details Button
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
               child: Row(
@@ -70,11 +31,8 @@ class _PetProfileState extends State<PetProfile> {
                 children: [
                   TextButton(
                       onPressed: () {
-                        setState(() {
-                          editPet = true;
-                        });
                         Navigator.of(context)
-                            .pushNamed('/EditPet', arguments: editPet);
+                            .pushNamed('/editPet', arguments: true);
                       },
                       child: Text(
                         "Edit Details",
@@ -92,7 +50,7 @@ class _PetProfileState extends State<PetProfile> {
               children: [
                 PetDetails(
                   title: "Type",
-                  value: "dog",
+                  value: "Dog",
                 ),
                 PetDetails(
                   title: "Age",
@@ -144,19 +102,16 @@ class _PetProfileState extends State<PetProfile> {
             ),
             Row(
               children: [
-                // PetAvatar(
-                //     "https://www.thesprucepets.com/thmb/wpN_ZunUaRQAc_WRdAQRxeTbyoc=/4231x2820/filters:fill(auto,1)/adorable-white-pomeranian-puppy-spitz-921029690-5c8be25d46e0fb000172effe.jpg"),
-                // PetAvatar(
-                //     'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/golden-retriever-royalty-free-image-506756303-1560962726.jpg?crop=0.672xw:1.00xh;0.166xw,0&resize=640:*'),
-                // PetAvatar(
-                //     "http://cdn.akc.org/content/article-body-image/siberian_husky_cute_puppies.jpg"),
+                PetAvatar(
+                    "https://www.thesprucepets.com/thmb/wpN_ZunUaRQAc_WRdAQRxeTbyoc=/4231x2820/filters:fill(auto,1)/adorable-white-pomeranian-puppy-spitz-921029690-5c8be25d46e0fb000172effe.jpg"),
+                PetAvatar(
+                    'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/golden-retriever-royalty-free-image-506756303-1560962726.jpg?crop=0.672xw:1.00xh;0.166xw,0&resize=640:*'),
+                PetAvatar(
+                    "http://cdn.akc.org/content/article-body-image/siberian_husky_cute_puppies.jpg"),
                 GestureDetector(
                     onTap: () {
-                      setState(() {
-                        editPet = true;
-                      });
                       Navigator.of(context)
-                          .pushNamed('/EditPet', arguments: editPet);
+                          .pushNamed("/editPet", arguments: false);
                     },
                     child: SvgPicture.asset(
                       "assets/icons/add_post.svg",

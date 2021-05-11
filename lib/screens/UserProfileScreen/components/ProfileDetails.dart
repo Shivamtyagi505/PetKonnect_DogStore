@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_petkon/screens/UserProfileScreen/EditUserProfile.dart';
+import 'package:flutter_petkon/utils/CommonStyles.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../Kconstants.dart';
+import '../../LoginSignupScreen.dart';
 import 'StatWidget.dart';
 
 class ProfileDetails extends StatelessWidget {
@@ -62,6 +65,36 @@ class ProfileDetails extends StatelessWidget {
                     decoration: BoxDecoration(
                         border: Border.all(color: kPrimarycolor, width: 2),
                         borderRadius: BorderRadius.circular(5)),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () async {
+                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                    prefs.clear();
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => LoginSignupScreen()
+                        ),
+                        ModalRoute.withName("/LoginSignupScreen")
+                    );
+                  },
+                  child: Padding(
+                    padding: new EdgeInsets.only(top: 5),
+                    child: Container(
+                      padding: EdgeInsets.all(5),
+                      width: 220,
+                      child: Center(
+                        child: Text(
+                          "Log Out",
+                          style: TextStyle(
+                              color: kPrimarycolor, fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: kPrimarycolor, width: 2),
+                          borderRadius: BorderRadius.circular(5)),
+                    ),
                   ),
                 ),
               ],

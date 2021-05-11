@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_petkon/Kconstants.dart';
 import 'package:flutter_petkon/bloc/CommonBloc.dart';
 import 'package:flutter_petkon/bloc/CommonEvent.dart';
 import 'package:flutter_petkon/bloc/CommonState.dart';
@@ -17,7 +18,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 class ProductDetailScreen extends StatefulWidget {
   var prodId;
   var vendorId;
-  ProductDetailScreen(this.prodId,this.vendorId);
+  var token;
+  ProductDetailScreen(this.prodId, this.vendorId, this.token);
   @override
   _ProductDetailScreenState createState() => _ProductDetailScreenState();
 }
@@ -27,7 +29,6 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   var bannerlist = List<String>();
   var mCurrentTab = "detail";
   CommonBloc commonBloc = new CommonBloc();
-  var token = "";
   var loginResponse;
   var mHightToLow = "";
   var mLowToHigh = "";
@@ -35,22 +36,14 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   SharedPreferences prefs;
   var mQuantity = 1;
   MycartResponse addToCart;
-  getsharedPrefs() async{
+  getsharedPrefs() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
   }
 
   @override
   void didChangeDependencies() {
-    var selectedCurrentLoc = StateContainer
-        .of(context)
-        .mLoginResponse;
-    loginResponse = StateContainer
-        .of(context)
-        .mLoginResponse;
-    if (loginResponse != null) {
-      token = loginResponse.token;
-      debugPrint("ACCESSING_INHERITED ${token}");
-    }
+    var selectedCurrentLoc = StateContainer.of(context).mLoginResponse;
+
     super.didChangeDependencies();
   }
 
@@ -58,28 +51,25 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => commonBloc..add(GetProductDetailEvent(
-          token: token, prodId: widget.prodId)),
+      create: (context) => commonBloc
+        ..add(GetProductDetailEvent(token: widget.token, prodId: widget.prodId)),
       child: BlocListener(
           cubit: commonBloc,
           listener: (context, state) {
             if (state is GetAllProductResState) {
               mGetProductDetailRes = state.res;
-            }else  if (state is AddCartResState) {
-              addToCart =state.res;
-              if(addToCart.status){
+            } else if (state is AddCartResState) {
+              addToCart = state.res;
+              if (addToCart.status) {
                 print("teeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          MyCartScreen(token)),
+                  MaterialPageRoute(builder: (context) => MyCartScreen(widget.token)),
                 );
               }
             }
@@ -98,16 +88,19 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
   getScreenUI(GetProductDetailRes getProductDetailRes) {
     mGetProductDetailRes = getProductDetailRes;
-    print("aaaaaaaaaaaaaaaaaaaa "+mGetProductDetailRes?.product?.productImage.length.toString());
-    if(mGetProductDetailRes?.product?.productImage!=null){
-      for(int i = 0; i <mGetProductDetailRes?.product?.productImage.length ;i++)
-      {
-        print("aaaaaaaaaaaaaaaaaaaa "+mGetProductDetailRes?.product?.productImage[i]);
+    print("aaaaaaaaaaaaaaaaaaaa " +
+        mGetProductDetailRes?.product?.productImage.length.toString());
+    if (mGetProductDetailRes?.product?.productImage != null) {
+      for (int i = 0;
+          i < mGetProductDetailRes?.product?.productImage.length;
+          i++) {
+        print("aaaaaaaaaaaaaaaaaaaa " +
+            mGetProductDetailRes?.product?.productImage[i]);
         bannerlist.add(mGetProductDetailRes?.product?.productImage[i]);
       }
     }
 
-   // bannerlist[0] = mGetProductDetailRes?.product?.productImage!=null?"${mGetProductDetailRes?.product?.productImage}":"";
+    // bannerlist[0] = mGetProductDetailRes?.product?.productImage!=null?"${mGetProductDetailRes?.product?.productImage}":"";
     return SafeArea(
       child: Scaffold(
         body: new Stack(
@@ -119,7 +112,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   new SliverAppBar(
                     automaticallyImplyLeading: false,
                     expandedHeight:
-                    getProportionateScreenHeight(context, space_250),
+                        getProportionateScreenHeight(context, space_250),
                     shape: ContinuousRectangleBorder(
                         borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(30),
@@ -139,7 +132,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                       horizontal: space_15, vertical: space_10),
                                   child: Row(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       GestureDetector(
                                         onTap: () {
@@ -154,7 +147,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                           ),
                                           child: Center(
                                               child:
-                                              Icon(Icons.arrow_back_ios)),
+                                                  Icon(Icons.arrow_back_ios)),
                                         ),
                                       ),
                                     ],
@@ -183,8 +176,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             space_18, FontWeight.w600, Colors.black),
                         children: <TextSpan>[
                           new TextSpan(
-                            text: ' ${mGetProductDetailRes?.product
-                                ?.petType}',
+                            text: ' ${mGetProductDetailRes?.product?.petType}',
                             style: CommonStyles.getMontserratStyle(
                                 space_12,
                                 FontWeight.w500,
@@ -215,7 +207,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     Text(
                       "\u20B9${mGetProductDetailRes?.product?.sellingPrice}",
                       style: CommonStyles.getMontserratStyle(
-                          space_20, FontWeight.w600, CommonStyles.darkAmber),
+                          space_20, FontWeight.w600, kPrimarycolor),
                     ),
                     SizedBox(
                       height: space_8,
@@ -297,9 +289,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                               children: [
                                 GestureDetector(
                                   onTap: () {
-                                    if(mQuantity>1){
+                                    if (mQuantity > 1) {
                                       setState(() {
-                                        mQuantity = mQuantity -1;
+                                        mQuantity = mQuantity - 1;
                                       });
                                     }
                                   },
@@ -307,21 +299,21 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                     width: space_36,
                                     height: space_36,
                                     child: Card(
-                                      color: CommonStyles.amber,
+                                      color: kPrimarycolor,
                                       elevation: space_1,
                                       shape: RoundedRectangleBorder(
-                                          side: BorderSide(
-                                              color: CommonStyles.amber),
+                                          side:
+                                              BorderSide(color: kPrimarycolor),
                                           borderRadius:
-                                          BorderRadius.circular(space_18)),
+                                              BorderRadius.circular(space_18)),
                                       child: Center(
                                         child: Text(
                                           "-",
-                                          style: CommonStyles
-                                              .getMontserratStyle(
-                                              space_20,
-                                              FontWeight.w600,
-                                              Colors.white),
+                                          style:
+                                              CommonStyles.getMontserratStyle(
+                                                  space_20,
+                                                  FontWeight.w600,
+                                                  Colors.white),
                                         ),
                                       ),
                                     ),
@@ -339,28 +331,29 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                 ),
                                 GestureDetector(
                                   onTap: () {
-                                      setState(() {
-                                        mQuantity = mQuantity + 1;
-                                      });
+                                    setState(() {
+                                      mQuantity = mQuantity + 1;
+                                    });
                                   },
                                   child: Container(
                                     width: space_36,
                                     height: space_36,
                                     child: Card(
-                                      color: CommonStyles.amber,
+                                      color: kPrimarycolor,
                                       elevation: space_1,
                                       shape: RoundedRectangleBorder(
-                                          side: BorderSide(
-                                              color: CommonStyles.amber),
+                                          side:
+                                              BorderSide(color: kPrimarycolor),
                                           borderRadius:
-                                          BorderRadius.circular(space_18)),
+                                              BorderRadius.circular(space_18)),
                                       child: Center(
                                         child: Text(
                                           "+",
-                                          style: CommonStyles.getMontserratStyle(
-                                              space_20,
-                                              FontWeight.w600,
-                                              Colors.white),
+                                          style:
+                                              CommonStyles.getMontserratStyle(
+                                                  space_20,
+                                                  FontWeight.w600,
+                                                  Colors.white),
                                         ),
                                       ),
                                     ),
@@ -387,12 +380,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         Expanded(
                             flex: 6,
                             child: Text(
-                              "\u20B9${mGetProductDetailRes?.product
-                                  ?.sellingPrice * mQuantity}",
+                              "\u20B9${mGetProductDetailRes?.product?.sellingPrice * mQuantity}",
                               style: CommonStyles.getMontserratStyle(
-                                  space_22,
-                                  FontWeight.w600,
-                                  CommonStyles.darkAmber),
+                                  space_22, FontWeight.w600, kPrimarycolor),
                             ))
                       ],
                     ),
@@ -422,28 +412,28 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                             top: space_15, bottom: space_8),
                                         child: Text(
                                           "Details",
-                                          style: CommonStyles
-                                              .getMontserratStyle(
-                                              space_15,
-                                              FontWeight.w600,
-                                              mCurrentTab == "detail"
-                                                  ? CommonStyles.darkAmber
-                                                  : CommonStyles.grey
-                                                  .withOpacity(0.5)),
+                                          style:
+                                              CommonStyles.getMontserratStyle(
+                                                  space_15,
+                                                  FontWeight.w600,
+                                                  mCurrentTab == "detail"
+                                                      ? kPrimarycolor
+                                                      : CommonStyles.grey
+                                                          .withOpacity(0.5)),
                                         )),
                                     mCurrentTab == "detail"
                                         ? Container(
-                                      height: space_3,
-                                      width: space_80,
-                                      color: mCurrentTab == "detail"
-                                          ? CommonStyles.darkAmber
-                                          : CommonStyles.grey
-                                          .withOpacity(0.5),
-                                    )
+                                            height: space_3,
+                                            width: space_80,
+                                            color: mCurrentTab == "detail"
+                                                ? kPrimarycolor
+                                                : CommonStyles.grey
+                                                    .withOpacity(0.5),
+                                          )
                                         : Container(
-                                      height: 0,
-                                      width: 0,
-                                    )
+                                            height: 0,
+                                            width: 0,
+                                          )
                                   ],
                                 ),
                               ),
@@ -470,28 +460,28 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                                             top: space_15, bottom: space_8),
                                         child: Text(
                                           "Review",
-                                          style: CommonStyles
-                                              .getMontserratStyle(
-                                              space_15,
-                                              FontWeight.w600,
-                                              mCurrentTab == "review"
-                                                  ? CommonStyles.darkAmber
-                                                  : CommonStyles.grey
-                                                  .withOpacity(0.5)),
+                                          style:
+                                              CommonStyles.getMontserratStyle(
+                                                  space_15,
+                                                  FontWeight.w600,
+                                                  mCurrentTab == "review"
+                                                      ? kPrimarycolor
+                                                      : CommonStyles.grey
+                                                          .withOpacity(0.5)),
                                         )),
                                     mCurrentTab == "review"
                                         ? Container(
-                                      height: space_3,
-                                      width: space_80,
-                                      color: mCurrentTab == "review"
-                                          ? CommonStyles.darkAmber
-                                          : CommonStyles.grey
-                                          .withOpacity(0.5),
-                                    )
+                                            height: space_3,
+                                            width: space_80,
+                                            color: mCurrentTab == "review"
+                                                ? kPrimarycolor
+                                                : CommonStyles.grey
+                                                    .withOpacity(0.5),
+                                          )
                                         : Container(
-                                      height: 0,
-                                      width: 0,
-                                    )
+                                            height: 0,
+                                            width: 0,
+                                          )
                                   ],
                                 ),
                               ),
@@ -500,35 +490,35 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         ],
                       ),
                     ),
-                    SizedBox(height: space_15,),
+                    SizedBox(
+                      height: space_15,
+                    ),
                     Text(
                       "Product information",
-                      style: CommonStyles.getMontserratStyle(
-                          space_15,
-                          FontWeight.w600,
-                          CommonStyles.grey.withOpacity(0.8)),
+                      style: CommonStyles.getMontserratStyle(space_15,
+                          FontWeight.w600, CommonStyles.grey.withOpacity(0.8)),
                     ),
-                    SizedBox(height: space_8,),
+                    SizedBox(
+                      height: space_8,
+                    ),
                     Text(
-                      "Vendor : ${mGetProductDetailRes?.product
-                          ?.productBrand}",
-                      style: CommonStyles.getMontserratStyle(
-                          space_12,
-                          FontWeight.w600,
-                          CommonStyles.grey.withOpacity(0.8)),
+                      "Vendor : ${mGetProductDetailRes?.product?.productBrand}",
+                      style: CommonStyles.getMontserratStyle(space_12,
+                          FontWeight.w600, CommonStyles.grey.withOpacity(0.8)),
                     ),
-                    SizedBox(height: space_8,),
+                    SizedBox(
+                      height: space_8,
+                    ),
                     Text(
                       "Food type : ${mGetProductDetailRes?.product?.vegNonVeg}",
-                      style: CommonStyles.getMontserratStyle(
-                          space_12,
-                          FontWeight.w600,
-                          CommonStyles.grey.withOpacity(0.8)),
+                      style: CommonStyles.getMontserratStyle(space_12,
+                          FontWeight.w600, CommonStyles.grey.withOpacity(0.8)),
                     ),
-                    SizedBox(height: space_8,),
+                    SizedBox(
+                      height: space_8,
+                    ),
                     ReadMoreText(
-                        "${mGetProductDetailRes?.product
-                            ?.productDescription}",
+                        "${mGetProductDetailRes?.product?.productDescription}",
                         colorClickableText: CommonStyles.amber,
                         trimMode: TrimMode.Line,
                         trimCollapsedText: '...read more ',
@@ -538,53 +528,59 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         style: CommonStyles.getMontserratStyle(
                             space_12,
                             FontWeight.w500,
-                            CommonStyles.grey.withOpacity(0.8))
+                            CommonStyles.grey.withOpacity(0.8))),
+                    SizedBox(
+                      height: space_25,
                     ),
-                    SizedBox(height: space_25,),
                     Row(
                       children: [
-                        Expanded(child: GestureDetector(
+                        Expanded(
+                            child: GestureDetector(
                           onTap: () {
-                            commonBloc..add(AddCartEvent(token:token,vendorId:widget.vendorId,prodId:mGetProductDetailRes?.product?.id,qunatity: mQuantity.toString()));
-
-
+                            commonBloc
+                              ..add(AddCartEvent(
+                                  token: widget.token,
+                                  vendorId: widget.vendorId,
+                                  prodId: mGetProductDetailRes?.product?.id,
+                                  qunatity: mQuantity.toString()));
                           },
                           child: Container(
                             padding: EdgeInsets.all(space_15),
                             margin: EdgeInsets.all(space_15),
                             decoration: BoxDecoration(
                                 border: Border.all(color: CommonStyles.grey),
-                                borderRadius: BorderRadius.circular(space_10)
-                            ),
+                                borderRadius: BorderRadius.circular(space_10)),
                             child: Center(
-                              child: Text("Add to cart",
-                                style: CommonStyles.getMontserratStyle(
-                                    space_15, FontWeight.w600,
-                                    CommonStyles.grey),),
+                              child: Text(
+                                "Add to cart",
+                                style: CommonStyles.getMontserratStyle(space_15,
+                                    FontWeight.w600, CommonStyles.grey),
+                              ),
                             ),
                           ),
                         )),
-                        Expanded(child: GestureDetector(
+                        Expanded(
+                            child: GestureDetector(
                           onTap: () {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                      MyCartScreen(token)),
+                                  builder: (context) => MyCartScreen(widget.token)),
                             );
                           },
                           child: Container(
                             padding: EdgeInsets.all(space_15),
                             margin: EdgeInsets.all(space_15),
                             decoration: BoxDecoration(
-                                color: CommonStyles.amber,
-                                border: Border.all(color: Colors.amber),
-                                borderRadius: BorderRadius.circular(space_10)
-                            ),
+                                color: kPrimarycolor,
+                                border: Border.all(color: kPrimarycolor),
+                                borderRadius: BorderRadius.circular(space_10)),
                             child: Center(
-                              child: Text("Buy Now",
+                              child: Text(
+                                "Buy Now",
                                 style: CommonStyles.getMontserratStyle(
-                                    space_15, FontWeight.w600, Colors.white),),
+                                    space_15, FontWeight.w600, Colors.white),
+                              ),
                             ),
                           ),
                         )),

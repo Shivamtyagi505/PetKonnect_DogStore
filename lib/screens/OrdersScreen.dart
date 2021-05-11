@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_petkon/Kconstants.dart';
 import 'package:flutter_petkon/bloc/CommonBloc.dart';
 import 'package:flutter_petkon/bloc/CommonEvent.dart';
 import 'package:flutter_petkon/bloc/CommonState.dart';
@@ -75,7 +76,6 @@ class _OrderScreenState extends State<OrderScreen> {
   }
 
   getScreenUi() {
-
     print(orderList.length);
     final _screenSize = MediaQuery.of(context).size;
 
@@ -84,7 +84,9 @@ class _OrderScreenState extends State<OrderScreen> {
       body: FutureBuilder(
           future: futureAlbum,
           builder: (context, snapshot) {
-            print(snapshot.connectionState.toString()+"   yha aaya eske inside   "+orderList.length.toString());
+            print(snapshot.connectionState.toString() +
+                "   yha aaya eske inside   " +
+                orderList.length.toString());
             if (snapshot.connectionState == ConnectionState.done) {
               if (orderList.length == 0) {
                 return Center(
@@ -232,16 +234,6 @@ class _OrderScreenState extends State<OrderScreen> {
                                                           SizedBox(
                                                             height: 4,
                                                           ),
-                                                          Text(
-                                                            "Type :",
-                                                            style: CommonStyles
-                                                                .getMontserratStyle(
-                                                                    space_10,
-                                                                    FontWeight
-                                                                        .w600,
-                                                                    CommonStyles
-                                                                        .black),
-                                                          ),
                                                           SizedBox(
                                                             height: 4,
                                                           ),
@@ -260,16 +252,6 @@ class _OrderScreenState extends State<OrderScreen> {
                                                           ),
                                                           SizedBox(
                                                             height: 4,
-                                                          ),
-                                                          Text(
-                                                            "Quantity : " + "",
-                                                            style: CommonStyles
-                                                                .getMontserratStyle(
-                                                                    space_10,
-                                                                    FontWeight
-                                                                        .w600,
-                                                                    CommonStyles
-                                                                        .black),
                                                           ),
                                                           SizedBox(
                                                             height: 4,
@@ -324,8 +306,8 @@ class _OrderScreenState extends State<OrderScreen> {
                                                                             .brightness_1,
                                                                         size:
                                                                             10.0,
-                                                                        color: Colors
-                                                                            .orange),
+                                                                        color:
+                                                                            kPrimarycolor),
                                                                     SizedBox(
                                                                       width: 2,
                                                                     ),
@@ -347,16 +329,6 @@ class _OrderScreenState extends State<OrderScreen> {
                                                             SizedBox(
                                                               height: 6,
                                                             ),
-                                                            Text(
-                                                              "Your item is on the way",
-                                                              style: CommonStyles
-                                                                  .getMontserratStyle(
-                                                                      space_10,
-                                                                      FontWeight
-                                                                          .w600,
-                                                                      CommonStyles
-                                                                          .greyColor),
-                                                            ),
                                                             SizedBox(
                                                               height: 6,
                                                             ),
@@ -375,8 +347,8 @@ class _OrderScreenState extends State<OrderScreen> {
                                                                               2),
                                                                   border: Border
                                                                       .all(
-                                                                    color: CommonStyles
-                                                                        .orangeColor,
+                                                                    color:
+                                                                        kPrimarycolor,
                                                                   ),
                                                                   color: CommonStyles
                                                                       .transparentColor,
@@ -385,8 +357,8 @@ class _OrderScreenState extends State<OrderScreen> {
                                                                   child: Text(
                                                                     "Rate & Review Product",
                                                                     style: TextStyle(
-                                                                        color: CommonStyles
-                                                                            .orangeColor,
+                                                                        color:
+                                                                            kPrimarycolor,
                                                                         fontWeight:
                                                                             FontWeight
                                                                                 .w400,

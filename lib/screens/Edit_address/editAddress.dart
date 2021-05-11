@@ -2,7 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_petkon/Kconstants.dart';
+<<<<<<< Updated upstream
+=======
 import 'package:flutter_petkon/utils/CommonStyles.dart';
+import 'package:flutter_petkon/utils/Constants.dart';
+>>>>>>> Stashed changes
 import 'package:flutter_petkon/utils/size_config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -15,6 +19,7 @@ class EditAddress extends StatefulWidget {
 class _EditAddressState extends State<EditAddress> {
   var _formKey = GlobalKey<FormState>();
  final mycontroller = TextEditingController();
+  bool _status = true;
   // retrieving data for Edit Address//
   var doorNo = "", street = "", building = "", city = "", state = "", zip = "";
   getAddressData() async {
@@ -38,7 +43,7 @@ class _EditAddressState extends State<EditAddress> {
    print('token is  $token');
     //WidgetsBinding.instance.addPostFrameCallback(_showOpenDialog);
   }
-
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
   //Update Address//
   TextEditingController doorNoController =TextEditingController();
   TextEditingController buildingController =TextEditingController();
@@ -91,6 +96,7 @@ class _EditAddressState extends State<EditAddress> {
     }
 
     return Scaffold(
+      key: _scaffoldKey,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -138,263 +144,447 @@ class _EditAddressState extends State<EditAddress> {
               ],
             ),
             SizedBox(
-              height: size.height * 0.02,
+              height: size.height * 0.08,
             ),
             //Input Form starts
-            new Container(
-                child: Padding(
-                  padding: EdgeInsets.only(bottom: 25.0),
-                  child: new Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: <Widget>[
-                      Padding(
-                          padding: EdgeInsets.only(
-                              left: 25.0, right: 25.0, top: 25.0),
-                          child: new Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: <Widget>[
-                              new Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  new Text(
-                                    'Door No',
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          )),
-                      Padding(
-                          padding: EdgeInsets.only(
-                              left: 25.0, right: 25.0, top: 2.0),
-                          child: new Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: <Widget>[
-                              new Flexible(
-                                child: TextField(
-                                  controller: doorNoController,
-                                  decoration: InputDecoration(
-                                    hintText: doorNo,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )),
-                      Padding(
-                          padding: EdgeInsets.only(
-                              left: 25.0, right: 25.0, top: 25.0),
-                          child: new Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: <Widget>[
-                              new Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  new Text(
-                                    'Building',
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          )),
-                      Padding(
-                          padding: EdgeInsets.only(
-                              left: 25.0, right: 25.0, top: 2.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: <Widget>[
-                              Flexible(
-                                child: TextFormField(
-                                  controller: buildingController,
-                                  decoration: InputDecoration(
-                                  hintText: building,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )),
-                      Padding(
-                          padding: EdgeInsets.only(
-                              left: 25.0, right: 25.0, top: 25.0),
-                          child: new Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: <Widget>[
-                              new Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  new Text(
-                                    'Street/Area',
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          )),
-                      Padding(
-                          padding: EdgeInsets.only(
-                              left: 25.0, right: 25.0, top: 2.0),
-                          child: new Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: <Widget>[
-                              new Flexible(
-                                child: new TextField(
-                                  controller: streetController,
-                                  decoration:  InputDecoration(
-                                      hintText: street),
-                                       ),
-                              ),
-                            ],
-                          )),
-                      Padding(
-                          padding: EdgeInsets.only(
-                              left: 25.0, right: 25.0, top: 25.0),
-                          child: new Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: <Widget>[
-                              new Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  new Text(
-                                    'City',
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          )),
-                      Padding(
-                          padding: EdgeInsets.only(
-                              left: 25.0, right: 25.0, top: 2.0),
-                          child: new Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: <Widget>[
-                              new Flexible(
-                                child: TextField(
-                                  controller: cityController,
-                                  decoration: InputDecoration(
-                                   hintText: city,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )),
-                          Padding(
-                          padding: EdgeInsets.only(
-                              left: 25.0, right: 25.0, top: 25.0),
-                          child: new Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: <Widget>[
-                              new Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  new Text(
-                                    'State',
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          )),
-                      Padding(
-                          padding: EdgeInsets.only(
-                              left: 25.0, right: 25.0, top: 2.0),
-                          child: new Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: <Widget>[
-                              new Flexible(
-                                child: TextField(
-                                  controller: stateController,
-                                  decoration: InputDecoration(
-                                   hintText: state,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )),
-                          Padding(
-                          padding: EdgeInsets.only(
-                              left: 25.0, right: 25.0, top: 25.0),
-                          child: new Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: <Widget>[
-                              new Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  new Text(
-                                    'Zip Code',
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          )),
-                      Padding(
-                          padding: EdgeInsets.only(
-                              left: 25.0, right: 25.0, top: 2.0),
-                          child: new Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: <Widget>[
-                              new Flexible(
-                                child: TextField(
-                                  controller: zipController,
-                                  decoration: InputDecoration(
-                                   hintText: zip,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          )),
-                      GestureDetector(
-                        onTap: () {
-                          editAddress();
+            Form(
+              key: _formKey,
+              child: Container(
+                width: size.width * 0.88,
+                child: Column(
+                  children: [
+<<<<<<< Updated upstream
+                    TextFormField(
+                      //decoration
+                      controller: doorNoController,
+                      decoration: InputDecoration(
+                          labelText: "Door No.",
+                          hintText: doorNo,
+                          labelStyle: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                              fontSize: 18)),
+                      //validator
+                      validator: (value) {
+                        if (value.isEmpty)
+                          return "Door Number cannot be Empty !";
+                      },
+                      //onsaved
+                      onSaved: (newValue) => doorNo = newValue,
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    TextFormField(
+                      controller: buildingController,
+                      decoration: InputDecoration(
+                          labelText: "Building",
+                          hintText: building,
+                          labelStyle: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                              fontSize: 18)),
+                      //validator
+                      validator: (value) {
+                        if (value.isEmpty) return "this field caanot be empty ";
+                      },
+                      //Onsaved
+                      onSaved: (newValue) => building = newValue,
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    TextFormField(
+                      controller: streetController,
+                        decoration: InputDecoration(
+                            labelText: "Street/Area.",
+                            hintText: street,
+                            labelStyle: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                                fontSize: 18)),
+                        //validator
+                        validator: (value) {
+                          if (value.isEmpty)
+                            return "this field caanot be empty ";
                         },
-                        child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: space_40),
-                            child: Container(
-                              height: space_50,
-                              width: space_300,
-                              decoration: BoxDecoration(
-                                  color: CommonStyles.amber,
-                                  borderRadius: BorderRadius.circular(space_5)),
-                              child: Center(
-                                child: Padding(
-                                    padding: EdgeInsets.all(space_15),
-                                    child: Text(
-                                      "Save",
-                                      style: CommonStyles.getRalewayStyle(
-                                          space_14,
-                                          FontWeight.w600,
-                                          Colors.white),
-                                    )),
+                        //Onsaved
+                        onSaved: (newValue) => street = newValue),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    TextFormField(
+                      controller: cityController,
+                      decoration: InputDecoration(
+                          labelText: "City",
+                          hintText: city,
+                          labelStyle: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                              fontSize: 18)),
+                      //validator
+                      validator: (value) {
+                        if (value.isEmpty) return "this field caanot be empty ";
+                      },
+                      //Onsaved
+                      onSaved: (newValue) => city = newValue,
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    TextFormField(
+                      controller: stateController,
+                        decoration: InputDecoration(
+                            labelText: "State",
+                            hintText: state,
+                            labelStyle: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                                fontSize: 18)),
+                        //validator
+                        validator: (value) {
+                          if (value.isEmpty)
+                            return "this field can'not be empty ";
+                        },
+                        //Onsaved
+                        onSaved: (newValue) => state = newValue),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    TextFormField(
+                      controller: zipController,
+                      decoration: InputDecoration(
+                          labelText: "Zip Code",
+                          hintText: zip,
+                          labelStyle: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                              fontSize: 18)),
+                      //validator
+                      validator: (value) {
+                        if (value.isEmpty || value.length != 6) {
+                          return "Please enter a valid ZipCode";
+                        }
+                      },
+                      //Onsaved
+                      //onSaved: (newValue) => zipCode = newValue,
+                    ),
+=======
+                    Padding(
+                        padding: EdgeInsets.only(
+                            left: space_8, right: space_8),
+                        child: new Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            new Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                new Text(
+                                  'Door No',
+                                  style: TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ],
+                        )),
+                    Padding(
+                        padding: EdgeInsets.only(
+                            left: space_8, right: space_8),
+                        child: new Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            new Flexible(
+                              child: new TextField(
+                                controller: doorNoController,
+                                decoration: const InputDecoration(
+
+                                  hintText: "Enter Door No",
+                                ),
+                                enabled: _status,
+                                autofocus: _status,
                               ),
                             ),
+                          ],
+                        )),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Padding(
+                        padding: EdgeInsets.only(
+                            left: space_8, right: space_8,top: space_5),
+                        child: new Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            new Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                new Text(
+                                  'Building',
+                                  style: TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ],
+                        )),
+                    Padding(
+                        padding: EdgeInsets.only(
+                            left: space_8, right: space_8),
+                        child: new Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            new Flexible(
+                              child: new TextField(
+                                controller: buildingController,
+                                decoration: const InputDecoration(
+                                  hintText: "Enter Building",
+                                ),
+                                enabled: _status,
+                                autofocus: _status,
+                              ),
+                            ),
+                          ],
+                        )),
+
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Padding(
+                        padding: EdgeInsets.only(
+                            left: space_8, right: space_8,top: space_5),
+                        child: new Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            new Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                new Text(
+                                  'Street/Area.',
+                                  style: TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ],
+                        )),
+                    Padding(
+                        padding: EdgeInsets.only(
+                            left: space_8, right: space_8),
+                        child: new Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            new Flexible(
+                              child: new TextField(
+                                controller: streetController,
+                                decoration: const InputDecoration(
+                                  hintText: "Enter Street/Area.",
+                                ),
+                                enabled: _status,
+                                autofocus: _status,
+                              ),
+                            ),
+                          ],
+                        )),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Padding(
+                        padding: EdgeInsets.only(
+                            left: space_8, right: space_8,top: space_5),
+                        child: new Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            new Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                new Text(
+                                  'City',
+                                  style: TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ],
+                        )),
+                    Padding(
+                        padding: EdgeInsets.only(
+                            left: space_8, right: space_8),
+                        child: new Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            new Flexible(
+                              child: new TextField(
+                                controller: cityController,
+                                decoration: const InputDecoration(
+                                  hintText: "Enter City",
+                                ),
+                                enabled: _status,
+                                autofocus: _status,
+                              ),
+                            ),
+                          ],
+                        )),
+
+                    SizedBox(
+                      height: 15,
+                    ),
+
+                    Padding(
+                        padding: EdgeInsets.only(
+                            left: space_8, right: space_8,top: space_5),
+                        child: new Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            new Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                new Text(
+                                  'State',
+                                  style: TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ],
+                        )),
+                    Padding(
+                        padding: EdgeInsets.only(
+                            left: space_8, right: space_8),
+                        child: new Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            new Flexible(
+                              child: new TextField(
+                                controller: stateController,
+                                decoration: const InputDecoration(
+                                  hintText: "Enter State",
+                                ),
+                                enabled: _status,
+                                autofocus: _status,
+                              ),
+                            ),
+                          ],
+                        )),
+
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Padding(
+                        padding: EdgeInsets.only(
+                            left: space_8, right: space_8,top: space_5),
+                        child: new Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            new Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                new Text(
+                                  'Zip Code',
+                                  style: TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ],
+                        )),
+                    Padding(
+                        padding: EdgeInsets.only(
+                            left: space_8, right: space_8),
+                        child: new Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            new Flexible(
+                              child: new TextField(
+                                controller: zipController,
+                                decoration: const InputDecoration(
+                                  hintText: "Enter Zip Code",
+                                ),
+                                enabled: _status,
+                                autofocus: _status,
+                              ),
+                            ),
+                          ],
+                        )),
+
+>>>>>>> Stashed changes
+                    SizedBox(
+                      height: 15,
+                    ),
+                    //Submit Button
+                    GestureDetector(
+                      onTap: () {
+<<<<<<< Updated upstream
+                        editAddress(); 
+                      },
+                      child: Center(
+                        child: Padding(
+                          padding: EdgeInsets.all(20),
+=======
+                        if (doorNoController .text.trim().isEmpty) {
+                          showSnakbar(_scaffoldKey, "Door no can't be empty!!");
+                        } else if (buildingController .text.trim().isEmpty) {
+                          showSnakbar(_scaffoldKey, "Building can't be empty!!");
+                        } else if (streetController .text.trim().isEmpty) {
+                          showSnakbar(_scaffoldKey, "Street can't be empty!!");
+                        } else if (cityController .text.trim().isEmpty) {
+                          showSnakbar(_scaffoldKey, "City can't be empty!!");
+                        } else if (stateController .text.trim().isEmpty) {
+                          showSnakbar(_scaffoldKey, "State can't be empty!!");
+                        }else if (zipController  .text.trim().isEmpty) {
+                          showSnakbar(_scaffoldKey, "Zip code can't be empty!!");
+                        }
+                        else{
+                          editAddress();
+                        }
+
+                      },
+                      child: Center(
+                        child: Padding(
+                          padding: EdgeInsets.only(top:space_15),
+>>>>>>> Stashed changes
+                          child: Container(
+                            height: space_50,
+                            width: space_300,
+                            decoration: BoxDecoration(
+                                color: kPrimarycolor,
+                                borderRadius: BorderRadius.circular(space_5)),
+                            child: Center(
+                                child: Padding(
+<<<<<<< Updated upstream
+                              padding: EdgeInsets.all(space_15),
+=======
+                              padding: EdgeInsets.all(1),
+>>>>>>> Stashed changes
+                              child: Text("Save",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontFamily: "Raleway",
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600,
+                                  )
+                                  ),
+                            ),),
                           ),
                         ),
-                      )
-                    ],
-                  ),
+                      ),
+                    ),
+                  ],
                 ),
-              )
+              ),
+            )
           ],
         ),
       ),

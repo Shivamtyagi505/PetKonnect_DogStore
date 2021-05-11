@@ -133,20 +133,23 @@ class _UserProfileState extends State<UserProfile> {
                 )),
             InkWell(
                 onTap: () {
-                  //  Navigator.push(
-                  //    context,
-                  //    MaterialPageRoute(
-                  //        builder: (context) =>
-                  //            MyCartScreen(token)),
-                  //  );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MyCartScreen(null)),
+                  );
                 },
                 child: Container(
                     height: 30,
                     width: 30,
-                    child: new Image.asset('assets/icons/shopping_cart.png')))
+                    child: Icon(
+                      Icons.shopping_cart,
+                      color: kPrimarycolor,
+                    )))
           ],
         ),
       ),
+
+      //Appbar ends here
       body: Container(
         margin: EdgeInsets.only(top: 25),
         padding: EdgeInsets.all(25),

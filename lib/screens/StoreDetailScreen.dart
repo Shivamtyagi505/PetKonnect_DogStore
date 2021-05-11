@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_petkon/Kconstants.dart';
 import 'package:flutter_petkon/bloc/CommonBloc.dart';
 import 'package:flutter_petkon/bloc/CommonEvent.dart';
 import 'package:flutter_petkon/bloc/CommonState.dart';
 import 'package:flutter_petkon/inherited/StateContainer.dart';
 import 'package:flutter_petkon/model/FilterData.dart';
+import 'package:flutter_petkon/model/SearchResponse.dart';
 import 'package:flutter_petkon/model/get_all_product_res.dart';
 import 'package:flutter_petkon/model/login_response.dart';
 import 'package:flutter_petkon/screens/FilterScreen.dart';
@@ -15,11 +17,11 @@ import 'package:flutter_petkon/widgets/CommonWidget.dart';
 
 class StoreDetailScreen extends StatefulWidget {
   var vendorId;
-  StoreDetailScreen(this.vendorId);
+  var token;
+  StoreDetailScreen(this.vendorId, this.token);
   @override
   _StoreDetailScreenState createState() => new _StoreDetailScreenState();
 }
-
 
 class _StoreDetailScreenState extends State<StoreDetailScreen> {
   var scrollController = new ScrollController();
@@ -27,50 +29,44 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
   var mCurrentTab = "product";
   TextEditingController searchController = new TextEditingController();
   CommonBloc commonBloc = new CommonBloc();
-  var token = "";
+
   LoginResponse loginResponse;
   GetAllProductRes mGetAllProductRes;
-  List<Products> mProductList = List();
+  SearchResponse searchResponse;
+  List<Products> mProductList;
   var isSearchEnabled = false;
-
 
   @override
   void didChangeDependencies() {
     var selectedCurrentLoc = StateContainer.of(context).mLoginResponse;
-    loginResponse = StateContainer.of(context).mLoginResponse;
-    if (loginResponse != null) {
-      token = loginResponse.token;
-      debugPrint("ACCESSING_INHERITED ${token}");
-    }
+
     super.didChangeDependencies();
   }
 
   @override
   void initState() {
-    scrollController.addListener(() => setState(() {}));
+//    scrollController.addListener(() => setState(() {}));
     super.initState();
-
-   /* searchController.addListener(() {
+    mProductList = List();
+    searchController.addListener(() {
       isSearchEnabled = true;
-      debugPrint("Product Searching ${searchController.text}, ${mGetAllProductRes?.products?.length}");
-      mProductList?.clear();
-      if(searchController?.text?.isNotEmpty){
-        debugPrint("Product Searching NON-EMPTY");
+
+      mProductList = List();
+      if (searchController?.text?.isNotEmpty) {
         mGetAllProductRes?.products?.forEach((element) {
-          if(element?.productName?.toLowerCase()?.contains(searchController?.text?.toLowerCase())){
-            mProductList?.add(element);
-          }else if(element?.animalType?.toLowerCase()?.contains(searchController?.text?.toLowerCase())){
+          if (element?.productName
+              ?.toLowerCase()
+              ?.contains(searchController?.text?.toLowerCase())) {
             mProductList?.add(element);
           }
         });
-      }else{
+      } else {
         mProductList = mGetAllProductRes?.products;
       }
       setState(() {
         mProductList = mProductList;
       });
-    });*/
-
+    });
   }
 
   @override
@@ -83,22 +79,25 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
   Widget build(BuildContext context) {
     debugPrint("ARRAYPOPULATEBUILD --> ${mGetAllProductRes?.products?.length}");
     return BlocProvider(
-      create: (context) => commonBloc..add(GetAllProductsEvent(token: token,vendorId: widget.vendorId)),
+      create: (context) => commonBloc
+        ..add(GetAllProductsEvent(token: widget.token, vendorId: widget.vendorId)),
       child: BlocListener(
           cubit: commonBloc,
           listener: (context, state) {
-            debugPrint("ARRAYPOPULATlistener --> ${mGetAllProductRes?.products?.length}");
+            debugPrint(
+                "ARRAYPOPULATlistener --> ${mGetAllProductRes?.products?.length}");
             if (state is GetAllProductResState) {
               mGetAllProductRes = state.res;
             }
           },
           child: BlocBuilder<CommonBloc, CommonState>(
             builder: (context, state) {
-              debugPrint("ARRAYPOPULATBlocBuilder --> ${mGetAllProductRes?.products?.length}");
+              debugPrint(
+                  "ARRAYPOPULATBlocBuilder --> ${mGetAllProductRes?.products?.length}");
               if (state is GetAllProductResState) {
-                if(state?.res?.status){
+                if (state?.res?.status) {
                   return getScreenUI(state.res);
-                }else{
+                } else {
                   return ProgressWidget();
                 }
               } else {
@@ -110,7 +109,7 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
   }
 
   getScreenUI(GetAllProductRes getAllProductRes) {
-    if(!isSearchEnabled){
+    if (!isSearchEnabled) {
       mGetAllProductRes = getAllProductRes;
       debugPrint("ARRAYPOPULATE4 --> ${getAllProductRes?.products?.length}");
       mProductList = mGetAllProductRes?.products;
@@ -180,7 +179,6 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
                             SizedBox(
                               height: space_8,
                             ),
-
                             SizedBox(
                               height: space_8,
                             ),
@@ -197,8 +195,8 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
                             RichText(
                               text: new TextSpan(
                                 text: '${percentOff}OFF ',
-                                style: CommonStyles.getMontserratStyle(space_18,
-                                    FontWeight.w600, CommonStyles.darkAmber),
+                                style: CommonStyles.getMontserratStyle(
+                                    space_18, FontWeight.w600, kPrimarycolor),
                                 children: <TextSpan>[
                                   new TextSpan(
                                     text: '${txtOff}',
@@ -254,7 +252,7 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
                                           space_15,
                                           FontWeight.w600,
                                           mCurrentTab == "product"
-                                              ? CommonStyles.darkAmber
+                                              ? kPrimarycolor
                                               : CommonStyles.grey
                                                   .withOpacity(0.5)),
                                     )),
@@ -263,7 +261,7 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
                                         height: space_3,
                                         width: space_80,
                                         color: mCurrentTab == "product"
-                                            ? CommonStyles.darkAmber
+                                            ? kPrimarycolor
                                             : CommonStyles.grey
                                                 .withOpacity(0.5),
                                       )
@@ -299,7 +297,7 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
                                           space_15,
                                           FontWeight.w600,
                                           mCurrentTab == "review"
-                                              ? CommonStyles.darkAmber
+                                              ? kPrimarycolor
                                               : CommonStyles.grey
                                                   .withOpacity(0.5)),
                                     )),
@@ -308,7 +306,7 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
                                         height: space_3,
                                         width: space_80,
                                         color: mCurrentTab == "review"
-                                            ? CommonStyles.darkAmber
+                                            ? kPrimarycolor
                                             : CommonStyles.grey
                                                 .withOpacity(0.5),
                                       )
@@ -332,16 +330,16 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
                         Expanded(
                             flex: 8,
                             child: Container(
-                              child: SearchTextInputWidget(
-                                  searchController, false, TextInputType.name),
+                              child: SearchTextInputWidget(searchController,
+                                  false, TextInputType.name, commonBloc, widget.token),
                             )),
                         Expanded(
                             flex: 2,
                             child: Container(
                                 child: IconButton(
                                     icon: Icon(
-                                      Icons.filter_list,
-                                      color: CommonStyles.amber,
+                                      Icons.filter_alt,
+                                      color: kPrimarycolor,
                                     ),
                                     onPressed: () {
                                       openFilter(mGetAllProductRes?.filterPet);
@@ -395,7 +393,8 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
                         shrinkWrap: true,
                         primary: false,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          childAspectRatio: getProductsWidthToHeightRatio(context),
+                          childAspectRatio:
+                              getProductsWidthToHeightRatio(context),
                           crossAxisCount: 2,
                           crossAxisSpacing: 5.0,
                           mainAxisSpacing: 5.0,
@@ -403,7 +402,7 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
                         itemCount: mProductList?.length,
                         itemBuilder: (context, index) {
                           return ProductItemCardNoMarginWidget(
-                              mProductList[index],widget.vendorId);
+                              mProductList[index], widget.vendorId,widget.token);
                         },
                       ),
                     ),

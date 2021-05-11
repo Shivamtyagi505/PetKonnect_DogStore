@@ -14,7 +14,13 @@ import 'package:flutter_petkon/utils/Constants.dart';
 import 'package:flutter_petkon/utils/size_config.dart';
 import 'package:flutter_petkon/widgets/CommonWidget.dart';
 
+import '../Kconstants.dart';
+
 class StoreListingScreen extends StatefulWidget {
+
+  var token;
+  StoreListingScreen(this.token);
+
   @override
   _StoreListingScreenState createState() => new _StoreListingScreenState();
 }
@@ -25,7 +31,6 @@ class _StoreListingScreenState extends State<StoreListingScreen> {
   var mCurrentTab = "product";
   TextEditingController searchController = new TextEditingController();
   CommonBloc commonBloc = new CommonBloc();
-  var token = "";
   LoginResponse loginResponse;
   StorelistingResponse allStoresList;
   List<Vendors> mVendorList = List();
@@ -33,12 +38,7 @@ class _StoreListingScreenState extends State<StoreListingScreen> {
   var bannerlist = List<String>();
   @override
   void didChangeDependencies() {
-    var selectedCurrentLoc = StateContainer.of(context).mLoginResponse;
-    loginResponse = StateContainer.of(context).mLoginResponse;
-    if (loginResponse != null) {
-      token = loginResponse.token;
-      debugPrint("ACCESSING_INHERITED ${token}");
-    }
+
     super.didChangeDependencies();
   }
 
@@ -50,6 +50,28 @@ class _StoreListingScreenState extends State<StoreListingScreen> {
     bannerlist.add("assets/images/banner_1.png");
     bannerlist.add("assets/images/banner_2.png");
     bannerlist.add("assets/images/banner_3.png");
+
+
+    searchController.addListener(() {
+      isSearchEnabled = true;
+       mVendorList = List();
+      if(searchController?.text?.isNotEmpty){
+
+        allStoresList.vendors.forEach((element) {
+            print(element?.storeName.toLowerCase()?.toString()+" hshd  dds "+searchController?.text?.toLowerCase());
+          if(element?.storeName.toLowerCase()?.contains(searchController?.text?.toLowerCase())){
+            mVendorList?.add(element);
+          }
+        });
+      }
+      else{
+        mVendorList = allStoresList.vendors;
+      }
+       print(" hshdsdsdsddsds   "+mVendorList.length.toString());
+      setState(() {
+        mVendorList = mVendorList;
+      });
+    });
 
   }
 
@@ -63,7 +85,7 @@ class _StoreListingScreenState extends State<StoreListingScreen> {
   Widget build(BuildContext context) {
     debugPrint("yha aaya --> ${allStoresList?.vendors?.length}");
     return BlocProvider(
-      create: (context) => commonBloc..add(GetAllStoresEvent(token: token)),
+      create: (context) => commonBloc..add(GetAllStoresEvent(token: widget.token)),
       child: BlocListener(
           cubit: commonBloc,
           listener: (context, state) {
@@ -90,13 +112,12 @@ class _StoreListingScreenState extends State<StoreListingScreen> {
   }
 
   getScreenUI(StorelistingResponse StorelistingResponse) {
-    if(!isSearchEnabled){
+    if(!isSearchEnabled) {
       allStoresList = StorelistingResponse;
       debugPrint("ARRAYPOPULATE4 --> ${StorelistingResponse?.vendors?.length}");
       mVendorList = allStoresList?.vendors;
       debugPrint("ARRAYPOPULATE2 --> ${mVendorList?.length}");
     }
-
 
     return new Scaffold(
       body: Container(
@@ -119,7 +140,7 @@ class _StoreListingScreenState extends State<StoreListingScreen> {
                       flex: 8,
                       child: Container(
                         child: SearchTextInputWidget(
-                            searchController, false, TextInputType.name),
+                            searchController, false, TextInputType.name,commonBloc,widget.token),
                       )),
                   Expanded(
                       flex: 2,
@@ -138,11 +159,31 @@ class _StoreListingScreenState extends State<StoreListingScreen> {
             SizedBox(
               height: space_25,
             ),
-            Text(
-              "Shops recommended for you",
-              style: CommonStyles.getMontserratStyle(space_15,
-                  FontWeight.w600, CommonStyles.grey.withOpacity(0.8)),
+            Padding(
+              padding: const EdgeInsets.only(left: space_8,right: space_8),
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    flex:8,
+                    child:   Text(
+                      "Shops recommended for you",
+                      style: CommonStyles.getMontserratStyle(space_15,
+                          FontWeight.w600, CommonStyles.black.withOpacity(0.8)),
+                    ),
+                  ),
+                  Expanded(
+                    flex:2,
+                    child: Text(
+                      "Show All",
+                      style: CommonStyles.getMontserratStyle(space_13,
+                          FontWeight.w600, kPrimarycolor),
+                    ),
+                  ),
+
+                ],
+              ),
             ),
+
             SizedBox(
               height: space_15,
             ),
@@ -152,15 +193,15 @@ class _StoreListingScreenState extends State<StoreListingScreen> {
                   shrinkWrap: true,
                   primary: false,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    childAspectRatio: getWidthToHeightRatio(context),
+                    childAspectRatio: getProductsWidthToHeightRatio(context),
                     crossAxisCount: 2,
                     crossAxisSpacing: 5.0,
                     mainAxisSpacing: 5.0,
                   ),
                   itemCount: mVendorList?.length,
                   itemBuilder: (context, index) {
-                    return ItemCardNoMarginWidget(
-                        mVendorList[index]);
+                    return StoreListingWidget(
+                        mVendorList[index],widget.token);
                   },
                 ),
               ),

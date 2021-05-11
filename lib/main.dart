@@ -10,19 +10,27 @@ import 'package:flutter_petkon/bloc/CommonEvent.dart';
 import 'package:flutter_petkon/bloc/CommonState.dart';
 import 'package:flutter_petkon/screens/AddInventory.dart';
 import 'package:flutter_petkon/screens/FilterScreen.dart';
-import 'package:flutter_petkon/screens/home_screen/HomeScreen.dart';
+import 'package:flutter_petkon/screens/LandingScreen.dart';
 import 'package:flutter_petkon/screens/LoginSignupScreen.dart';
 import 'package:flutter_petkon/screens/MyCart.dart';
 import 'package:flutter_petkon/screens/ProductDetailScreen.dart';
+import 'package:flutter_petkon/screens/SosScreen.dart';
 import 'package:flutter_petkon/screens/StoreDetailScreen.dart';
 import 'package:flutter_petkon/screens/StoreListingScreen.dart';
-//<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
 import 'package:flutter_petkon/screens/UserProfileScreen/EditUserProfile.dart';
 import 'package:flutter_petkon/screens/UserProfileScreen/user_profile.dart';
-//=======
+=======
+=======
+>>>>>>> Stashed changes
 import 'package:flutter_petkon/screens/UserProfileScreen.dart';
+import 'package:flutter_petkon/screens/forgot_password/ForgotPassword.dart';
 import 'package:flutter_petkon/screens/pet_profile/edit_pet.dart';
-//>>>>>>> Stashed changes
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 import 'package:flutter_petkon/screens/pet_profile/pet_profile.dart';
 import 'package:flutter_petkon/utils/CommonStyles.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,7 +38,6 @@ import 'inherited/StateContainer.dart';
 import 'model/login_response.dart';
 
 void main() {
-  SharedPreferences.setMockInitialValues({});
   HttpOverrides.global = new MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
@@ -57,60 +64,34 @@ class Splash extends StatefulWidget {
 class _SplashState extends State<Splash> {
   CommonBloc commonBloc = new CommonBloc();
 
-  getsharedPrefs() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+  @override
+  void initState() {
+    // TODO: implement initState
+    checkUserLoggedInOrNot();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<CommonBloc>(
-      create: (_) => commonBloc..add(CheckLoggedInEvent()),
-      child: BlocListener(
-        cubit: commonBloc,
-        listener: (context, state) {
-          if (state.obj != null && state.obj is LoginResponse) {
-            StateContainer.of(context).updateUserInfo(state.obj);
-          }
-        },
-        child: BlocBuilder<CommonBloc, CommonState>(builder: (context, state) {
-          if (state is CheckLoggedInState) {
-            if (state.obj != null && state.obj is LoginResponse) {
-              return StoreListingScreen();
-            } else {
-              return LoginSignupScreen();
-            }
-          } else {
-            return Splash();
-//                return SafeArea(
-//                  child: Scaffold(
-//                      body: Container(
-//                        color: Colors.white,
-//                        child: Center(
-//                          child: Icon(Icons.email),
-//                        ),
-//                      ) //isLogin ? HomeScreen() : SplashScreen(),
-//                  ),
-//                );
-          }
-        }),
+    return new Scaffold(
+      body: Center(
+        child: Container(
+            height: 100,
+            width: 200,
+            child: new Image.asset('assets/icons/logo.png')),
       ),
     );
   }
 
-  checkUserLoggedInOrNot(BuildContext context) async {
+  checkUserLoggedInOrNot() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var mobile = prefs.getString(USER_NAME);
-    debugPrint("VALlllllllll ${mobile}");
-    if (mobile != null && mobile.isNotEmpty) {
-      var response =
-          LoginResponse.fromJson(jsonDecode(prefs.getString(USER_LOGIN_RES)));
-      StateContainer.of(context).updateUserInfo(response);
-//      setState(() {
-//        isLogin = true;
-//      });
+    var token = prefs.getString("token");
+    debugPrint("VALlllllllll ${token}");
+
+    if (token != null && token.isNotEmpty) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => StoreListingScreen()),
+        MaterialPageRoute(builder: (context) => LandingScreen(token)),
       );
     } else {
       Navigator.push(
@@ -129,17 +110,23 @@ class MyApp extends StatelessWidget {
       title: 'PetKon',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          // primarySwatch: CommonStyles.amber,
+          //primarySwatch: CommonStyles.amber,
           primaryColor: kPrimarycolor),
       home: LoginSignupScreen(),
-//<<<<<<< Updated upstream
-      //routes: {'/petProfile': (context) => PetProfile()},
-//=======
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
+      routes: {'/petProfile': (context) => PetProfile()},
+=======
+=======
+>>>>>>> Stashed changes
       routes: {
         '/petProfile': (context) => PetProfile(),
-        '/EditPet': (context) => EditPetProfile()
+        '/editPet': (context) => EditPetProfile()
       },
-//>>>>>>> Stashed changes
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
     );
   }
 }

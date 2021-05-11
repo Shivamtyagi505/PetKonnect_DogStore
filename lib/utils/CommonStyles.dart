@@ -202,6 +202,7 @@ const String LOGINTYPE_NOTMAL = "manually";
 const String LOGINTYPE_GOOGLE = "facebook";
 const String LOGINTYPE_FB = "google";
 
+
 //API
 const String BASE_URL = "https://petkonnect.in/api";
 const String LOGIN_API = "/user/login";
@@ -215,6 +216,7 @@ const String CONFIRM_ORDER = "/order/confirm_order";
 const String ORDER_HISTORY = "/order/orderHistory";
 const String ORDER_DETAIL = "/vendorOrder/get_order";
 const String DELETE_CART = "/user/update_cart";
+const String SEARCH_FUNCTION = "/inventory/search";
 
 //const String GET_ALL_PRODUCTS = "/inventory/get_all_products";
 const String GET_ALL_PRODUCTS2 = "https://petkonnect.in​/vendor/getvendorstore";
