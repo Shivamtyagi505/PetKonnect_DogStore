@@ -29,13 +29,13 @@ class Vendors {
   bool allowAccess;
   List<int> deliveryPincodes;
   String vendorName;
-  int vendorPhonenumber;
+  dynamic vendorPhonenumber;
   String vendorEmail;
   String vendorPassword;
   String vendorType;
   String storeName;
   String storeAddress;
-  int storeContactNo;
+  dynamic storeContactNo;
   String storeEmail;
   String storeImage;
   String storeLogo;
@@ -58,7 +58,7 @@ class Vendors {
   String vendorState;
   Null vendorZip;
   String offerText;
-  int shippingCharges;
+  dynamic shippingCharges;
   String createdAt;
   String updatedAt;
   String id;

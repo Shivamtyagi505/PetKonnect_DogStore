@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_petkon/Kconstants.dart';
 import 'package:flutter_petkon/bloc/CommonBloc.dart';
 import 'package:flutter_petkon/bloc/CommonEvent.dart';
 import 'package:flutter_petkon/bloc/CommonState.dart';
 import 'package:flutter_petkon/model/DeleteCartResponse.dart';
 import 'package:flutter_petkon/model/view_cart.dart';
+import 'package:flutter_petkon/screens/LandingScreen.dart';
+import 'package:flutter_petkon/screens/StoreListingScreen.dart';
 import 'package:flutter_petkon/utils/CommonStyles.dart';
 import 'package:flutter_petkon/utils/size_config.dart';
 import 'package:flutter_petkon/widgets/CommonWidget.dart';
@@ -22,12 +25,14 @@ class MyCartScreen extends StatefulWidget {
 
 class _MyCartScreenState extends State<MyCartScreen> {
   CommonBloc commonBloc = new CommonBloc();
-  List<Cart> cart= List();
   ViewCartResponse viewCartResponse;
   DeleteCartResponse deleteCartResponse;
+  var shippings = 0;
+  var subtotals = 0;
+  var all_total = 0;
   @override
   Widget build(BuildContext context) {
-   return BlocProvider(
+    return BlocProvider(
       create: (context) => commonBloc..add(ViewCartEvent(token: widget.token)),
       child: BlocListener(
           cubit: commonBloc,
@@ -35,72 +40,131 @@ class _MyCartScreenState extends State<MyCartScreen> {
             print("delete State");
             if (state is ViewCartResState) {
               viewCartResponse = state.res;
-            }else if (state is DeletecartResState) {
+            } else if (state is DeletecartResState) {
               print("dlete main ayyyyyyyyyyy");
               deleteCartResponse = state.res;
-              if(deleteCartResponse.status){
+              if (deleteCartResponse.status) {
                 commonBloc..add(ViewCartEvent(token: widget.token));
               }
-            }
-            else if(state is ConfirmOrderResState){
-              if(state.res.status){
+            } else if (state is ConfirmOrderResState) {
+              if (state.res.status) {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>
-                          OrderScreen(widget.token)),
+                      builder: (context) => OrderScreen(widget.token)),
                 );
               }
             }
           },
           child: BlocBuilder<CommonBloc, CommonState>(
             builder: (context, state) {
-              debugPrint("ARRAYPOPULATBlocBuilder --> ${viewCartResponse?.cart?.length}");
-              if(viewCartResponse?.cart?.length==0){
-
-                   return noDataInCart();
-              }else{
+              debugPrint(
+                  "ARRAYPOPULATBlocBuilder --> ${viewCartResponse?.cart?.length}");
+              if (viewCartResponse?.cart?.length == 0) {
+                return noDataInCart();
+              } else {
                 if (state is ViewCartResState) {
-                  if(state?.res?.status){
-                    return getScreenUI(state.res);
-                  }else{
+                  print("enjnhjnhjfrhxc    " + "yhhhhhhhhhhhhhhhhhhhhhhhha");
+                  if (state?.res?.status) {
+                    print("enjnhjnhjfrhxc    " + "step one check");
+                    List<CartProduct> products = List();
+                    List<int> quantities = List();
+                    products.clear();
+                    quantities.clear();
+                    print("enjnhjnhjfrhxc    " +
+                        viewCartResponse?.cart?.length.toString());
+                    for (var i = 0; i < viewCartResponse?.cart?.length; i++) {
+                      print("enjnhjnhjfrhxc    " + i.toString());
+                      print("enjnhjnhjfrhxc    " + "step one two check");
+                      shippings =
+                          shippings + viewCartResponse?.cart[i].shippingCharges;
+                      subtotals = subtotals +
+                          (viewCartResponse?.cart[i].subTotal.toInt() -
+                              viewCartResponse?.cart[i].shippingCharges);
+                      for (var j = 0;
+                          j < viewCartResponse?.cart[i]?.products?.length;
+                          j++) {
+                        products.add(viewCartResponse?.cart[i]?.products[j]);
+                        quantities
+                            .add(viewCartResponse?.cart[i]?.quantities[j]);
+                        print("enjnhjnhjfrhxc    " + "step one three check");
+                      }
+                    }
+                    all_total = shippings + subtotals;
+                    print("enjnhjnhjfrhxc    " + products.length.toString());
+                    return getScreenUI(products, quantities);
+                  } else {
                     return ProgressWidget();
                   }
                 } else {
                   return ProgressWidget();
                 }
               }
-
             },
           )),
     );
   }
 
-  noDataInCart(){
+  noDataInCart() {
     return new Scaffold(
         body: Center(
-          child: Container(
-            child: Center(child: Text("Cart is empty..", style: new TextStyle(
-              fontSize:26.0,
-
-            ),)),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "You cart is empty !",
+            style: TextStyle(
+                color: Colors.black87,
+                fontFamily: "Montserrat",
+                fontSize: 20,
+                fontWeight: FontWeight.w600),
           ),
-        ),);
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                "You can explore our products on our",
+                style: TextStyle(color: Colors.black54),
+              ),
+              TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => LandingScreen(widget.token)));
+                  },
+                  child: Text(
+                    "Store page",
+                    style: TextStyle(color: kPrimarycolor),
+                  ))
+            ],
+          )
+        ],
+      ),
+    ));
   }
-  getScreenUI(ViewCartResponse viewCartResponse){
 
-    debugPrint("ARRAYPOPULATE4 --> ${viewCartResponse?.cart?.length}");
-    cart = viewCartResponse?.cart;
-    debugPrint("ARRAYPOPULATE2 --> ${cart?.length}");
-    return SafeArea(child: Scaffold(
+  getScreenUI(List<CartProduct> products, List<int> quantities) {
+    return SafeArea(
+        child: Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: space_0,
         centerTitle: true,
-        leading: IconButton(onPressed: () {
-          Navigator.pop(context);
-        }, icon: Icon(Icons.arrow_back_ios, color: CommonStyles.grey,),),
-        title: Text("Cart", style: CommonStyles.getMontserratStyle(space_18, FontWeight.w600,  CommonStyles.grey),),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: CommonStyles.grey,
+          ),
+        ),
+        title: Text(
+          "Cart",
+          style: CommonStyles.getMontserratStyle(
+              space_18, FontWeight.w600, CommonStyles.grey),
+        ),
       ),
       body: Container(
         margin: EdgeInsets.all(space_15),
@@ -109,52 +173,72 @@ class _MyCartScreenState extends State<MyCartScreen> {
           children: [
             Container(
                 margin: EdgeInsets.only(top: space_25),
-                child: Text("Your Orders", style: CommonStyles.getMontserratStyle(space_15, FontWeight.w500, CommonStyles.grey),)),
-            SizedBox(height: space_20,),
+                child: Text(
+                  "Your Order",
+                  style: CommonStyles.getMontserratStyle(
+                      space_15, FontWeight.w500, CommonStyles.black),
+                )),
+            SizedBox(
+              height: space_20,
+            ),
             Expanded(
               child: ListView.builder(
-                shrinkWrap: true,
-                itemCount: cart[0]?.products?.length,
-               itemBuilder: (BuildContext context, int index) {
-
-                  return CardItemWidget(cart[0]?.products[index],cart[0]?.quantities[index],commonBloc,widget.token);
-
-            }),
-
+                  shrinkWrap: true,
+                  itemCount: products?.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return CardItemWidget(products[index], quantities[index],
+                        commonBloc, widget.token);
+                  }),
             ),
-            SizedBox(height: space_30,),
+            SizedBox(
+              height: space_30,
+            ),
             DashedLine(
               color: CommonStyles.grey,
               height: space_1,
               dashWidth: space_3,
             ),
-            SizedBox(height: space_15,),
+            SizedBox(
+              height: space_15,
+            ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Text("Shipping :"+cart[0].shippingCharges.toString(), style: CommonStyles.getMontserratStyle(space_16, FontWeight.w400, Colors.black),),
-                SizedBox(height: space_15,),
+                Text(
+                  "Shipping :" + shippings.toString(),
+                  style: CommonStyles.getMontserratStyle(
+                      space_16, FontWeight.w400, Colors.black),
+                ),
+                SizedBox(
+                  height: space_15,
+                ),
                 DashedLine(
                   color: CommonStyles.grey,
                   height: space_1,
                   dashWidth: space_3,
                 ),
-                SizedBox(height: space_15,),
+                SizedBox(
+                  height: space_15,
+                ),
                 RichText(
                   text: new TextSpan(
                     text: 'Total ',
-                    style: CommonStyles.getMontserratStyle(space_16, FontWeight.w400, Colors.black),
+                    style: CommonStyles.getMontserratStyle(
+                        space_16, FontWeight.w400, Colors.black),
                     children: <TextSpan>[
                       new TextSpan(
-                        text: '\u20B9 '+cart[0].subTotal.toString(),
-                        style: CommonStyles.getMontserratStyle(space_20, FontWeight.w600, CommonStyles.darkAmber),
+                        text: '\u20B9 ' + all_total.toString(),
+                        style: CommonStyles.getMontserratStyle(
+                            space_20, FontWeight.w600, kPrimarycolor),
                       ),
                     ],
                   ),
                 ),
               ],
             ),
-            SizedBox(height: space_30,),
+            SizedBox(
+              height: space_30,
+            ),
             GestureDetector(
               onTap: () {
                 commonBloc..add(ConfirmorderEvent(token: widget.token));
@@ -163,7 +247,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                 margin: EdgeInsets.only(top: space_15),
                 height: space_50,
                 decoration: BoxDecoration(
-                    color: CommonStyles.amber,
+                    color: kPrimarycolor,
                     borderRadius: BorderRadius.circular(space_5)),
                 child: Center(
                   child: Padding(
@@ -171,9 +255,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                       child: Text(
                         "Check Out",
                         style: CommonStyles.getRalewayStyle(
-                            space_14,
-                            FontWeight.w600,
-                            Colors.white),
+                            space_14, FontWeight.w600, Colors.white),
                       )),
                 ),
               ),

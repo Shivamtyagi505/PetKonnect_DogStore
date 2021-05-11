@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter_petkon/model/DeleteCartResponse.dart';
+import 'package:flutter_petkon/model/SearchResponse.dart';
 import 'package:flutter_petkon/model/get_all_product_res.dart';
 import 'package:flutter_petkon/model/get_product_detail_res.dart';
 import 'package:flutter_petkon/model/get_store_listing.dart';
@@ -35,9 +36,9 @@ class CommonRepository extends BaseRepository {
     //http secure connection
     var http = makeHttpSecure();
  //
-    // Map reqBodyMap = {"email": "chiragj97.cj@gmail.com", "password": "Chirag@1234"};
-    // Map reqBodyMap = {"email": "aman.mehra655@gmail.com", "password": "12345678"};
- Map reqBodyMap = {"email": email, "password": pwd};
+     //Map reqBodyMap = {"email": "chiragj97.cj@gmail.com", "password": "Chirag@1234"};
+ // Map reqBodyMap = {"email": "aman.mehra655@gmail.com", "password": "12345678"};
+    Map reqBodyMap = {"email": email, "password": pwd};
     print("UNDER callLogin ${email}, ${pwd}, ${BASE_URL + LOGIN_API}");
     var res = await http
         .post(BASE_URL + LOGIN_API,
@@ -173,6 +174,39 @@ class CommonRepository extends BaseRepository {
 
     } else {
       response = new StorelistingResponse(status: false);
+    }
+    print("-----------rresssssss  ${response}");
+    return response;
+  }
+
+  Future<SearchResponse> callGetSearch(String token, String seacrhKeyword) async {
+    bool status = false;
+    SearchResponse response;
+
+    print("token  $token");
+
+
+
+     Map reqBodyMap = {"search": seacrhKeyword};
+    print("url.... "+BASE_URL + SEARCH_FUNCTION);
+    var res = await http
+        .post(BASE_URL + SEARCH_FUNCTION,
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        body: JsonEncoder().convert(reqBodyMap));
+    print("PRINTING ${res.body}");
+    if (res.statusCode == 200) {
+      var data = json.decode(res.body);
+      status = data["status"];
+      print("PRINTING_STATUS ${status}");
+      response = SearchResponse.fromJson(data);
+      print("-----------${data}");
+
+    } else {
+      response = new SearchResponse(status: false);
     }
     print("-----------rresssssss  ${response}");
     return response;

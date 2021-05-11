@@ -55,6 +55,15 @@ class GetAllStoresEvent extends CommonEvent {
   @override
   List<Object> get props => [token];
 }
+class SearchEvent extends CommonEvent {
+  final String token;
+  final String seacrhKeyword;
+
+  SearchEvent({@required this.token,@required this.seacrhKeyword});
+
+  @override
+  List<Object> get props => [token,seacrhKeyword];
+}
 class GetAllProductsEvent extends CommonEvent {
   final String token;
   final String vendorId;

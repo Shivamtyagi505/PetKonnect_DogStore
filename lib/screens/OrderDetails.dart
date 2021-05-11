@@ -1,5 +1,6 @@
 import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_petkon/Kconstants.dart';
 import 'package:flutter_petkon/model/order_history.dart';
 import 'package:flutter_petkon/screens/OrdersScreen.dart';
 import 'package:flutter_petkon/utils/CommonStyles.dart';
@@ -8,11 +9,9 @@ import 'package:flutter_petkon/utils/size_config.dart';
 import 'TrackingScreen.dart';
 
 class OrderDetailScreen extends StatefulWidget {
-
-
   Order order;
   OrderDetailScreen(this.order);
-   @override
+  @override
   _OrderDetailScreenState createState() => _OrderDetailScreenState();
 }
 
@@ -20,15 +19,16 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
   List<ProductIDs> productList = List();
   List<dynamic> productPrice = List();
   List<dynamic> productQuantity = List();
-@override
+  @override
   void initState() {
     // TODO: implement initState
-  productList = widget.order.productIDs;
-  productPrice = widget.order.netPrice;
-  productQuantity = widget.order.quantities;
+    productList = widget.order.productIDs;
+    productPrice = widget.order.netPrice;
+    productQuantity = widget.order.quantities;
 
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -76,14 +76,14 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("My Orders",
+                      Text("My Order",
                           style: CommonStyles.getMontserratStyle(
                               space_16, FontWeight.w600, CommonStyles.black)),
                       Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: Text("Order ID : ${widget.order.id}",
-                            style: CommonStyles.getMontserratStyle(space_16,
-                                FontWeight.w600, CommonStyles.orangeColor)),
+                            style: CommonStyles.getMontserratStyle(
+                                space_16, FontWeight.w600, kPrimarycolor)),
                       )
                     ],
                   ),
@@ -121,7 +121,10 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                                         ),
                                         child: Padding(
                                           padding: const EdgeInsets.all(8.0),
-                                          child: Image.network(productList[index].productImage[0].toString(),
+                                          child: Image.network(
+                                            productList[index]
+                                                .productImage[0]
+                                                .toString(),
                                             height: 50,
                                             width: 10,
                                           ),
@@ -146,7 +149,9 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
-                                              productList[index].productName.toString(),
+                                              productList[index]
+                                                  .productName
+                                                  .toString(),
                                               style: CommonStyles
                                                   .getMontserratStyle(
                                                       space_12,
@@ -185,7 +190,9 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                                               MainAxisAlignment.spaceBetween,
                                           children: [
                                             Text(
-                                              "Quantity : "+productQuantity[index].toString(),
+                                              "Quantity : " +
+                                                  productQuantity[index]
+                                                      .toString(),
                                               style: CommonStyles
                                                   .getMontserratStyle(
                                                       space_10,
@@ -193,12 +200,14 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                                                       CommonStyles.greyColor),
                                             ),
                                             Text(
-                                              "\u20B9 " + productPrice[index].toString(),
+                                              "\u20B9 " +
+                                                  productPrice[index]
+                                                      .toString(),
                                               style: CommonStyles
                                                   .getMontserratStyle(
                                                       space_17,
                                                       FontWeight.w600,
-                                                      CommonStyles.orangeColor),
+                                                      kPrimarycolor),
                                             ),
                                           ],
                                         ),
@@ -267,8 +276,8 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                       ),
                       Text(
                         " \u20B9 " + widget.order.finalTotal.toString(),
-                        style: CommonStyles.getMontserratStyle(space_22,
-                            FontWeight.w600, CommonStyles.orangeColor),
+                        style: CommonStyles.getMontserratStyle(
+                            space_22, FontWeight.w600, kPrimarycolor),
                       ),
                     ],
                   ),
@@ -298,9 +307,9 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                           SizedBox(
                             width: space_15,
                           ),
-                          Image.asset(
-                            "assets/images/location.jpeg",
-                            scale: 2,
+                          Icon(
+                            Icons.location_on,
+                            color: kPrimarycolor,
                           )
                         ],
                       ),
@@ -310,7 +319,8 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("${widget.order.shippingAddress.doorNo}, ${widget.order.shippingAddress.street}",
+                          Text(
+                            "${widget.order.shippingAddress.doorNo}, ${widget.order.shippingAddress.street}",
                             style: CommonStyles.getMontserratStyle(space_12,
                                 FontWeight.w600, CommonStyles.greyColor),
                           ),
@@ -342,8 +352,8 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                             width: space_15,
                           ),
                           Image.asset(
-                            "assets/images/card.jpeg",
-                            scale: 2.5,
+                            "assets/images/card.png",
+                            scale: 1.7,
                           )
                         ],
                       ),
@@ -354,14 +364,9 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Debit Card",
+                            "Cash On delivery",
                             style: CommonStyles.getMontserratStyle(
                                 space_12, FontWeight.w600, CommonStyles.grey),
-                          ),
-                          Text(
-                            "**************** 9890",
-                            style: CommonStyles.getMontserratStyle(
-                                space_10, FontWeight.w600, CommonStyles.grey),
                           ),
                         ],
                       ),
@@ -376,9 +381,13 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => TrackingOrder(widget.order.id,widget.order.createdAt,widget.order.confirmationDate,widget.order.dispatchedDate,widget.order.deliveredDate)),
+                              builder: (context) => TrackingOrder(
+                                  widget.order.id,
+                                  widget.order.createdAt,
+                                  widget.order.confirmationDate,
+                                  widget.order.dispatchedDate,
+                                  widget.order.deliveredDate)),
                         );
-
                       },
                       child: Container(
                           width: space_250,
@@ -386,14 +395,14 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                           decoration: BoxDecoration(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(5)),
-                              color: CommonStyles.lightorangeColor),
+                              color: kPrimarycolor),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
                                 "Track Order",
-                                style: CommonStyles.getMontserratStyle(space_16,
-                                    FontWeight.w500, CommonStyles.white),
+                                style: CommonStyles.getMontserratStyle(
+                                    space_16, FontWeight.w600, Colors.white),
                               ),
                             ],
                           )),

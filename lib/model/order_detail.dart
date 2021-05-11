@@ -32,9 +32,9 @@ class Order {
   String dispatchedDate;
   String deliveredDate;
   String vendorID;
-  int shippingCharges;
+  dynamic shippingCharges;
   UserID userID;
-  int finalTotal;
+  dynamic finalTotal;
   String createdAt;
   String updatedAt;
   String id;

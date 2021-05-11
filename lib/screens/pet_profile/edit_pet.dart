@@ -106,6 +106,7 @@ class _EditPetProfileState extends State<EditPetProfile> {
             //User form
             Container(
               width: size.width * 0.9,
+<<<<<<< Updated upstream
               child: Form(
                 child: Column(
                   children: [
@@ -128,6 +129,158 @@ class _EditPetProfileState extends State<EditPetProfile> {
                               color: Colors.black,
                               fontSize: 18)),
                     ),
+=======
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 25.0),
+                child: new Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Padding(
+                        padding: EdgeInsets.only(top: 12.0),
+                        child: new Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            new Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                new Text(
+                                  'Petname',
+                                  style: TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ],
+                        )),
+                    Padding(
+                        padding: EdgeInsets.only(
+                          right: 10.0,
+                        ),
+                        child: new Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            new Flexible(
+                              child: TextField(
+//                                controller: doorNoController,
+                                decoration: InputDecoration(
+                                    //  hintText: doorNo,
+                                    ),
+                              ),
+                            ),
+                          ],
+                        )),
+                    Padding(
+                        padding: EdgeInsets.only(top: 12.0),
+                        child: new Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            new Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                new Text(
+                                  'Type',
+                                  style: TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ],
+                        )),
+                    Padding(
+                        padding: EdgeInsets.only(
+                          right: 10.0,
+                        ),
+                        child: new Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            new Flexible(
+                              child: TextField(
+//                                controller: doorNoController,
+                                decoration: InputDecoration(
+                                    //  hintText: doorNo,
+                                    ),
+                              ),
+                            ),
+                          ],
+                        )),
+                    Padding(
+                        padding: EdgeInsets.only(top: 12.0),
+                        child: new Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            new Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                new Text(
+                                  'Breed',
+                                  style: TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ],
+                        )),
+                    Padding(
+                        padding: EdgeInsets.only(
+                          right: 10.0,
+                        ),
+                        child: new Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            new Flexible(
+                              child: TextField(
+//                                controller: doorNoController,
+                                decoration: InputDecoration(
+                                    //  hintText: doorNo,
+                                    ),
+                              ),
+                            ),
+                          ],
+                        )),
+                    Padding(
+                        padding: EdgeInsets.only(top: 12.0),
+                        child: new Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            new Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                new Text(
+                                  'Age',
+                                  style: TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ],
+                        )),
+                    Padding(
+                        padding: EdgeInsets.only(
+                          right: 10.0,
+                        ),
+                        child: new Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            new Flexible(
+                              child: TextField(
+//                                controller: doorNoController,
+                                decoration: InputDecoration(
+                                    //  hintText: doorNo,
+                                    ),
+                              ),
+                            ),
+                          ],
+                        )),
+>>>>>>> Stashed changes
                     SizedBox(
                       height: size.height * 0.02,
                     ),
@@ -156,6 +309,7 @@ class _EditPetProfileState extends State<EditPetProfile> {
                       },
                       hint: Text("Select Gender"),
                     ),
+<<<<<<< Updated upstream
                     SizedBox(
                       height: size.height * 0.02,
                     ),
@@ -288,12 +442,148 @@ class _EditPetProfileState extends State<EditPetProfile> {
                                       fontSize: 20,
                                       fontWeight: FontWeight.w600,
                                     )),
+=======
+                    Padding(
+                        padding: EdgeInsets.only(top: 12.0),
+                        child: new Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            new Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                new Text(
+                                  'Weight',
+                                  style: TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ],
+                        )),
+                    Padding(
+                        padding: EdgeInsets.only(
+                          right: 10.0,
+                        ),
+                        child: new Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            new Flexible(
+                              child: TextField(
+//                                controller: doorNoController,
+                                decoration: InputDecoration(
+                                    //  hintText: doorNo,
+                                    ),
                               ),
+                            ),
+                          ],
+                        )),
+                    Padding(
+                        padding: EdgeInsets.only(top: 12.0),
+                        child: new Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            new Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                new Text(
+                                  'Height',
+                                  style: TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ],
+                        )),
+                    Padding(
+                        padding: EdgeInsets.only(
+                          right: 10.0,
+                        ),
+                        child: new Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            new Flexible(
+                              child: TextField(
+//                                controller: doorNoController,
+                                decoration: InputDecoration(
+                                    //  hintText: doorNo,
+                                    ),
+                              ),
+                            ),
+                          ],
+                        )),
+                    Padding(
+                        padding: EdgeInsets.only(top: 12.0),
+                        child: new Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            new Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                new Text(
+                                  'Colour',
+                                  style: TextStyle(
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ],
+                            ),
+                          ],
+                        )),
+                    Padding(
+                        padding: EdgeInsets.only(
+                          right: 10.0,
+                        ),
+                        child: new Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            new Flexible(
+                              child: TextField(
+//                                controller: doorNoController,
+                                decoration: InputDecoration(
+                                    //  hintText: doorNo,
+                                    ),
+>>>>>>> Stashed changes
+                              ),
+                            ),
+                          ],
+                        )),
+                    GestureDetector(
+                      onTap: () {
+                        // editAddress();
+                      },
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: space_40),
+                          child: Container(
+                            height: space_50,
+                            width: space_300,
+                            decoration: BoxDecoration(
+                                color: kPrimarycolor,
+                                borderRadius: BorderRadius.circular(space_5)),
+                            child: Center(
+                              child: Padding(
+                                  padding: EdgeInsets.all(space_15),
+                                  child: Text(
+                                    "Save",
+                                    style: CommonStyles.getRalewayStyle(
+                                        space_14,
+                                        FontWeight.w600,
+                                        Colors.white),
+                                  )),
                             ),
                           ),
                         ),
                       ),
+<<<<<<< Updated upstream
                     ),
+=======
+                    )
+>>>>>>> Stashed changes
                   ],
                 ),
               ),

@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_petkon/model/DeleteCartResponse.dart';
+import 'package:flutter_petkon/model/SearchResponse.dart';
 import 'package:flutter_petkon/model/get_all_product_res.dart';
 import 'package:flutter_petkon/model/get_product_detail_res.dart';
 import 'package:flutter_petkon/model/get_store_listing.dart';
@@ -72,6 +73,16 @@ class GetAllStoresResState extends CommonState {
   @override
   List<StorelistingResponse> get props => [res];
 }
+
+class SearchResState extends CommonState {
+  final res;
+
+  SearchResState({@required this.res});
+
+  @override
+  List<SearchResponse> get props => [res];
+}
+
 
 class GetAllProductResState extends CommonState {
   final res;

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_petkon/Kconstants.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_petkon/utils/CommonStyles.dart';
@@ -61,7 +62,6 @@ class MapScreenState extends State<EditUserProfile>
     print(user);
     print(nameController.text);
   }
-
 
   @override
   void initState() {
@@ -158,7 +158,7 @@ class MapScreenState extends State<EditUserProfile>
                                     getImage();
                                   },
                                   child: new CircleAvatar(
-                                    backgroundColor: CommonStyles.amber,
+                                    backgroundColor: kPrimarycolor,
                                     radius: 25.0,
                                     child: new Icon(
                                       Icons.camera_alt,
@@ -339,7 +339,7 @@ class MapScreenState extends State<EditUserProfile>
                               height: space_50,
                               width: space_300,
                               decoration: BoxDecoration(
-                                  color: CommonStyles.amber,
+                                  color: kPrimarycolor,
                                   borderRadius: BorderRadius.circular(space_5)),
                               child: Center(
                                 child: Padding(

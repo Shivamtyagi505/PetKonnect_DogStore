@@ -22,6 +22,10 @@ import 'UserProfileScreen/EditUserProfile.dart';
 import 'UserProfileScreen/user_profile.dart';
 
 class LandingScreen extends StatefulWidget {
+
+  var token;
+  LandingScreen(this.token);
+
   @override
   _LandingScreenState createState() => _LandingScreenState();
 }
@@ -29,21 +33,12 @@ class LandingScreen extends StatefulWidget {
 class _LandingScreenState extends State<LandingScreen> {
   bool isRefreshing;
   int _selectedIndex = 1;
-  var token = "";
-  LoginResponse loginResponse;
   Future<OrderHistoryResponse> futureAlbum;
   PageController _pageController;
 
-
-
   @override
   void didChangeDependencies() {
-    var selectedCurrentLoc = StateContainer.of(context).mLoginResponse;
-    loginResponse = StateContainer.of(context).mLoginResponse;
-    if (loginResponse != null) {
-      token = loginResponse.token;
-      debugPrint("ACCESSING_INHERITED ${token}");
-    }
+
     super.didChangeDependencies();
   }
 
@@ -104,13 +99,16 @@ class _LandingScreenState extends State<LandingScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => MyCartScreen(token)),
+                        builder: (context) => MyCartScreen(widget.token)),
                   );
                 },
                 child: Container(
                     height: 30,
                     width: 30,
-                    child: new Image.asset('assets/icons/shopping_cart.png')))
+                    child: Icon(
+                      Icons.shopping_cart,
+                      color: kPrimarycolor,
+                    )))
           ],
         ),
       ),
@@ -200,10 +198,10 @@ class _LandingScreenState extends State<LandingScreen> {
         controller: _pageController,
         children: <Widget>[
           FeedScreen(),
-          StoreListingScreen(),
+          StoreListingScreen(widget.token),
           HomeScreen(),
           ServicesScreen(),
-          OrderScreen(token)
+          OrderScreen(widget.token)
         ],
       ),
     );

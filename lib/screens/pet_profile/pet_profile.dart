@@ -1,28 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_petkon/Kconstants.dart';
 import 'package:flutter_petkon/screens/UserProfileScreen/user_profile.dart';
-import 'package:flutter_petkon/screens/pet_profile/edit_pet.dart';
 import 'package:flutter_svg/svg.dart';
 import 'components/Banner.dart';
 
+<<<<<<< Updated upstream
 class PetProfile extends StatefulWidget {
   @override
   _PetProfileState createState() => _PetProfileState();
 }
 
 class _PetProfileState extends State<PetProfile> {
+=======
+class PetProfile extends StatelessWidget {
+>>>>>>> Stashed changes
   @override
   Widget build(BuildContext context) {
     String imageUrl = ModalRoute.of(context).settings.arguments;
     Size size = MediaQuery.of(context).size;
-    bool editPet;
     return Scaffold(
       body: SingleChildScrollView(
         child: Center(
             child: Column(
           children: [
             BannerPetProfile(imageUrl),
-            //Edit Details Button
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
               child: Row(
@@ -30,11 +31,8 @@ class _PetProfileState extends State<PetProfile> {
                 children: [
                   TextButton(
                       onPressed: () {
-                        setState(() {
-                          editPet = true;
-                        });
                         Navigator.of(context)
-                            .pushNamed('/EditPet', arguments: editPet);
+                            .pushNamed('/editPet', arguments: true);
                       },
                       child: Text(
                         "Edit Details",
@@ -112,11 +110,8 @@ class _PetProfileState extends State<PetProfile> {
                     "http://cdn.akc.org/content/article-body-image/siberian_husky_cute_puppies.jpg"),
                 GestureDetector(
                     onTap: () {
-                      setState(() {
-                        editPet = true;
-                      });
                       Navigator.of(context)
-                          .pushNamed('/EditPet', arguments: editPet);
+                          .pushNamed("/editPet", arguments: false);
                     },
                     child: SvgPicture.asset(
                       "assets/icons/add_post.svg",
