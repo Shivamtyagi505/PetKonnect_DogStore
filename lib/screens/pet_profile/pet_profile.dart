@@ -1,25 +1,53 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_petkon/Kconstants.dart';
 import 'package:flutter_petkon/screens/UserProfileScreen/user_profile.dart';
 import 'package:flutter_petkon/screens/pet_profile/edit_pet.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'components/Banner.dart';
-
+import 'package:http/http.dart' as http;
 class PetProfile extends StatefulWidget {
   @override
   _PetProfileState createState() => _PetProfileState();
 }
 
 class _PetProfileState extends State<PetProfile> {
+  var petType = "",age = "", gender = "", weight = "", height = "", breed = "", petName="",color= "";
   getUserData() async {
+     SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token;
     var petId = (ModalRoute.of(context).settings.arguments
         as Map<String, String>)['petId'];
-    print("petRequest : https://petkonnect.in/pet/$petId");
+    final response = await http.post("https://petkonnect.in/api/pets/get_pet/$petId", headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Authorization': 'Bearer $token',
+    });
+    // print('token is $token');
+    var user = jsonDecode(response.body);
+    setState(() {
+      petType = user['pet']['petType'];
+      age = user['pet']['age'].toString();
+      gender = user['pet']['gender'];
+      weight = user['pet']['weight'].toString();
+      height = user['pet']['height'].toString();
+      breed = user['pet']['breed'].toString();
+      petName = user['pet']['petName'];
+      color = user['pet']['color'];
+    });
+    print("petRequest is $petName");
+  }
+  @override
+  void initState() {
+     getUserData();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    getUserData();
+   
     final routes =
         ModalRoute.of(context).settings.arguments as Map<String, String>;
     // print(routes);
@@ -43,8 +71,10 @@ class _PetProfileState extends State<PetProfile> {
                         setState(() {
                           editPet = true;
                         });
-                        Navigator.of(context)
-                            .pushNamed('/EditPet', arguments: editPet);
+                         Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => EditPetProfile()),
+                  );
                       },
                       child: Text(
                         "Edit Details",

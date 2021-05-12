@@ -95,16 +95,16 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return new MaterialApp(
       title: 'PetKon',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           //primarySwatch: CommonStyles.amber,
           primaryColor: kPrimarycolor),
       home: LoginSignupScreen(),
-      routes: {
+      routes:<String, WidgetBuilder> {
         '/petProfile': (context) => PetProfile(),
-        '/editPet': (context) => EditPetProfile()
+       // '/editPet': (context) => EditPetProfile()
       },
     );
   }

@@ -20,7 +20,7 @@ class _EditPetProfileState extends State<EditPetProfile> {
     String petType;
     String breed;
 
-    bool editPet = ModalRoute.of(context).settings.arguments;
+  //  bool editPet = ModalRoute.of(context).settings.arguments;
     Size size = MediaQuery.of(context).size;
 
     void submitForm() {
@@ -122,7 +122,7 @@ class _EditPetProfileState extends State<EditPetProfile> {
                       },
                       decoration: InputDecoration(
                           labelText: "Pet Name",
-                          hintText: editPet ? "Jackie" : null,
+                        //  hintText: editPet ? "Jackie" : null,
                           labelStyle: TextStyle(
                               fontWeight: FontWeight.bold,
                               color: Colors.black,

@@ -10,7 +10,8 @@ import 'StatWidget.dart';
 class ProfileDetails extends StatelessWidget {
   final String name;
   final String email;
-  ProfileDetails({@required this.name, @required this.email});
+  final String phoneNumber;
+  ProfileDetails({@required this.name, @required this.email,@required this.phoneNumber});
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -112,7 +113,7 @@ class ProfileDetails extends StatelessWidget {
           height: size.height * 0.01,
         ),
         Text(
-          "Phone number goes here",
+         this.phoneNumber,
           style: TextStyle(
               fontSize: 12,
               color: Colors.blue,

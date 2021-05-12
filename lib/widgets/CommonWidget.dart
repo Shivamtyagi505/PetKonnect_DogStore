@@ -1089,7 +1089,7 @@ class _StoreListingWidgetState extends State<StoreListingWidget> {
                                 topLeft: Radius.circular(space_10)),
                             child: Container(
                               width: space_200,
-                              height: space_140,
+                              height: space_120,
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(space_10),

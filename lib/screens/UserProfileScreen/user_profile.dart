@@ -51,7 +51,8 @@ class _UserProfileState extends State<UserProfile> {
     return pets;
   }
 
-  var name = "", email = "";
+  var name = "", email = "",
+   phoneNumber= "";
   var token;
   getUserData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -65,7 +66,9 @@ class _UserProfileState extends State<UserProfile> {
     setState(() {
       name = user['name'];
       email = user['email'];
+      phoneNumber = user['phoneNumber'].toString();
     });
+    print('phone is $name');
   }
 
   @override
@@ -207,7 +210,7 @@ class _UserProfileState extends State<UserProfile> {
               height: size.height * 0.01,
             ),
             //profile details
-            ProfileDetails(name: name, email: email),
+            ProfileDetails(name: name, email: email, phoneNumber:phoneNumber),
             SizedBox(
               height: size.height * 0.03,
             ),

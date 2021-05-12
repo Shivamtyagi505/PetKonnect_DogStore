@@ -24,7 +24,7 @@ class MapScreenState extends State<EditUserProfile>
 
   File _image;
 
-  var name = "", email = "";
+  var name = "", email = "",phoneNumber="";
   getUserProfileData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = jsonDecode(prefs.getString('USER_LOGIN_RES'))['token'];
@@ -38,12 +38,14 @@ class MapScreenState extends State<EditUserProfile>
     setState(() {
       name = user['name'];
       email = user['email'];
+      phoneNumber= user['phoneNumber'].toString();
     });
     print(user['address']['zip']);
   }
 
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
+  TextEditingController phoneNumberController = TextEditingController();
   editProfile() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = jsonDecode(prefs.getString('USER_LOGIN_RES'))['token'];
@@ -57,6 +59,7 @@ class MapScreenState extends State<EditUserProfile>
       body: jsonEncode({
         'name': nameController.text,
         'email': emailController.text,
+        'phoneNumber': phoneNumberController.text,
       }),
     );
     var user = jsonDecode(response.body);
@@ -248,9 +251,10 @@ class MapScreenState extends State<EditUserProfile>
                             children: <Widget>[
                               new Flexible(
                                 child: new TextField(
+                                  controller: phoneNumberController,
                                   keyboardType: TextInputType.phone,
-                                  decoration: const InputDecoration(
-                                      hintText: "Enter Your number"),
+                                  decoration:  InputDecoration(
+                                      hintText: phoneNumber),
                                   enabled: _status,
                                 ),
                               ),

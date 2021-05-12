@@ -179,9 +179,9 @@ class _EditAddressState extends State<EditAddress> {
                             new Flexible(
                               child: new TextField(
                                 controller: doorNoController,
-                                decoration: const InputDecoration(
+                                decoration: InputDecoration(
 
-                                  hintText: "Enter Door No",
+                                  hintText: doorNo,
                                 ),
                                 enabled: _status,
                                 autofocus: _status,
@@ -221,8 +221,8 @@ class _EditAddressState extends State<EditAddress> {
                             new Flexible(
                               child: new TextField(
                                 controller: buildingController,
-                                decoration: const InputDecoration(
-                                  hintText: "Enter Building",
+                                decoration: InputDecoration(
+                                  hintText: building,
                                 ),
                                 enabled: _status,
                                 autofocus: _status,
@@ -263,8 +263,8 @@ class _EditAddressState extends State<EditAddress> {
                             new Flexible(
                               child: new TextField(
                                 controller: streetController,
-                                decoration: const InputDecoration(
-                                  hintText: "Enter Street/Area.",
+                                decoration: InputDecoration(
+                                  hintText: street,
                                 ),
                                 enabled: _status,
                                 autofocus: _status,
@@ -304,8 +304,8 @@ class _EditAddressState extends State<EditAddress> {
                             new Flexible(
                               child: new TextField(
                                 controller: cityController,
-                                decoration: const InputDecoration(
-                                  hintText: "Enter City",
+                                decoration:InputDecoration(
+                                  hintText: city,
                                 ),
                                 enabled: _status,
                                 autofocus: _status,
@@ -347,8 +347,8 @@ class _EditAddressState extends State<EditAddress> {
                             new Flexible(
                               child: new TextField(
                                 controller: stateController,
-                                decoration: const InputDecoration(
-                                  hintText: "Enter State",
+                                decoration:  InputDecoration(
+                                  hintText: state,
                                 ),
                                 enabled: _status,
                                 autofocus: _status,
@@ -389,8 +389,8 @@ class _EditAddressState extends State<EditAddress> {
                             new Flexible(
                               child: new TextField(
                                 controller: zipController,
-                                decoration: const InputDecoration(
-                                  hintText: "Enter Zip Code",
+                                decoration:  InputDecoration(
+                                  hintText: zip,
                                 ),
                                 enabled: _status,
                                 autofocus: _status,
