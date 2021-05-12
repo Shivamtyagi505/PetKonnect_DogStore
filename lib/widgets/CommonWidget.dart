@@ -116,7 +116,8 @@ class _CardItemWidgetState extends State<CardItemWidget> {
                               height: space_5,
                             ),
                             Text(
-                              "\u20B9 " + widget.product.sellingPrice.toString(),
+                              "\u20B9 " +
+                                  widget.product.sellingPrice.toString(),
                               style: CommonStyles.getMontserratStyle(
                                   space_20, FontWeight.w500, kPrimarycolor),
                             ),
@@ -217,7 +218,8 @@ class _CardItemWidgetState extends State<CardItemWidget> {
               print("prdocut IDD " + productId.toString());
               print("token " + widget.token);
               widget.commonBloc
-                ..add(DeleteCartEvent(token: widget.token, productId: productId));
+                ..add(
+                    DeleteCartEvent(token: widget.token, productId: productId));
             },
             child: Expanded(
               flex: 1,
@@ -324,16 +326,17 @@ class SearchTextInputWidget extends StatelessWidget {
         decoration: InputDecoration(
           floatingLabelBehavior: FloatingLabelBehavior.always,
           contentPadding: EdgeInsets.all(space_5),
-          border:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(space_25)),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(space_25),
+          ),
           filled: true,
           hintText: "Search",
           prefixIcon: Icon(
             Icons.search,
             color: kPrimarycolor,
           ),
-          focusColor: CommonStyles.blue,
-          fillColor: CommonStyles.secondarygrey.withOpacity(0.2),
+          focusColor: Colors.black,
+          fillColor: Colors.white,
         ),
       ),
     );
@@ -546,7 +549,8 @@ class _ItemCardNoMarginWidgetState extends State<ItemCardNoMarginWidget> {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => StoreDetailScreen(widget.mVendors?.id,widget.token)),
+              builder: (context) =>
+                  StoreDetailScreen(widget.mVendors?.id, widget.token)),
         );
       },
       child: Container(
@@ -636,15 +640,14 @@ class _ItemDetailImgCorousalWidgetState
         children: [
           Container(
               width: double.infinity,
-              height: getProportionateScreenHeight(context, space_140),
+              //height: getProportionateScreenHeight(context, space_140),
               child: Stack(
                 children: [
                   Column(
                     children: [
                       CarouselSlider(
                         options: CarouselOptions(
-                            height: getProportionateScreenHeight(
-                                context, space_100),
+                            height: getProportionateScreenHeight(context, 118),
                             viewportFraction: 1.0,
                             enlargeCenterPage: false,
                             onPageChanged: (index, reason) {
@@ -659,8 +662,9 @@ class _ItemDetailImgCorousalWidgetState
                                     Container(
                                       width: double.infinity,
                                       height: getProportionateScreenHeight(
-                                          context, space_250),
+                                          context, 250),
                                       child: Image(
+                                          fit: BoxFit.fill,
                                           image: AssetImage(
                                               widget.bannerList[_current])),
                                     ),
@@ -697,8 +701,8 @@ class ProductItemCardNoMarginWidget extends StatefulWidget {
       _ProductItemCardNoMarginWidgetState();
 }
 
-
-class _ProductItemCardNoMarginWidgetState extends State<ProductItemCardNoMarginWidget> {
+class _ProductItemCardNoMarginWidgetState
+    extends State<ProductItemCardNoMarginWidget> {
   bool isLiked = false;
 
   @override
@@ -724,8 +728,8 @@ class _ProductItemCardNoMarginWidgetState extends State<ProductItemCardNoMarginW
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) =>
-                  ProductDetailScreen(widget.mProducts?.id, widget.vendorId,widget.token)),
+              builder: (context) => ProductDetailScreen(
+                  widget.mProducts?.id, widget.vendorId, widget.token)),
         );
       },
       child: Container(
@@ -1026,17 +1030,14 @@ class ProgressWidget extends StatelessWidget {
   }
 }
 
-
 class StoreListingWidget extends StatefulWidget {
   Vendors mVendors;
   var token;
   StoreListingWidget(this.mVendors, this.token);
 
   @override
-  _StoreListingWidgetState createState() =>
-      _StoreListingWidgetState();
+  _StoreListingWidgetState createState() => _StoreListingWidgetState();
 }
-
 
 class _StoreListingWidgetState extends State<StoreListingWidget> {
   bool isLiked = false;
@@ -1045,7 +1046,6 @@ class _StoreListingWidgetState extends State<StoreListingWidget> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
   }
 
   @override
@@ -1061,7 +1061,8 @@ class _StoreListingWidgetState extends State<StoreListingWidget> {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => StoreDetailScreen(widget.mVendors?.id,widget.token)),
+              builder: (context) =>
+                  StoreDetailScreen(widget.mVendors?.id, widget.token)),
         );
       },
       child: Container(
@@ -1076,7 +1077,6 @@ class _StoreListingWidgetState extends State<StoreListingWidget> {
                     side: BorderSide(color: Colors.white),
                     borderRadius: BorderRadius.circular(space_10)),
                 child: Container(
-
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1091,9 +1091,9 @@ class _StoreListingWidgetState extends State<StoreListingWidget> {
                               width: space_200,
                               height: space_140,
                               decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius:
-                                  BorderRadius.circular(space_10)),
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(space_10),
+                              ),
                               child: FadeInImage.assetNetwork(
                                 placeholder: "assets/images/loader.jpg",
                                 image: "${widget.mVendors?.storeImage}",
@@ -1127,7 +1127,7 @@ class _StoreListingWidgetState extends State<StoreListingWidget> {
                         height: space_10,
                       ),
                       Container(
-                        padding: EdgeInsets.only(left: 10,right: 10),
+                        padding: EdgeInsets.only(left: 10, right: 10),
                         child: Text(
                           "${widget.mVendors?.storeName}",
                           maxLines: 1,
@@ -1139,12 +1139,14 @@ class _StoreListingWidgetState extends State<StoreListingWidget> {
                       SizedBox(
                         height: space_5,
                       ),
-                      Container(padding: EdgeInsets.only(left: 10,right: 10),child: RatingBarByRatingWidget(4.5, space_10)),
+                      Container(
+                          padding: EdgeInsets.only(left: 10, right: 10),
+                          child: RatingBarByRatingWidget(4.5, space_10)),
                       SizedBox(
                         height: space_5,
                       ),
                       Container(
-                        padding: EdgeInsets.only(left: 10,right: 10),
+                        padding: EdgeInsets.only(left: 10, right: 10),
                         child: Text(
                           "Foods | Pet Products",
                           maxLines: 1,
@@ -1159,7 +1161,10 @@ class _StoreListingWidgetState extends State<StoreListingWidget> {
                         height: space_5,
                       ),
                       Container(
-                        padding: EdgeInsets.only(left: 10,right: 10),
+                        padding: EdgeInsets.only(
+                          left: 10,
+                          right: 10,
+                        ),
                         child: RichText(
                           text: new TextSpan(
                             text: '\u20B9${"50% OFF"}',
