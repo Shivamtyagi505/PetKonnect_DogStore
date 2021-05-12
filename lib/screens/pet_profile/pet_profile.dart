@@ -4,16 +4,7 @@ import 'package:flutter_petkon/screens/UserProfileScreen/user_profile.dart';
 import 'package:flutter_svg/svg.dart';
 import 'components/Banner.dart';
 
-<<<<<<< Updated upstream
-class PetProfile extends StatefulWidget {
-  @override
-  _PetProfileState createState() => _PetProfileState();
-}
-
-class _PetProfileState extends State<PetProfile> {
-=======
 class PetProfile extends StatelessWidget {
->>>>>>> Stashed changes
   @override
   Widget build(BuildContext context) {
     String imageUrl = ModalRoute.of(context).settings.arguments;
@@ -111,11 +102,7 @@ class PetProfile extends StatelessWidget {
                 GestureDetector(
                     onTap: () {
                       Navigator.of(context)
-<<<<<<< Updated upstream
-                          .pushNamed("/editPet", arguments: false);
-=======
                           .pushNamed('/editPet', arguments: false);
->>>>>>> Stashed changes
                     },
                     child: SvgPicture.asset(
                       "assets/icons/add_post.svg",
