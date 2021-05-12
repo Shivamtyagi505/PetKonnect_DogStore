@@ -21,7 +21,10 @@ class PetProfile extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pushNamed('/editPet', arguments: true);
+                      },
                       child: Text(
                         "Edit Details",
                         style: TextStyle(
@@ -97,11 +100,15 @@ class PetProfile extends StatelessWidget {
                 PetAvatar(
                     "http://cdn.akc.org/content/article-body-image/siberian_husky_cute_puppies.jpg"),
                 GestureDetector(
+                    onTap: () {
+                      Navigator.of(context)
+                          .pushNamed('/editPet', arguments: false);
+                    },
                     child: SvgPicture.asset(
-                  "assets/icons/add_post.svg",
-                  height: size.height * 0.09,
-                  width: size.width * 0.15,
-                ))
+                      "assets/icons/add_post.svg",
+                      height: size.height * 0.09,
+                      width: size.width * 0.15,
+                    ))
               ],
             ),
           ],

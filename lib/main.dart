@@ -17,8 +17,9 @@ import 'package:flutter_petkon/screens/ProductDetailScreen.dart';
 import 'package:flutter_petkon/screens/SosScreen.dart';
 import 'package:flutter_petkon/screens/StoreDetailScreen.dart';
 import 'package:flutter_petkon/screens/StoreListingScreen.dart';
-import 'package:flutter_petkon/screens/UserProfileScreen.dart';
-import 'package:flutter_petkon/screens/forgot_password/ForgotPassword.dart';
+import 'package:flutter_petkon/screens/UserProfileScreen/EditUserProfile.dart';
+import 'package:flutter_petkon/screens/UserProfileScreen/user_profile.dart';
+import 'package:flutter_petkon/screens/pet_profile/edit_pet.dart';
 import 'package:flutter_petkon/screens/pet_profile/pet_profile.dart';
 import 'package:flutter_petkon/utils/CommonStyles.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -101,7 +102,10 @@ class MyApp extends StatelessWidget {
           //primarySwatch: CommonStyles.amber,
           primaryColor: kPrimarycolor),
       home: LoginSignupScreen(),
-      routes: {'/petProfile': (context) => PetProfile()},
+      routes: {
+        '/petProfile': (context) => PetProfile(),
+        '/editPet': (context) => EditPetProfile()
+      },
     );
   }
 }

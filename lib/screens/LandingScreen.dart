@@ -22,7 +22,6 @@ import 'UserProfileScreen/EditUserProfile.dart';
 import 'UserProfileScreen/user_profile.dart';
 
 class LandingScreen extends StatefulWidget {
-
   var token;
   LandingScreen(this.token);
 
@@ -38,7 +37,6 @@ class _LandingScreenState extends State<LandingScreen> {
 
   @override
   void didChangeDependencies() {
-
     super.didChangeDependencies();
   }
 
@@ -99,7 +97,9 @@ class _LandingScreenState extends State<LandingScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => MyCartScreen(widget.token)),
+                        builder: (context) => MyCartScreen(
+                              widget.token,
+                            )),
                   );
                 },
                 child: Container(
