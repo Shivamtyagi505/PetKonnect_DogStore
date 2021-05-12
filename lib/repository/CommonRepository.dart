@@ -37,8 +37,8 @@ class CommonRepository extends BaseRepository {
     var http = makeHttpSecure();
  //
      //Map reqBodyMap = {"email": "chiragj97.cj@gmail.com", "password": "Chirag@1234"};
- // Map reqBodyMap = {"email": "aman.mehra655@gmail.com", "password": "12345678"};
-    Map reqBodyMap = {"email": email, "password": pwd};
+    // Map reqBodyMap = {"email": "aman.mehra655@gmail.com", "password": "12345678"};
+       Map reqBodyMap = {"email": email, "password": pwd};
     print("UNDER callLogin ${email}, ${pwd}, ${BASE_URL + LOGIN_API}");
     var res = await http
         .post(BASE_URL + LOGIN_API,

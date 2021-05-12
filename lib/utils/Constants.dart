@@ -28,6 +28,17 @@ getProductsWidthToHeightRatio(BuildContext context) {
           : getProportionateScreenHeight(context, space_320)));
   return ratio;
 }
+getProductsWidthToHeightRatioForStore(BuildContext context) {
+  var screenHeight = MediaQuery.of(context).size.height;
+  debugPrint("SCREEN_HEIGHT--> ${screenHeight}");
+  var ratio = (getProportionateScreenWidth(context, space_220) /
+      (Platform.isIOS
+          ? getProportionateScreenHeight(context, space_300)
+          : screenHeight <= 712
+          ? getProportionateScreenHeight(context, space_370)
+          : getProportionateScreenHeight(context, space_320)));
+  return ratio;
+}
 
 void showSnakbar(GlobalKey<ScaffoldState> _scaffoldKey, String msg) {
   _scaffoldKey.currentState.showSnackBar(SnackBar(

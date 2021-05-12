@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_petkon/Kconstants.dart';
 import 'package:flutter_petkon/utils/CommonStyles.dart';
 import 'package:flutter_petkon/utils/size_config.dart';
+import 'package:intl/intl.dart';
 
 class TrackingOrder extends StatefulWidget {
   var orderid, createdAt, confirmationDate, dispatchedDate, deliveredDate;
@@ -13,6 +14,14 @@ class TrackingOrder extends StatefulWidget {
 }
 
 class _TrackingOrderState extends State<TrackingOrder> {
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    print(DateTime.parse(widget.createdAt));
+    print(DateFormat.yMd().format(DateTime.parse(widget.createdAt)));
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -70,7 +79,7 @@ class _TrackingOrderState extends State<TrackingOrder> {
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text("Order ID : " + widget.orderid.toString(),
+              Text("Order ID : " + widget.orderid.toString().substring( widget.orderid.toString().length - 6),
                   style: CommonStyles.getMontserratStyle(
                       space_16, FontWeight.w600, kPrimarycolor)),
             ],
@@ -82,32 +91,32 @@ class _TrackingOrderState extends State<TrackingOrder> {
               "assets/icons/order_placed.png",
               "Order Placed",
               "We had received your order",
-              widget.createdAt == null ? "" : widget.createdAt,
-              ""),
+              widget.createdAt == null ? "" : DateFormat.yMd().format(DateTime.parse(widget.createdAt)),
+              widget.createdAt == null ? "" :DateFormat.jm().format(DateTime.parse(widget.createdAt))),
           timelineRow(
               "assets/icons/order_proccess.png",
               "Order processed",
               "Order has been processed",
-              widget.confirmationDate == null ? "" : widget.confirmationDate,
-              ""),
+              widget.confirmationDate == null ? "" : DateFormat.yMd().format(DateTime.parse(widget.confirmationDate)),
+              widget.confirmationDate == null ? "" :DateFormat.jm().format(DateTime.parse(widget.confirmationDate))),
           timelineRow(
               "assets/icons/ready_to_ship.png",
               "Ready to ship",
               "Your Order is ready for shipping",
-              widget.dispatchedDate == null ? "" : widget.dispatchedDate,
-              ""),
+              widget.dispatchedDate == null ? "" : DateFormat.yMd().format(DateTime.parse(widget.dispatchedDate)),
+              widget.dispatchedDate == null ? "" :DateFormat.jm().format(DateTime.parse(widget.dispatchedDate))),
           timelineRow(
               "assets/icons/out_for_delivery.png",
               "Out for Delivery",
               "Your order is dispatched",
-              widget.dispatchedDate == null ? "" : widget.dispatchedDate,
-              ""),
+               widget.dispatchedDate == null ? "" : DateFormat.yMd().format(DateTime.parse(widget.dispatchedDate)),
+               widget.dispatchedDate == null ? "" :DateFormat.jm().format(DateTime.parse(widget.dispatchedDate))),
           timelineLastRow(
               "assets/icons/delivered.png",
               "Delivered Successfully",
               "Your order is delivered to the given address",
-              widget.deliveredDate == null ? "" : widget.deliveredDate,
-              ""),
+              widget.deliveredDate == null ? "" : DateFormat.yMd().format(DateTime.parse(widget.deliveredDate)),
+              widget.deliveredDate == null ? "" :DateFormat.jm().format(DateTime.parse(widget.deliveredDate))),
           SizedBox(height: 20),
           SizedBox(
             height: space_10,

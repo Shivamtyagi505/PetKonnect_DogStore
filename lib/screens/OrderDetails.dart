@@ -81,7 +81,7 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                               space_16, FontWeight.w600, CommonStyles.black)),
                       Padding(
                         padding: const EdgeInsets.only(top: 8.0),
-                        child: Text("Order ID : ${widget.order.id}",
+                        child: Text("Order ID : "+widget.order.id.substring(widget.order.id.toString().length - 6),
                             style: CommonStyles.getMontserratStyle(
                                 space_16, FontWeight.w600, kPrimarycolor)),
                       )
@@ -319,16 +319,16 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            "${widget.order.shippingAddress.doorNo}, ${widget.order.shippingAddress.street}",
-                            style: CommonStyles.getMontserratStyle(space_12,
-                                FontWeight.w600, CommonStyles.greyColor),
-                          ),
-                          Text(
-                            "${widget.order.shippingAddress.building}, ${widget.order.shippingAddress.city}, \n${widget.order.shippingAddress.state}, ${widget.order.shippingAddress.zip}  ",
-                            style: CommonStyles.getMontserratStyle(space_10,
-                                FontWeight.w600, CommonStyles.greyColor),
-                          ),
+//                          Text(""+
+//                            "${widget.order.shippingAddress.doorNo}, ${widget.order.shippingAddress.street}",
+//                            style: CommonStyles.getMontserratStyle(space_12,
+//                                FontWeight.w600, CommonStyles.greyColor),
+//                          ),
+//                          Text(
+//                            "${widget.order.shippingAddress.building}, ${widget.order.shippingAddress.city}, \n${widget.order.shippingAddress.state}, ${widget.order.shippingAddress.zip}  ",
+//                            style: CommonStyles.getMontserratStyle(space_10,
+//                                FontWeight.w600, CommonStyles.greyColor),
+//                          ),
                         ],
                       ),
                     ],
@@ -378,6 +378,31 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                   Center(
                     child: GestureDetector(
                       onTap: () {
+
+                      },
+                      child: Container(
+
+                          width: space_250,
+                          height: space_40,
+                          decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(5)),
+                              color: kPrimarycolor),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Cancel",
+                                style: CommonStyles.getMontserratStyle(
+                                    space_16, FontWeight.w600, Colors.white),
+                              ),
+                            ],
+                          )),
+                    ),
+                  ),
+                  Center(
+                    child: GestureDetector(
+                      onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -390,11 +415,12 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                         );
                       },
                       child: Container(
+                          margin: const EdgeInsets.only(top: 10.0),
                           width: space_250,
                           height: space_40,
                           decoration: BoxDecoration(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(5)),
+                              BorderRadius.all(Radius.circular(5)),
                               color: kPrimarycolor),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,

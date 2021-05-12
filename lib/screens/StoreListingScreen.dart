@@ -61,6 +61,12 @@ class _StoreListingScreenState extends State<StoreListingScreen> {
             print(element?.storeName.toLowerCase()?.toString()+" hshd  dds "+searchController?.text?.toLowerCase());
           if(element?.storeName.toLowerCase()?.contains(searchController?.text?.toLowerCase())){
             mVendorList?.add(element);
+          } else  if(element?.vendorType.toLowerCase()?.contains(searchController?.text?.toLowerCase())){
+            mVendorList?.add(element);
+          }else  if(element?.vendorSubcategory.toLowerCase()?.contains(searchController?.text?.toLowerCase())){
+            mVendorList?.add(element);
+          }else  if(element?.vendorCategory.toLowerCase()?.contains(searchController?.text?.toLowerCase())){
+            mVendorList?.add(element);
           }
         });
       }
@@ -193,7 +199,7 @@ class _StoreListingScreenState extends State<StoreListingScreen> {
                   shrinkWrap: true,
                   primary: false,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    childAspectRatio: getProductsWidthToHeightRatio(context),
+                    childAspectRatio: getProductsWidthToHeightRatioForStore(context),
                     crossAxisCount: 2,
                     crossAxisSpacing: 5.0,
                     mainAxisSpacing: 5.0,

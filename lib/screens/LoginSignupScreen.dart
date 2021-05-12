@@ -11,6 +11,8 @@ import 'package:flutter_petkon/inherited/StateContainer.dart';
 import 'package:flutter_petkon/model/login_response.dart';
 import 'package:flutter_petkon/model/register_res.dart';
 import 'package:flutter_petkon/screens/LandingScreen.dart';
+import 'package:flutter_petkon/screens/StoreDetailScreen.dart';
+import 'package:flutter_petkon/screens/StoreListingScreen.dart';
 import 'package:flutter_petkon/screens/forgot_password/ForgotPassword.dart';
 import 'package:flutter_petkon/utils/CommonStyles.dart';
 import 'package:flutter_petkon/utils/Constants.dart';
@@ -89,10 +91,9 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
 
   saveUserPref(String token) async {
     // SharedPreferences prefs = await SharedPreferences.getInstance();
-
     // prefs.setString("token", token);
-    await SharedPreferences.setMockInitialValues(
-        <String, dynamic>{"token": token});
+
+    SharedPreferences.setMockInitialValues(<String, dynamic>{"token": token});
   }
 
   @override
@@ -394,26 +395,37 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                               height: space_50,
                               width: space_120,
                               child: GestureDetector(
-                                onTap: onSubmit,
-                                child: Container(
-                                  height: space_50,
-                                  width: space_120,
-                                  decoration: BoxDecoration(
-                                      color: kPrimarycolor,
-                                      borderRadius:
-                                          BorderRadius.circular(space_5)),
-                                  child: Center(
-                                    child: Padding(
-                                        padding: EdgeInsets.all(space_15),
-                                        child: Text(
-                                          mCurrentTab == "register"
-                                              ? "Submit"
-                                              : "Login",
-                                          style: CommonStyles.getRalewayStyle(
-                                              space_14,
-                                              FontWeight.w600,
-                                              Colors.white),
-                                        )),
+                                onTap: () {
+//                                  Navigator.push(
+//                                    context,
+//                                    MaterialPageRoute(
+//                                        builder: (context) => LandingScreen()),
+//                                  );
+                                },
+                                child: GestureDetector(
+                                  onTap: () {
+                                    onSubmit();
+                                  },
+                                  child: Container(
+                                    height: space_50,
+                                    width: space_120,
+                                    decoration: BoxDecoration(
+                                        color: kPrimarycolor,
+                                        borderRadius:
+                                            BorderRadius.circular(space_5)),
+                                    child: Center(
+                                      child: Padding(
+                                          padding: EdgeInsets.all(space_15),
+                                          child: Text(
+                                            mCurrentTab == "register"
+                                                ? "Submit"
+                                                : "Login",
+                                            style: CommonStyles.getRalewayStyle(
+                                                space_14,
+                                                FontWeight.w600,
+                                                Colors.white),
+                                          )),
+                                    ),
                                   ),
                                 ),
                               ),

@@ -54,9 +54,16 @@ class _StoreDetailScreenState extends State<StoreDetailScreen> {
       mProductList = List();
       if (searchController?.text?.isNotEmpty) {
         mGetAllProductRes?.products?.forEach((element) {
-          if (element?.productName
-              ?.toLowerCase()
-              ?.contains(searchController?.text?.toLowerCase())) {
+          if (element?.productName?.toLowerCase()?.contains(searchController?.text?.toLowerCase())
+          ) {
+            print("product name");
+            mProductList?.add(element);
+          }else if (element?.productCategory?.toLowerCase()?.contains(searchController?.text?.toLowerCase())) {
+            mProductList?.add(element);
+          }else if (element?.productSubcategory?.toLowerCase()?.contains(searchController?.text?.toLowerCase())) {
+            mProductList?.add(element);
+          }else if (element?.petType?.toLowerCase()?.contains(searchController?.text?.toLowerCase())) {
+            print("pet name");
             mProductList?.add(element);
           }
         });

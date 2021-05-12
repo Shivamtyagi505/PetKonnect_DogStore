@@ -218,9 +218,7 @@ class _OrderScreenState extends State<OrderScreen> {
                                                               Flexible(
                                                                 child: Text(
                                                                   "Order Id : " +
-                                                                      orderList[
-                                                                              index]
-                                                                          .id,
+                                                                      orderList[index].id.toString().substring(orderList[index].id.toString().length - 6) ,
                                                                   style: CommonStyles.getMontserratStyle(
                                                                       space_11,
                                                                       FontWeight

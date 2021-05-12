@@ -2,11 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_petkon/Kconstants.dart';
-<<<<<<< Updated upstream
-=======
 import 'package:flutter_petkon/utils/CommonStyles.dart';
 import 'package:flutter_petkon/utils/Constants.dart';
->>>>>>> Stashed changes
 import 'package:flutter_petkon/utils/size_config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -153,123 +150,6 @@ class _EditAddressState extends State<EditAddress> {
                 width: size.width * 0.88,
                 child: Column(
                   children: [
-<<<<<<< Updated upstream
-                    TextFormField(
-                      //decoration
-                      controller: doorNoController,
-                      decoration: InputDecoration(
-                          labelText: "Door No.",
-                          hintText: doorNo,
-                          labelStyle: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                              fontSize: 18)),
-                      //validator
-                      validator: (value) {
-                        if (value.isEmpty)
-                          return "Door Number cannot be Empty !";
-                      },
-                      //onsaved
-                      onSaved: (newValue) => doorNo = newValue,
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    TextFormField(
-                      controller: buildingController,
-                      decoration: InputDecoration(
-                          labelText: "Building",
-                          hintText: building,
-                          labelStyle: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                              fontSize: 18)),
-                      //validator
-                      validator: (value) {
-                        if (value.isEmpty) return "this field caanot be empty ";
-                      },
-                      //Onsaved
-                      onSaved: (newValue) => building = newValue,
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    TextFormField(
-                      controller: streetController,
-                        decoration: InputDecoration(
-                            labelText: "Street/Area.",
-                            hintText: street,
-                            labelStyle: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                                fontSize: 18)),
-                        //validator
-                        validator: (value) {
-                          if (value.isEmpty)
-                            return "this field caanot be empty ";
-                        },
-                        //Onsaved
-                        onSaved: (newValue) => street = newValue),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    TextFormField(
-                      controller: cityController,
-                      decoration: InputDecoration(
-                          labelText: "City",
-                          hintText: city,
-                          labelStyle: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                              fontSize: 18)),
-                      //validator
-                      validator: (value) {
-                        if (value.isEmpty) return "this field caanot be empty ";
-                      },
-                      //Onsaved
-                      onSaved: (newValue) => city = newValue,
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    TextFormField(
-                      controller: stateController,
-                        decoration: InputDecoration(
-                            labelText: "State",
-                            hintText: state,
-                            labelStyle: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black,
-                                fontSize: 18)),
-                        //validator
-                        validator: (value) {
-                          if (value.isEmpty)
-                            return "this field can'not be empty ";
-                        },
-                        //Onsaved
-                        onSaved: (newValue) => state = newValue),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    TextFormField(
-                      controller: zipController,
-                      decoration: InputDecoration(
-                          labelText: "Zip Code",
-                          hintText: zip,
-                          labelStyle: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
-                              fontSize: 18)),
-                      //validator
-                      validator: (value) {
-                        if (value.isEmpty || value.length != 6) {
-                          return "Please enter a valid ZipCode";
-                        }
-                      },
-                      //Onsaved
-                      //onSaved: (newValue) => zipCode = newValue,
-                    ),
-=======
                     Padding(
                         padding: EdgeInsets.only(
                             left: space_8, right: space_8),
@@ -519,20 +399,12 @@ class _EditAddressState extends State<EditAddress> {
                           ],
                         )),
 
->>>>>>> Stashed changes
                     SizedBox(
                       height: 15,
                     ),
                     //Submit Button
                     GestureDetector(
                       onTap: () {
-<<<<<<< Updated upstream
-                        editAddress(); 
-                      },
-                      child: Center(
-                        child: Padding(
-                          padding: EdgeInsets.all(20),
-=======
                         if (doorNoController .text.trim().isEmpty) {
                           showSnakbar(_scaffoldKey, "Door no can't be empty!!");
                         } else if (buildingController .text.trim().isEmpty) {
@@ -554,7 +426,6 @@ class _EditAddressState extends State<EditAddress> {
                       child: Center(
                         child: Padding(
                           padding: EdgeInsets.only(top:space_15),
->>>>>>> Stashed changes
                           child: Container(
                             height: space_50,
                             width: space_300,
@@ -563,11 +434,7 @@ class _EditAddressState extends State<EditAddress> {
                                 borderRadius: BorderRadius.circular(space_5)),
                             child: Center(
                                 child: Padding(
-<<<<<<< Updated upstream
-                              padding: EdgeInsets.all(space_15),
-=======
                               padding: EdgeInsets.all(1),
->>>>>>> Stashed changes
                               child: Text("Save",
                                   style: TextStyle(
                                     color: Colors.white,
