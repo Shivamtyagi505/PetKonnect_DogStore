@@ -59,6 +59,7 @@ class _UserProfileState extends State<UserProfile> {
   }
 
   var name = "", email = "";
+  var token;
   getUserData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = jsonDecode(prefs.getString('USER_LOGIN_RES'))['token'];
@@ -135,7 +136,10 @@ class _UserProfileState extends State<UserProfile> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => MyCartScreen(null)),
+                    MaterialPageRoute(
+                        builder: (context) => MyCartScreen(
+                              token,
+                            )),
                   );
                 },
                 child: Container(
@@ -173,40 +177,39 @@ class _UserProfileState extends State<UserProfile> {
                       fontWeight: FontWeight.w600,
                       fontFamily: "Montserrat"),
                 ),
-                Row(
-                  children: [
-                    GestureDetector(
-                      child: SvgPicture.asset(
-                        "assets/icons/add_post.svg",
-                        height: 30,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    GestureDetector(
-                      child: SvgPicture.asset(
-                        "assets/icons/message.svg",
-                        height: 30,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    GestureDetector(
-                      child: SvgPicture.asset(
-                        "assets/icons/menu_hamburger.svg",
-                        height: 30,
-                      ),
-                    ),
-                  ],
-                )
+                // Row(
+                //   children: [
+                //     GestureDetector(
+                //       child: SvgPicture.asset(
+                //         "assets/icons/add_post.svg",
+                //         height: 30,
+                //       ),
+                //     ),
+                //     SizedBox(
+                //       width: 10,
+                //     ),
+                //     GestureDetector(
+                //       child: SvgPicture.asset(
+                //         "assets/icons/message.svg",
+                //         height: 30,
+                //       ),
+                //     ),
+                //     SizedBox(
+                //       width: 10,
+                //     ),
+                //     GestureDetector(
+                //       child: SvgPicture.asset(
+                //         "assets/icons/menu_hamburger.svg",
+                //         height: 30,
+                //       ),
+                //     ),
+                //   ],
+                // )
               ],
             ),
             SizedBox(
               height: size.height * 0.03,
             ),
-
             SizedBox(
               height: size.height * 0.01,
             ),
@@ -267,36 +270,12 @@ class _UserProfileState extends State<UserProfile> {
             SizedBox(
               height: 10,
             ),
-            //Posts
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                PostSelection(
-                  title: "Post",
-                  type: post,
-                  onTap: () {
-                    setState(() {
-                      post = !post;
-                    });
-                  },
-                ),
-                PostSelection(
-                    title: "Tagged",
-                    type: tagged,
-                    onTap: () {
-                      setState(() {
-                        tagged = !tagged;
-                      });
-                    }),
-                PostSelection(
-                    title: "Saved",
-                    type: saved,
-                    onTap: () {
-                      setState(() {
-                        saved = !saved;
-                      });
-                    })
-              ],
+            Text(
+              "Saved",
+              style: TextStyle(
+                  fontFamily: "Montserrat",
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold),
             )
           ],
         ),

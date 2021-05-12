@@ -57,7 +57,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => commonBloc
-        ..add(GetProductDetailEvent(token: widget.token, prodId: widget.prodId)),
+        ..add(
+            GetProductDetailEvent(token: widget.token, prodId: widget.prodId)),
       child: BlocListener(
           cubit: commonBloc,
           listener: (context, state) {
@@ -69,7 +70,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 print("teeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => MyCartScreen(widget.token)),
+                  MaterialPageRoute(
+                      builder: (context) => MyCartScreen(
+                            widget.token,
+                          )),
                 );
               }
             }
@@ -565,7 +569,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => MyCartScreen(widget.token)),
+                                  builder: (context) => MyCartScreen(
+                                        widget.token,
+                                      )),
                             );
                           },
                           child: Container(

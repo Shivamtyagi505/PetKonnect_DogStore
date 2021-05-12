@@ -10,6 +10,7 @@ import 'package:flutter_petkon/screens/LandingScreen.dart';
 import 'package:flutter_petkon/screens/StoreListingScreen.dart';
 import 'package:flutter_petkon/utils/CommonStyles.dart';
 import 'package:flutter_petkon/utils/size_config.dart';
+import 'PaymentOptions.dart';
 import 'package:flutter_petkon/widgets/CommonWidget.dart';
 
 import 'OrdersScreen.dart';
@@ -17,7 +18,9 @@ import 'OrdersScreen.dart';
 class MyCartScreen extends StatefulWidget {
   var token;
 
-  MyCartScreen(this.token);
+  MyCartScreen(
+    this.token,
+  );
 
   @override
   _MyCartScreenState createState() => _MyCartScreenState();
@@ -234,6 +237,23 @@ class _MyCartScreenState extends State<MyCartScreen> {
                     ],
                   ),
                 ),
+                SizedBox(
+                  height: 10,
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PaymentOptions(),
+                        ));
+                  },
+                  child: Text(
+                    "Choose Payment",
+                    style: TextStyle(
+                        color: kPrimarycolor, fontWeight: FontWeight.w600),
+                  ),
+                )
               ],
             ),
             SizedBox(

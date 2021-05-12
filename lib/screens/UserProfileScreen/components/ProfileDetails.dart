@@ -28,20 +28,20 @@ class ProfileDetails extends StatelessWidget {
             ),
             Column(
               children: [
-                Row(
-                  children: [
-                    StatWidget(
-                      title: "Posts",
-                      value: 400,
-                    ),
-                    SizedBox(width: size.width * 0.03),
-                    StatWidget(title: "Followers", value: 300),
-                    SizedBox(
-                      width: size.width * 0.03,
-                    ),
-                    StatWidget(title: "Following", value: 132)
-                  ],
-                ),
+                // Row(
+                //   children: [
+                //     // StatWidget(
+                //     //   title: "Posts",
+                //     //   value: 400,
+                //     // ),
+                //     SizedBox(width: size.width * 0.03),
+                //     StatWidget(title: "Followers", value: 300),
+                //     SizedBox(
+                //       width: size.width * 0.03,
+                //     ),
+                //     StatWidget(title: "Following", value: 132)
+                //   ],
+                // ),
                 SizedBox(
                   height: size.height * 0.02,
                 ),
@@ -69,15 +69,14 @@ class ProfileDetails extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () async {
-                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                    SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
                     prefs.clear();
                     Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => LoginSignupScreen()
-                        ),
-                        ModalRoute.withName("/LoginSignupScreen")
-                    );
+                            builder: (context) => LoginSignupScreen()),
+                        ModalRoute.withName("/LoginSignupScreen"));
                   },
                   child: Padding(
                     padding: new EdgeInsets.only(top: 5),
@@ -88,7 +87,8 @@ class ProfileDetails extends StatelessWidget {
                         child: Text(
                           "Log Out",
                           style: TextStyle(
-                              color: kPrimarycolor, fontWeight: FontWeight.w600),
+                              color: kPrimarycolor,
+                              fontWeight: FontWeight.w600),
                         ),
                       ),
                       decoration: BoxDecoration(
@@ -101,6 +101,9 @@ class ProfileDetails extends StatelessWidget {
             )
           ],
         ),
+        SizedBox(
+          height: size.height * 0.01,
+        ),
         Text(
           this.name,
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -109,12 +112,22 @@ class ProfileDetails extends StatelessWidget {
           height: size.height * 0.01,
         ),
         Text(
-          "www.petkonnet.com  ",
+          "Phone number goes here",
           style: TextStyle(
               fontSize: 12,
               color: Colors.blue,
               fontFamily: "Montserrat",
               fontWeight: FontWeight.bold),
+        ),
+        SizedBox(
+          height: size.height * 0.01,
+        ),
+        Text(
+          "Display Date of birth",
+          style: TextStyle(
+            fontSize: 12,
+            fontFamily: "Montserrat",
+          ),
         ),
         SizedBox(
           height: size.height * 0.01,

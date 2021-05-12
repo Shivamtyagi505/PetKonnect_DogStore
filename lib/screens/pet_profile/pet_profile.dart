@@ -111,7 +111,11 @@ class PetProfile extends StatelessWidget {
                 GestureDetector(
                     onTap: () {
                       Navigator.of(context)
+<<<<<<< Updated upstream
                           .pushNamed("/editPet", arguments: false);
+=======
+                          .pushNamed('/editPet', arguments: false);
+>>>>>>> Stashed changes
                     },
                     child: SvgPicture.asset(
                       "assets/icons/add_post.svg",

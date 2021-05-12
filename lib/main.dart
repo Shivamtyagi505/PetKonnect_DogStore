@@ -28,6 +28,9 @@ import 'package:flutter_petkon/screens/UserProfileScreen.dart';
 import 'package:flutter_petkon/screens/forgot_password/ForgotPassword.dart';
 import 'package:flutter_petkon/screens/pet_profile/edit_pet.dart';
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -115,6 +118,7 @@ class MyApp extends StatelessWidget {
       home: LoginSignupScreen(),
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
       routes: {'/petProfile': (context) => PetProfile()},
 =======
 =======
@@ -126,6 +130,12 @@ class MyApp extends StatelessWidget {
 <<<<<<< Updated upstream
 >>>>>>> Stashed changes
 =======
+>>>>>>> Stashed changes
+=======
+      routes: {
+        '/petProfile': (context) => PetProfile(),
+        '/editPet': (context) => EditPetProfile(),
+      },
 >>>>>>> Stashed changes
     );
   }

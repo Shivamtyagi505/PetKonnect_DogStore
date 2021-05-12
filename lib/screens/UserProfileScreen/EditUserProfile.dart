@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:date_field/date_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_petkon/Kconstants.dart';
 import 'package:http/http.dart' as http;
@@ -192,43 +193,6 @@ class MapScreenState extends State<EditUserProfile>
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
                                   new Text(
-                                    'Username',
-                                    style: TextStyle(
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          )),
-                      Padding(
-                          padding: EdgeInsets.only(
-                              left: 25.0, right: 25.0, top: 2.0),
-                          child: new Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: <Widget>[
-                              new Flexible(
-                                child: new TextField(
-                                  decoration: const InputDecoration(
-                                    hintText: "Enter Your Username",
-                                  ),
-                                  enabled: _status,
-                                  autofocus: _status,
-                                ),
-                              ),
-                            ],
-                          )),
-                      Padding(
-                          padding: EdgeInsets.only(
-                              left: 25.0, right: 25.0, top: 25.0),
-                          child: new Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: <Widget>[
-                              new Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  new Text(
                                     'Name',
                                     style: TextStyle(
                                         fontSize: 16.0,
@@ -267,7 +231,7 @@ class MapScreenState extends State<EditUserProfile>
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
                                   new Text(
-                                    'Website',
+                                    'Phone Number',
                                     style: TextStyle(
                                         fontSize: 16.0,
                                         fontWeight: FontWeight.bold),
@@ -284,11 +248,47 @@ class MapScreenState extends State<EditUserProfile>
                             children: <Widget>[
                               new Flexible(
                                 child: new TextField(
+                                  keyboardType: TextInputType.phone,
                                   decoration: const InputDecoration(
-                                      hintText: "Enter Your website"),
+                                      hintText: "Enter Your number"),
                                   enabled: _status,
                                 ),
                               ),
+                            ],
+                          )),
+                      Padding(
+                          padding: EdgeInsets.only(
+                              left: 25.0, right: 25.0, top: 25.0),
+                          child: new Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: <Widget>[
+                              new Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  new Text(
+                                    'Date of birth',
+                                    style: TextStyle(
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          )),
+                      Padding(
+                          padding: EdgeInsets.only(
+                              left: 25.0, right: 25.0, top: 2.0),
+                          child: new Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: <Widget>[
+                              new Flexible(
+                                  child: DateTimeFormField(
+                                decoration: InputDecoration(
+                                  fillColor: kPrimarycolor,
+                                ),
+                                mode: DateTimeFieldPickerMode.date,
+                              )),
                             ],
                           )),
                       Padding(
@@ -334,7 +334,7 @@ class MapScreenState extends State<EditUserProfile>
                         },
                         child: Center(
                           child: Padding(
-                            padding: const EdgeInsets.only(top: space_100),
+                            padding: const EdgeInsets.only(top: space_30),
                             child: Container(
                               height: space_50,
                               width: space_300,
