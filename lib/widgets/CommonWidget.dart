@@ -757,7 +757,7 @@ class _ProductItemCardNoMarginWidgetState
                                 topLeft: Radius.circular(space_10)),
                             child: Container(
                               width: space_200,
-                              height: space_110,
+                              height: space_100,
                               decoration: BoxDecoration(
                                   color: Colors.white,
                                   borderRadius:

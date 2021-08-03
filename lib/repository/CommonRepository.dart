@@ -368,7 +368,7 @@ class CommonRepository extends BaseRepository {
 
     print("method: $ADD_PRODUCT_INCART" );
     // set up PUT request arguments
-    String requestParam = '{"productID": "$prodId", "vendorID": "$vendorId", "quantity": $quantity}';
+    String requestParam = '{"productID": "$prodId", "vendorID": "$vendorId", "": $quantity}';
 
 
   //  Map reqBodyMap = {"productID": prodId, "vendorID": vendorId, "quantity": quantity};

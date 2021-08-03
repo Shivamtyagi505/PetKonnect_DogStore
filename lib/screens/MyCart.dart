@@ -67,9 +67,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                 return noDataInCart();
               } else {
                 if (state is ViewCartResState) {
-                  print("enjnhjnhjfrhxc    " + "yhhhhhhhhhhhhhhhhhhhhhhhha");
                   if (state?.res?.status) {
-                    print("enjnhjnhjfrhxc    " + "step one check");
                     List<CartProduct> products = List();
                     List<int> quantities = List();
                     products.clear();
@@ -149,7 +147,9 @@ class _MyCartScreenState extends State<MyCartScreen> {
 
   getScreenUI(List<CartProduct> products, List<int> quantities) {
     return SafeArea(
-        child: Scaffold(
+        child: Stack(
+          children: [
+            Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: space_0,
@@ -185,6 +185,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
               height: space_20,
             ),
             Expanded(
+              flex: 1,
               child: ListView.builder(
                   shrinkWrap: true,
                   itemCount: products?.length,
@@ -283,6 +284,6 @@ class _MyCartScreenState extends State<MyCartScreen> {
           ],
         ),
       ),
-    ));
+    )]));
   }
 }
